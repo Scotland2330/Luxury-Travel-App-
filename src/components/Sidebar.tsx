@@ -1,0 +1,44 @@
+type NavItem = { icon: string; name: string; id: string; badge?: string; alert?: boolean };
+const sections: { label: string; items: NavItem[] }[] = [
+  { label: 'WORKSPACE', items: [
+    { icon: '◈', name: 'Dashboard', id: 'dashboard' },
+    { icon: '◉', name: 'Clients', id: 'clients', badge: '12' },
+    { icon: '✦', name: 'Trips', id: 'trips', badge: '8' },
+    { icon: '◫', name: 'Board Calendar', id: 'board' },
+  ]},
+  { label: 'OPERATIONS', items: [
+    { icon: '☑', name: 'Tasks', id: 'tasks', badge: '5', alert: true },
+    { icon: '◷', name: 'Time & Retainers', id: 'time' },
+    { icon: '◎', name: 'Invoicing', id: 'invoicing', badge: '3', alert: true },
+  ]},
+  { label: 'CLIENT', items: [
+    { icon: '⬡', name: 'Client Portal', id: 'portal' },
+  ]},
+  { label: 'AGENCY', items: [
+    { icon: '⚙', name: 'Admin', id: 'admin' },
+  ]},
+];
+
+export default function Sidebar({ active, onNav }: { active: string; onNav: (id: string) => void }) {
+  return (
+    <div style={{width:210,background:'var(--bg2)',borderRight:'1px solid var(--border)',padding:'20px 0',overflowY:'auto',flexShrink:0}}>
+      {sections.map(s => (
+        <div key={s.label} style={{padding:'0 14px',marginBottom:26}}>
+          <div style={{fontSize:8,letterSpacing:3,textTransform:'uppercase',color:'var(--slate-dim)',padding:'0 8px',marginBottom:8}}>{s.label}</div>
+          {s.items.map(i => (
+            <div key={i.id} onClick={() => onNav(i.id)}
+              style={{display:'flex',alignItems:'center',gap:10,padding:'8px 10px',borderRadius:8,
+                color: active===i.id ? 'var(--champagne)' : 'var(--slate)',
+                background: active===i.id ? 'var(--champ-dim)' : 'transparent',
+                border: active===i.id ? '1px solid rgba(212,175,106,0.18)' : '1px solid transparent',
+                fontSize:12,fontWeight:400,marginBottom:2,cursor:'pointer',transition:'all 0.15s',letterSpacing:0.3}}>
+              <span style={{fontSize:13,width:16,textAlign:'center',flexShrink:0}}>{i.icon}</span>
+              <span>{i.name}</span>
+              {i.badge && <span style={{marginLeft:'auto',background:i.alert?'var(--ruby)':'var(--cognac)',color:'var(--ivory)',fontSize:9,fontWeight:500,padding:'2px 7px',borderRadius:10}}>{i.badge}</span>}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
