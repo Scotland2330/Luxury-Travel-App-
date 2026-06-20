@@ -2,19 +2,21 @@ type NavItem = { icon: string; name: string; id: string; badge?: string; alert?:
 const sections: { label: string; items: NavItem[] }[] = [
   { label: 'WORKSPACE', items: [
     { icon: '◈', name: 'Dashboard', id: 'dashboard' },
-    { icon: '◉', name: 'Clients', id: 'clients', badge: '12' },
-    { icon: '✦', name: 'Trips', id: 'trips', badge: '8' },
-    { icon: '◫', name: 'Board Calendar', id: 'board' },
+    { icon: '✦', name: 'Trip Requests', id: 'requests', badge: '3' },
+    { icon: '◫', name: 'Master Trip Board', id: 'master' },
+    { icon: '\u{1F4C5}', name: 'Calendar', id: 'calendar' },
   ]},
   { label: 'OPERATIONS', items: [
     { icon: '☑', name: 'Tasks', id: 'tasks', badge: '5', alert: true },
     { icon: '◷', name: 'Time & Retainers', id: 'time' },
-    { icon: '◎', name: 'Invoicing', id: 'invoicing', badge: '3', alert: true },
+    { icon: '\u{1F4B0}', name: 'Commissions', id: 'commissions', badge: '2' },
   ]},
   { label: 'CLIENT', items: [
+    { icon: '⭐', name: 'Client Feedback', id: 'feedback' },
     { icon: '⬡', name: 'Client Portal', id: 'portal' },
   ]},
-  { label: 'AGENCY', items: [
+  { label: 'RESOURCES', items: [
+    { icon: '\u{1F4DA}', name: 'Templates & Hub', id: 'templates' },
     { icon: '⚙', name: 'Admin', id: 'admin' },
   ]},
 ];

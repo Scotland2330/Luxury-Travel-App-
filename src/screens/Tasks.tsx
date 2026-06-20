@@ -3,44 +3,48 @@ import { useState } from 'react';
 type Task = { title: string; trip: string; tags?: string[]; due: string; dueClass?: string; assignees: string[]; attach?: string; comments?: string; border?: string; start?: string; done?: string };
 
 const columns: { title: string; count: number; ruby?: boolean; tasks: Task[] }[] = [
-  { title: 'TO DO', count: 6, tasks: [
-    { title: 'Request passport copy from client', trip: 'Dubrovnik', tags: ['Client Docs'], due: 'Today', dueClass: 'today', start: 'Mar 1', attach: '2', assignees: ['DO'] },
-    { title: 'Confirm yacht charter — Blue Adriatic', trip: 'Dubrovnik', tags: ['Vendor'], due: 'Mar 10', start: 'Mar 3', assignees: ['MT'] },
-    { title: 'Travel insurance confirmation — Okonkwo', trip: 'Safari', tags: ['Insurance'], due: 'Mar 20', start: 'Mar 10', assignees: ['MT'] },
+  { title: 'TO DO', count: 7, tasks: [
+    { title: 'Send Pre-Arrival — Diaz DC Trip', trip: 'DC Business', tags: ['Pre-Arrival', 'Urgent'], due: 'Today', dueClass: 'today', assignees: ['HM'] },
+    { title: 'Follow up insurance quote — Holland', trip: 'Capri', tags: ['Insurance'], due: 'Today', dueClass: 'today', assignees: ['HM'] },
+    { title: 'Confirm transfer details — Baker', trip: 'Westlake', tags: ['Transfers'], due: 'Jun 25', assignees: ['HM'] },
+    { title: 'Send Bon Voyage — Diaz', trip: 'DC Business', tags: ['Bon Voyage', 'Auto-triggered'], due: 'Jun 20', assignees: ['HM'] },
   ]},
   { title: 'IN PROGRESS', count: 5, tasks: [
-    { title: 'Villa upgrade negotiation — Amalfi', trip: 'Amalfi', tags: ['Vendor', 'Urgent'], due: 'Today', dueClass: 'today', start: 'Mar 4', comments: '3', assignees: ['SK', 'DO'] },
-    { title: 'Safari lodge options research deck', trip: 'Safari', tags: ['Research'], due: 'Mar 12', start: 'Mar 1', attach: '5', assignees: ['MT'] },
+    { title: 'AXUS Review — Holland Capri itinerary', trip: 'Capri', tags: ['AXUS Review'], due: 'Jun 21', comments: '2', assignees: ['HM', 'ES'] },
+    { title: 'Concierge dining res — Holland', trip: 'Capri', tags: ['Concierge'], due: 'Jun 28', assignees: ['HM'] },
+    { title: 'DMC final details follow-up — Hastings Kenya', trip: 'Kenya Safari', tags: ['Touring', '30-day check'], due: 'Jul 15', assignees: ['ES'] },
   ]},
-  { title: 'BLOCKED / OVERDUE', count: 5, ruby: true, tasks: [
-    { title: 'Okonkwo deposit follow-up', trip: 'Safari', tags: ['Overdue 3d'], due: 'Was Mar 3', dueClass: 'overdue', assignees: ['MT'], border: 'rgba(155,58,58,0.3)' },
-    { title: 'Airport transfer confirmation — Harrington', trip: 'Maldives', tags: ['Overdue 1d'], due: 'Was Mar 4', dueClass: 'overdue', assignees: ['DO'], border: 'rgba(155,58,58,0.3)' },
-    { title: 'Visa documentation — Delacroix', trip: 'Amalfi', tags: ['Awaiting Client'], due: 'Was Mar 5', dueClass: 'overdue', assignees: ['DO'], border: 'rgba(155,58,58,0.3)' },
+  { title: 'BLOCKED / OVERDUE', count: 3, ruby: true, tasks: [
+    { title: 'Welcome Home send — McGarey Scotland', trip: 'Scotland', tags: ['Overdue 5d'], due: 'Was Jun 15', dueClass: 'overdue', assignees: ['HM'], border: 'rgba(155,58,58,0.3)' },
+    { title: 'Client passport submission — Baker', trip: 'Westlake', tags: ['Awaiting Client'], due: 'Was Jun 18', dueClass: 'overdue', assignees: ['HM'], border: 'rgba(155,58,58,0.3)' },
+    { title: 'Insurance decision — Stern/Gross Spain', trip: 'Spain', tags: ['Insurance', 'Overdue 2d'], due: 'Was Jun 18', dueClass: 'overdue', assignees: ['HM'], border: 'rgba(155,58,58,0.3)' },
   ]},
-  { title: 'COMPLETED', count: 4, tasks: [
-    { title: 'Book flights JFK → DBV — Chen', trip: 'Dubrovnik', done: 'Done Mar 2', due: '', assignees: ['DO'] },
-    { title: 'Reserve Villa Orsula — Chen', trip: 'Dubrovnik', done: 'Done Feb 28', due: '', assignees: ['DO'] },
-    { title: 'Amalfi villa — reservation confirmed', trip: 'Amalfi', done: 'Done Mar 1', due: '', assignees: ['SK'] },
-    { title: 'Maldives briefing document sent', trip: 'Maldives', done: 'Done Mar 3', due: '', assignees: ['DO'] },
+  { title: 'COMPLETED', count: 6, tasks: [
+    { title: 'Flight check — Diaz departing', trip: 'DC Business', done: 'Done Jun 20', due: '', assignees: ['HM'] },
+    { title: 'Book flights — Holland Capri', trip: 'Capri', done: 'Done Jun 8', due: '', assignees: ['HM'] },
+    { title: 'Reserve Hotel Caesar Augustus', trip: 'Capri', done: 'Done Jun 5', due: '', assignees: ['HM'] },
+    { title: 'Send Welcome Home — O\'Brien', trip: 'Palm Heights', done: 'Done Jun 1', due: '', assignees: ['HM'] },
+    { title: 'Insurance confirmed — Hastings Kenya', trip: 'Kenya Safari', done: 'Done May 28', due: '', assignees: ['ES'] },
+    { title: 'Pre-Arrival sent — McGarey Scotland', trip: 'Scotland', done: 'Done May 8', due: '', assignees: ['HM'] },
   ]},
 ];
 
 const checklist = [
-  { done: true, text: 'Research Blue Adriatic availability Apr 7' },
-  { done: true, text: 'Request quote for Dubrovnik–Hvar route' },
-  { done: false, text: 'Send contract to client for review' },
-  { done: false, text: 'Confirm deposit payment to vendor' },
-  { done: false, text: 'Add confirmation number to itinerary' },
+  { done: true, text: 'Upload itinerary to AXUS platform' },
+  { done: true, text: 'Verify all flight details match bookings' },
+  { done: false, text: 'Confirm hotel check-in/out times' },
+  { done: false, text: 'Add transfer pickup details' },
+  { done: false, text: 'Final review with team before sending to client' },
 ];
 
 const chatMessages = [
-  { init: 'DO', name: 'Denise O.', text: 'Blue Adriatic confirmed availability Apr 7–9. Waiting on deposit confirmation before I finalize. @Marcus can you follow up today?', time: 'Mar 5, 2:14pm' },
-  { init: 'MT', name: 'Marcus T.', text: 'On it — calling them now. Quote was $1,800, expires tomorrow.', time: 'Mar 5, 3:30pm' },
-  { init: 'DO', name: 'Denise O.', text: "Uploading their quote to attachments. Let's get this locked.", time: 'Mar 6, 9:12am' },
+  { init: 'HM', name: 'Halie M.', text: 'Itinerary uploaded to AXUS. Flight details verified. Need to confirm hotel check-in times with Caesar Augustus.', time: 'Jun 18, 2:30pm' },
+  { init: 'ES', name: 'Emily S.', text: 'I\'ll call the hotel tomorrow AM to confirm. Also — should we add the Blue Grotto tour timing?', time: 'Jun 18, 4:15pm' },
+  { init: 'HM', name: 'Halie M.', text: 'Yes, please add it. Client specifically requested morning slot.', time: 'Jun 19, 9:00am' },
 ];
 
-const avColors: Record<string, string> = { DO: 'linear-gradient(135deg,#2a1a0a,#5a3a10)', MT: 'linear-gradient(135deg,#1a2a3a,#2a4060)', SK: 'linear-gradient(135deg,#1a2a2a,#2a4040)' };
-const avTextColors: Record<string, string> = { DO: 'var(--champagne)', MT: 'var(--sapphire-lt)', SK: 'var(--emerald-lt)' };
+const avColors: Record<string, string> = { HM: 'linear-gradient(135deg,#2a1a0a,#5a3a10)', ES: 'linear-gradient(135deg,#0d1b3a,#1a3a6a)' };
+const avTextColors: Record<string, string> = { HM: 'var(--champagne)', ES: 'var(--sapphire-lt)' };
 
 export default function Tasks() {
   const [panelOpen, setPanelOpen] = useState(false);
@@ -51,11 +55,15 @@ export default function Tasks() {
       <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:28}}>
         <div>
           <h1 className="playfair" style={{fontSize:26,fontWeight:400,letterSpacing:0.5}}>Tasks</h1>
-          <p style={{fontSize:11,color:'var(--slate)',marginTop:4,letterSpacing:0.5}}>All advisors · 18 active · 5 overdue · Board view</p>
+          <p style={{fontSize:11,color:'var(--slate)',marginTop:4,letterSpacing:0.5}}>All advisors · 22 active · 3 overdue · Board view</p>
         </div>
         <div style={{display:'flex',gap:8,alignItems:'center'}}>
           <select className="td-input" style={{width:120,fontSize:10,padding:'6px 10px'}}><option>All Trips</option></select>
-          <select className="td-input" style={{width:120,fontSize:10,padding:'6px 10px'}}><option>All Advisors</option></select>
+          <select className="td-input" style={{width:120,fontSize:10,padding:'6px 10px'}}>
+            <option>All Advisors</option>
+            <option>Halie McGee</option>
+            <option>Emily Stone</option>
+          </select>
           <button className="btn btn-champ" onClick={() => setPanelOpen(true)}>+ New Task</button>
         </div>
       </div>
@@ -102,7 +110,7 @@ export default function Tasks() {
       {/* Task Detail Panel */}
       <div className={`task-detail${panelOpen?' open':''}`}>
         <div style={{padding:'20px 24px',borderBottom:'1px solid var(--border)',display:'flex',alignItems:'flex-start',justifyContent:'space-between',flexShrink:0}}>
-          <textarea className="playfair" style={{fontSize:20,fontWeight:400,color:'var(--ivory)',background:'transparent',border:'none',outline:'none',width:'100%',resize:'none',lineHeight:1.4,fontFamily:"'Playfair Display',serif"}} defaultValue="Confirm Yacht Charter — Blue Adriatic" rows={2}/>
+          <textarea className="playfair" style={{fontSize:20,fontWeight:400,color:'var(--ivory)',background:'transparent',border:'none',outline:'none',width:'100%',resize:'none',lineHeight:1.4,fontFamily:"'Playfair Display',serif"}} defaultValue="AXUS Review — Holland Capri Itinerary" rows={2}/>
           <button onClick={() => setPanelOpen(false)} style={{width:28,height:28,borderRadius:6,background:'var(--bg3)',border:'1px solid var(--border)',cursor:'pointer',color:'var(--slate)',fontSize:14,flexShrink:0}}>✕</button>
         </div>
 
@@ -110,32 +118,32 @@ export default function Tasks() {
           {/* Fields */}
           <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,marginBottom:14}}>
             <div><div style={{fontSize:9,letterSpacing:2,textTransform:'uppercase',color:'var(--slate)',marginBottom:6}}>Trip</div>
-              <select className="td-input"><option>Dubrovnik & Hvar — Chen</option></select></div>
+              <select className="td-input"><option>Capri [Augusta Holland]</option></select></div>
             <div><div style={{fontSize:9,letterSpacing:2,textTransform:'uppercase',color:'var(--slate)',marginBottom:6}}>Assigned To</div>
-              <select className="td-input"><option>Marcus T.</option><option>Denise O.</option><option>Sarah K.</option></select></div>
+              <select className="td-input"><option>Halie McGee</option><option>Emily Stone</option></select></div>
           </div>
           <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,marginBottom:14}}>
             <div><div style={{fontSize:9,letterSpacing:2,textTransform:'uppercase',color:'var(--slate)',marginBottom:6}}>Start Date</div>
-              <input className="td-input" type="date" defaultValue="2025-03-03"/></div>
+              <input className="td-input" type="date" defaultValue="2026-06-18"/></div>
             <div><div style={{fontSize:9,letterSpacing:2,textTransform:'uppercase',color:'var(--slate)',marginBottom:6}}>Due Date</div>
-              <input className="td-input" type="date" defaultValue="2025-03-10"/></div>
+              <input className="td-input" type="date" defaultValue="2026-06-21"/></div>
           </div>
           <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,marginBottom:14}}>
             <div><div style={{fontSize:9,letterSpacing:2,textTransform:'uppercase',color:'var(--slate)',marginBottom:6}}>Priority</div>
-              <select className="td-input"><option>Urgent</option><option>High</option><option>Normal</option><option>Low</option></select></div>
+              <select className="td-input"><option>High</option><option>Urgent</option><option>Normal</option><option>Low</option></select></div>
             <div><div style={{fontSize:9,letterSpacing:2,textTransform:'uppercase',color:'var(--slate)',marginBottom:6}}>Status</div>
               <select className="td-input"><option>In Progress</option><option>To Do</option><option>Blocked</option><option>Done</option></select></div>
           </div>
           <div style={{marginBottom:14}}>
             <div style={{fontSize:9,letterSpacing:2,textTransform:'uppercase',color:'var(--slate)',marginBottom:6}}>Tags / Category</div>
-            <input className="td-input" defaultValue="Vendor, Charter, Transport"/>
+            <input className="td-input" defaultValue="AXUS Review, Itinerary, Pre-Departure"/>
           </div>
 
           {/* Assignees */}
           <div style={{marginBottom:14}}>
             <div style={{fontSize:9,letterSpacing:2,textTransform:'uppercase',color:'var(--slate)',marginBottom:6}}>Also Assign To</div>
             <div style={{display:'flex',gap:6,flexWrap:'wrap'}}>
-              {[{init:'MT',color:'var(--ivory-dim)',border:'var(--border)'},{init:'DO',color:'var(--champagne)',border:'rgba(212,175,106,0.2)'}].map((a,i) => (
+              {[{init:'HM',color:'var(--champagne)',border:'rgba(212,175,106,0.2)'},{init:'ES',color:'var(--sapphire-lt)',border:'rgba(74,134,232,0.2)'}].map((a,i) => (
                 <span key={i} style={{display:'inline-flex',alignItems:'center',gap:5,padding:'4px 10px',borderRadius:6,background:'var(--bg3)',border:`1px solid ${a.border}`,fontSize:10,color:a.color}}>
                   <span style={{width:14,height:14,borderRadius:'50%',background:avColors[a.init],display:'flex',alignItems:'center',justifyContent:'center',fontSize:7,color:avTextColors[a.init]}}>{a.init}</span>
                   {a.init}
@@ -170,7 +178,7 @@ export default function Tasks() {
             <span style={{flex:1,height:1,background:'var(--border2)'}}/>ATTACHMENTS<span style={{flex:1,height:1,background:'var(--border2)'}}/>
           </div>
           <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginTop:4}}>
-            {[{name:'📄 BlueAdriatic_Quote.pdf',size:'342KB'},{name:'📋 Contract_Draft_v2.docx',size:'28KB'}].map((f,i) => (
+            {[{name:'📄 Holland_Capri_Itinerary.pdf',size:'1.2MB'},{name:'📋 AXUS_Review_Notes.docx',size:'45KB'}].map((f,i) => (
               <div key={i} style={{background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:8,padding:10,display:'flex',alignItems:'center',gap:8,cursor:'pointer',fontSize:11,color:'var(--ivory-dim)'}}>{f.name}<span style={{fontSize:9,color:'var(--slate)',marginLeft:'auto'}}>{f.size}</span></div>
             ))}
           </div>
@@ -182,9 +190,9 @@ export default function Tasks() {
           </div>
           {chatMessages.map((m,i) => (
             <div key={i} style={{display:'flex',gap:10,marginBottom:14}}>
-              <div style={{width:28,height:28,borderRadius:'50%',flexShrink:0,background:'linear-gradient(135deg,#2a1a0a,#5a3a10)',border:'1px solid rgba(212,175,106,0.2)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,color:'var(--champagne)'}}>{m.init}</div>
+              <div style={{width:28,height:28,borderRadius:'50%',flexShrink:0,background:avColors[m.init],border:`1px solid ${m.init==='HM'?'rgba(212,175,106,0.2)':'rgba(74,134,232,0.2)'}`,display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,color:avTextColors[m.init]}}>{m.init}</div>
               <div style={{flex:1}}>
-                <div style={{fontSize:10,color:'var(--champagne)',fontWeight:500,marginBottom:4}}>{m.name}</div>
+                <div style={{fontSize:10,color:m.init==='HM'?'var(--champagne)':'var(--sapphire-lt)',fontWeight:500,marginBottom:4}}>{m.name}</div>
                 <div className="chat-bubble">{m.text}</div>
                 <div style={{fontSize:9,color:'var(--slate)',marginTop:4}}>{m.time}</div>
               </div>

@@ -1,57 +1,70 @@
 import { useState } from 'react';
 
-const tabs = ['Staff & Roles', 'Payment Gateways', 'Agency Settings', 'Notifications', 'Plan & Billing', 'Audit Log'];
-const tabIds = ['staff', 'payments-api', 'agency', 'notifications', 'billing-plan', 'audit'];
+const tabs = ['Staff & Roles', 'Automations', 'Agency Settings', 'Notifications', 'Passport & Visas', 'Team Calendar'];
+const tabIds = ['staff', 'automations', 'agency', 'notifications', 'passports', 'calendar'];
 
 const staff = [
-  { init: 'DO', name: "Denise O'Donnell", email: 'denise@meridian.com', role: 'Owner', roleBadge: 'b-ch', rate: '$150/hr', status: 'Active', statusBadge: 'b-em', bg: 'linear-gradient(135deg,#3a2a10,#6a4a1a)', color: 'var(--champagne)', borderColor: 'rgba(212,175,106,0.3)', owner: true },
-  { init: 'MT', name: 'Marcus Thompson', email: 'marcus@meridian.com', role: 'Advisor', roleBadge: 'b-sa', rate: '$120/hr', status: 'Active', statusBadge: 'b-em', bg: 'linear-gradient(135deg,#1a2a3a,#2a4060)', color: 'var(--sapphire-lt)', borderColor: 'rgba(46,95,158,0.3)' },
-  { init: 'SK', name: 'Sarah Kim', email: 'sarah@meridian.com', role: 'Advisor', roleBadge: 'b-sa', rate: '$120/hr', status: 'Active', statusBadge: 'b-em', bg: 'linear-gradient(135deg,#1a2a2a,#2a4040)', color: 'var(--emerald-lt)', borderColor: 'rgba(61,139,110,0.3)' },
-  { init: '?', name: 'Pending Invite', email: 'newadvisor@meridian.com', role: 'Advisor', roleBadge: 'b-mu', rate: '—', status: 'Invited', statusBadge: 'b-og', bg: 'transparent', color: 'var(--slate)', borderColor: 'var(--border)', dashed: true },
+  { init: 'HM', name: 'Halie McGee', email: 'halie@agency.com', role: 'Owner', roleBadge: 'b-ch', rate: '$150/hr', status: 'Active', statusBadge: 'b-em', bg: 'linear-gradient(135deg,#3a2a10,#6a4a1a)', color: 'var(--champagne)', borderColor: 'rgba(212,175,106,0.3)', owner: true },
+  { init: 'ES', name: 'Emily Stone', email: 'emily@agency.com', role: 'Advisor', roleBadge: 'b-sa', rate: '$120/hr', status: 'Active', statusBadge: 'b-em', bg: 'linear-gradient(135deg,#1a2a3a,#2a4060)', color: 'var(--sapphire-lt)', borderColor: 'rgba(46,95,158,0.3)' },
+  { init: '?', name: 'Pending Invite', email: 'newadvisor@agency.com', role: 'Advisor', roleBadge: 'b-mu', rate: '—', status: 'Invited', statusBadge: 'b-og', bg: 'transparent', color: 'var(--slate)', borderColor: 'var(--border)', dashed: true },
 ];
 
 const permissions = [
-  ['View all clients & trips', '✓', '✓', 'Own only', 'Own only'],
-  ['Create / edit trips', '✓', '✓', '✓', '—'],
-  ['Manage invoices & billing', '✓', '✓', 'View only', '—'],
-  ['Admin & staff settings', '✓', 'Limited', '—', '—'],
-  ['Payment gateway config', '✓', '—', '—', '—'],
+  ['View all clients & trips', '✓', '✓', 'Own only'],
+  ['Create / edit trips', '✓', '✓', '—'],
+  ['Manage invoices & billing', '✓', 'View only', '—'],
+  ['Admin & staff settings', '✓', '—', '—'],
+  ['Manage automations', '✓', 'Limited', '—'],
 ];
 
-const gateways = [
-  { icon: '🟦', name: 'Square', desc: 'Current processor · migrate or keep', fields: [{ label: 'Access Token', type: 'password', ph: 'EAAAl••••' }, { label: 'Location ID', type: 'text', ph: 'L••••' }] },
-  { icon: '🔵', name: 'PayPal / Braintree', desc: 'For international client payments', fields: [{ label: 'Client ID', type: 'text', ph: 'AZ••••' }, { label: 'Secret Key', type: 'password', ph: '••••' }] },
-  { icon: '🟣', name: 'Authorize.Net', desc: 'US-based ACH + card processing', fields: [{ label: 'API Login ID', type: 'text', ph: '' }, { label: 'Transaction Key', type: 'password', ph: '' }] },
-  { icon: '⚙', name: 'Custom Gateway', desc: 'Connect any PCI-compliant processor via REST API', fields: [{ label: 'Base API URL', type: 'text', ph: 'https://api.yourgateway.com/v1' }, { label: 'API Key / Bearer Token', type: 'password', ph: '' }], custom: true },
+const automations = [
+  { rule: 'Bon Voyage: 2 days before Start Date if not Sent → notify Lead', desc: 'Sends bon voyage message to lead advisor before trip begins', active: true },
+  { rule: 'Pre-Arrival: 2 days before Start Date if not Sent → notify Lead', desc: 'Triggers pre-arrival preparation reminder', active: true },
+  { rule: 'Welcome Home: 1 week after End Date if not Sent → notify Lead', desc: 'Sends welcome home follow-up after trip concludes', active: true },
+  { rule: 'Insurance: When quote sent → set 7-day reminder', desc: 'Creates follow-up reminder after insurance quote is sent', active: true },
+  { rule: 'Tours + Transfers: When Booked → notify Lead', desc: 'Alerts lead advisor when tours or transfers are confirmed', active: true },
+  { rule: 'Concierge: 2 months before Start Date → notify Lead', desc: 'Triggers concierge coordination well before departure', active: true },
+  { rule: 'AXUS Review: 2 weeks before departure → begin review', desc: 'Starts AXUS itinerary review process before trip', active: true },
+  { rule: 'Flight Checks: 2 days before Start Date → notify advisor', desc: 'Reminds advisor to verify flight details pre-departure', active: true },
+  { rule: 'Return Flight Checks: 2 days before End Date → notify advisor', desc: 'Reminds advisor to verify return flight details', active: true },
+  { rule: 'Trip Completion: 1 day after End Date → move to Completed', desc: 'Automatically moves trip status to Completed', active: true },
+  { rule: 'Visa/Vaccination Prompt: On trip creation → check requirements', desc: 'Checks visa and vaccination requirements when a new trip is created', active: true },
+  { rule: 'AXUS Review: When In Review → notify Lead', desc: 'Notifies lead advisor when AXUS review status changes', active: false },
 ];
 
 const notifications = [
-  { title: 'Payment overdue alerts', desc: 'Notify advisor when payment is 1+ days overdue' },
-  { title: 'Task overdue alerts', desc: 'Notify assigned advisor + admin' },
-  { title: 'Passport expiry warnings', desc: 'Alert 6 months before passport expires relative to departure' },
+  { title: 'Automation alert notifications', desc: 'Notify when automated triggers fire' },
+  { title: 'Payment & commission alerts', desc: 'Notify when commission status changes' },
+  { title: 'Passport expiry warnings', desc: 'Alert 1 year before passport expires' },
   { title: 'Retainer overage alerts', desc: 'Alert when client exceeds included hours' },
-  { title: '@mention email notifications', desc: 'Email when tagged in task chat' },
+  { title: 'Client feedback received', desc: 'Notify when client submits post-trip feedback' },
 ];
 
-const auditLog = [
-  { time: 'Mar 6, 10:22am', user: 'DO', action: 'Updated trip status: Chen · Dubrovnik → Planning' },
-  { time: 'Mar 6, 9:15am', user: 'MT', action: 'Logged 3.0h on task: Safari lodge research' },
-  { time: 'Mar 5, 4:30pm', user: 'DO', action: 'Created invoice #INV-2025-041 for Delacroix ($2,300)' },
-  { time: 'Mar 5, 2:14pm', user: 'DO', action: 'Tagged @Marcus, @Sarah in task chat: Yacht Charter' },
-  { time: 'Mar 4, 11:05am', user: 'MT', action: 'Uploaded file: BlueAdriatic_Quote.pdf to task' },
-  { time: 'Mar 1, 9:00am', user: 'System', action: 'Retainer invoices auto-generated for 3 clients' },
+const passports = [
+  { client: 'Diaz', expiry: 'Mar 2028', days: 640, visa: 'No', status: 'Valid', statusBadge: 'b-em' },
+  { client: 'Holland', expiry: 'Jan 2027', days: 195, visa: 'Italy Schengen — Yes', status: 'Expiring Soon', statusBadge: 'b-og' },
+  { client: 'Baker', expiry: 'Sep 2029', days: 1180, visa: 'No', status: 'Valid', statusBadge: 'b-em' },
+  { client: 'Hastings', expiry: 'Jun 2027', days: 365, visa: 'Kenya — Yes (eVisa)', status: 'Processing', statusBadge: 'b-sa' },
+  { client: 'Stern/Gross', expiry: 'Nov 2026', days: 150, visa: 'Spain Schengen — Yes', status: 'Needs Renewal', statusBadge: 'b-og' },
+];
+
+const calendarEntries = [
+  { person: 'Halie McGee', desc: 'PTO Jun 25–27', badgeText: 'PTO', badgeClass: 'b-mu' },
+  { person: 'Emily Stone', desc: 'FAM Trip: Ritz-Carlton Yacht Jul 10–14', badgeText: 'FAM', badgeClass: 'b-sa' },
+  { person: 'Halie McGee', desc: 'FAM Trip: Aman Tokyo Aug 5–10', badgeText: 'FAM', badgeClass: 'b-ch' },
 ];
 
 export default function Admin() {
   const [activeTab, setActiveTab] = useState('staff');
   const [notifToggles, setNotifToggles] = useState(notifications.map(() => true));
+  const [autoToggles, setAutoToggles] = useState(automations.map(a => a.active));
 
   return (
     <div style={{padding:28,overflowY:'auto',flex:1}}>
       <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:28}}>
         <div>
           <h1 className="playfair" style={{fontSize:26,fontWeight:400,letterSpacing:0.5}}>Admin</h1>
-          <p style={{fontSize:11,color:'var(--slate)',marginTop:4}}>Meridian Travel Group · Agency settings, staff, and integrations</p>
+          <p style={{fontSize:11,color:'var(--slate)',marginTop:4}}>Agency settings, staff, automations, and operations</p>
         </div>
         <button className="btn btn-champ">+ Invite Staff</button>
       </div>
@@ -105,13 +118,13 @@ export default function Admin() {
               {/* Permissions */}
               <div style={{fontSize:11,letterSpacing:1.5,textTransform:'uppercase',color:'var(--slate)',marginBottom:12}}>Role Permissions</div>
               <div style={{background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:10,overflow:'hidden'}}>
-                <div style={{display:'grid',gridTemplateColumns:'2fr 1fr 1fr 1fr 1fr',padding:'10px 16px',borderBottom:'1px solid var(--border2)'}}>
-                  {['Permission','Owner','Admin','Advisor','Client'].map(h => (
+                <div style={{display:'grid',gridTemplateColumns:'2fr 1fr 1fr 1fr',padding:'10px 16px',borderBottom:'1px solid var(--border2)'}}>
+                  {['Permission','Owner','Advisor','Invited'].map(h => (
                     <span key={h} style={{fontSize:9,letterSpacing:1.5,textTransform:'uppercase',color:'var(--slate)'}}>{h}</span>
                   ))}
                 </div>
                 {permissions.map((row,i) => (
-                  <div key={i} style={{display:'grid',gridTemplateColumns:'2fr 1fr 1fr 1fr 1fr',padding:'10px 16px',borderBottom:i<permissions.length-1?'1px solid var(--border2)':'none'}}>
+                  <div key={i} style={{display:'grid',gridTemplateColumns:'2fr 1fr 1fr 1fr',padding:'10px 16px',borderBottom:i<permissions.length-1?'1px solid var(--border2)':'none'}}>
                     {row.map((cell,j) => (
                       <span key={j} style={{fontSize:11,color:j===0?'var(--ivory-dim)':cell==='✓'?'var(--emerald-lt)':cell==='—'?'var(--slate-dim)':'var(--ivory-dim)'}}>{cell}</span>
                     ))}
@@ -121,55 +134,25 @@ export default function Admin() {
             </div>
           )}
 
-          {/* Payment Gateways */}
-          {activeTab === 'payments-api' && (
+          {/* Automations */}
+          {activeTab === 'automations' && (
             <div>
-              <div style={{fontSize:13,color:'var(--ivory)',fontWeight:500}}>Payment Gateway Integrations</div>
-              <div style={{fontSize:11,color:'var(--slate)',marginBottom:24}}>Connect your payment processor via API. All credentials are encrypted at rest. TripOS never stores card data directly.</div>
+              <div style={{fontSize:13,color:'var(--ivory)',fontWeight:500}}>Workflow Automations</div>
+              <div style={{fontSize:11,color:'var(--slate)',marginBottom:24}}>Manage automated triggers and notifications</div>
 
-              {/* Active gateway */}
-              <div style={{background:'var(--bg3)',border:'1px solid rgba(61,139,110,0.3)',borderRadius:12,padding:'18px 20px',display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:24}}>
-                <div style={{display:'flex',gap:12,alignItems:'center'}}>
-                  <div style={{width:44,height:44,background:'var(--bg4)',border:'1px solid var(--border)',borderRadius:10,display:'flex',alignItems:'center',justifyContent:'center',fontSize:20}}>💳</div>
-                  <div>
-                    <div style={{fontSize:13,color:'var(--ivory)',fontWeight:500}}>Stripe</div>
-                    <div style={{fontSize:10,color:'var(--slate)'}}>Connected · sk_live_••••••••4j2k</div>
-                    <div style={{fontSize:10,color:'var(--emerald-lt)'}}>✓ Invoices · ✓ Subscriptions · ✓ Webhooks active</div>
-                  </div>
-                </div>
-                <div style={{display:'flex',gap:6}}>
-                  <button className="btn btn-ghost btn-sm">Configure</button>
-                  <button className="btn btn-sm" style={{background:'rgba(155,58,58,0.2)',color:'var(--ruby-lt)',border:'none'}}>Disconnect</button>
-                </div>
-              </div>
-
-              <div style={{fontSize:10,letterSpacing:2,textTransform:'uppercase',color:'var(--slate)',marginBottom:12}}>Available Integrations</div>
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}}>
-                {gateways.map((g,i) => (
-                  <div key={i} style={{background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:12,padding:'18px 20px'}}>
-                    <div style={{display:'flex',gap:10,alignItems:'center',marginBottom:14}}>
-                      <div style={{width:40,height:40,background:'var(--bg4)',border:'1px solid var(--border)',borderRadius:10,display:'flex',alignItems:'center',justifyContent:'center',fontSize:18}}>{g.icon}</div>
+              <div style={{display:'flex',flexDirection:'column',gap:10}}>
+                {automations.map((a,i) => (
+                  <div key={i} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 16px',background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:10,gap:10,opacity:autoToggles[i]?1:0.5}}>
+                    <div style={{display:'flex',alignItems:'center',gap:12,flex:1}}>
+                      <div className={`toggle${autoToggles[i]?' on':''}`} onClick={() => setAutoToggles(t => t.map((v,j) => j===i?!v:v))}/>
                       <div>
-                        <div style={{fontSize:13,color:'var(--ivory)'}}>{g.name}</div>
-                        <div style={{fontSize:10,color:'var(--slate)'}}>{g.desc}</div>
+                        <div style={{fontSize:12,color:'var(--ivory)'}}>{a.rule}</div>
+                        <div style={{fontSize:10,color:'var(--slate)'}}>{a.desc}</div>
                       </div>
                     </div>
-                    {g.fields.map((f,j) => (
-                      <div key={j} style={{marginBottom:10}}>
-                        <div style={{fontSize:9,letterSpacing:1.5,textTransform:'uppercase',color:'var(--slate)',marginBottom:4}}>{f.label}</div>
-                        <input className="td-input" type={f.type} placeholder={f.ph} style={{background:'var(--bg4)',borderRadius:7,fontSize:11}}/>
-                      </div>
-                    ))}
-                    <div style={{display:'flex',gap:6,marginTop:4}}>
-                      {!g.custom && <button className="btn btn-ghost btn-sm" style={{flex:1}}>Test Connection</button>}
-                      <button className="btn btn-champ btn-sm" style={{flex:1}}>{g.custom ? 'Save' : 'Connect'}</button>
-                    </div>
+                    <button className="btn btn-ghost btn-xs">Edit</button>
                   </div>
                 ))}
-              </div>
-
-              <div style={{background:'var(--champ-dim)',border:'1px solid var(--border)',borderRadius:10,padding:'14px 16px',fontSize:11,color:'var(--ivory-dim)',lineHeight:1.6,marginTop:16}}>
-                <strong style={{color:'var(--champagne)'}}>Security note:</strong> All API keys are AES-256 encrypted before storage. TripOS communicates with gateways server-side only — keys are never exposed to the browser. Webhook endpoints are auto-configured for Stripe and Square on connect.
               </div>
             </div>
           )}
@@ -180,8 +163,8 @@ export default function Admin() {
               <div style={{fontSize:13,color:'var(--ivory)',fontWeight:500,marginBottom:20}}>Agency Settings</div>
               <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:14,marginBottom:16}}>
                 {[
-                  { label: 'Agency Name', el: <input className="td-input" defaultValue="Meridian Travel Group"/> },
-                  { label: 'Subdomain', el: <input className="td-input" defaultValue="meridian"/> },
+                  { label: 'Agency Name', el: <input className="td-input" defaultValue="Halie McGee Travel"/> },
+                  { label: 'Subdomain', el: <input className="td-input" defaultValue="haliemcgee"/> },
                   { label: 'Brand Color', el: <div style={{display:'flex',gap:8}}><input type="color" defaultValue="#d4af6a" style={{width:40,height:36,border:'none',background:'transparent',cursor:'pointer'}}/><input className="td-input" defaultValue="d4af6a" style={{width:100}}/></div> },
                   { label: 'Timezone', el: <select className="td-input"><option>America/New_York (EST)</option><option>America/Los_Angeles (PST)</option><option>Europe/London (GMT)</option></select> },
                 ].map((f,i) => (
@@ -213,43 +196,42 @@ export default function Admin() {
             </div>
           )}
 
-          {/* Plan & Billing */}
-          {activeTab === 'billing-plan' && (
+          {/* Passport & Visas */}
+          {activeTab === 'passports' && (
             <div>
-              <div style={{fontSize:13,color:'var(--ivory)',fontWeight:500,marginBottom:16}}>Current Plan</div>
-              <div style={{background:'var(--champ-dim)',border:'1px solid rgba(212,175,106,0.25)',borderRadius:12,padding:20,marginBottom:20,display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                <div>
-                  <div className="playfair" style={{fontSize:22,color:'var(--champagne)'}}>Professional</div>
-                  <div style={{fontSize:11,color:'var(--slate)',marginTop:4}}>Up to 5 advisors · Client portal · All features</div>
-                </div>
-                <div style={{textAlign:'right'}}>
-                  <span className="playfair" style={{fontSize:28,color:'var(--champagne)'}}>$199</span>
-                  <span style={{fontSize:10,color:'var(--slate)'}}>/month</span>
-                </div>
-              </div>
-              <div style={{fontSize:10,letterSpacing:1.5,textTransform:'uppercase',color:'var(--slate)',marginBottom:12}}>Usage</div>
-              <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10}}>
-                {[{l:'Advisors',v:'4',max:'/5'},{l:'Active Trips',v:'8',max:''},{l:'Clients',v:'12',max:''}].map((u,i) => (
-                  <div key={i} style={{background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:10,padding:14,textAlign:'center'}}>
-                    <div style={{fontSize:9,letterSpacing:1.5,textTransform:'uppercase',color:'var(--slate)',marginBottom:6}}>{u.l}</div>
-                    <span className="playfair" style={{fontSize:24,color:'var(--champagne)'}}>{u.v}</span>
-                    {u.max && <span style={{fontSize:14,color:'var(--slate)'}}>{u.max}</span>}
-                  </div>
-                ))}
-              </div>
+              <div style={{fontSize:13,color:'var(--ivory)',fontWeight:500,marginBottom:4}}>Passport & Visa Tracking</div>
+              <div style={{fontSize:11,color:'var(--slate)',marginBottom:20}}>Notify 1 year before expiry</div>
+              <table className="tbl">
+                <thead><tr>{['Client','Passport Expiry','Days Until Expiry','Visa Required','Status'].map(h => <th key={h}>{h}</th>)}</tr></thead>
+                <tbody>
+                  {passports.map((p,i) => (
+                    <tr key={i}>
+                      <td className="td-main">{p.client}</td>
+                      <td>{p.expiry}</td>
+                      <td>{p.days} days</td>
+                      <td>{p.visa}</td>
+                      <td><span className={`badge ${p.statusBadge}`}>{p.status}</span></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           )}
 
-          {/* Audit Log */}
-          {activeTab === 'audit' && (
+          {/* Team Calendar */}
+          {activeTab === 'calendar' && (
             <div>
-              <div style={{fontSize:13,color:'var(--ivory)',fontWeight:500,marginBottom:16}}>Audit Log</div>
-              <div style={{display:'flex',flexDirection:'column'}}>
-                {auditLog.map((a,i) => (
-                  <div key={i} style={{display:'flex',gap:12,padding:'11px 0',borderBottom:'1px solid var(--border2)',fontSize:11}}>
-                    <span style={{color:'var(--slate)',width:140,flexShrink:0}}>{a.time}</span>
-                    <span style={{color:'var(--champagne)',width:80,flexShrink:0}}>{a.user}</span>
-                    <span style={{color:'var(--ivory-dim)'}}>{a.action}</span>
+              <div style={{fontSize:13,color:'var(--ivory)',fontWeight:500,marginBottom:20}}>Team Calendar & Time Off</div>
+              <div style={{display:'flex',flexDirection:'column',gap:10}}>
+                {calendarEntries.map((e,i) => (
+                  <div key={i} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 16px',background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:10}}>
+                    <div style={{display:'flex',alignItems:'center',gap:12}}>
+                      <div>
+                        <div style={{fontSize:12,color:'var(--ivory)'}}>{e.person}</div>
+                        <div style={{fontSize:10,color:'var(--slate)'}}>{e.desc}</div>
+                      </div>
+                    </div>
+                    <span className={`badge ${e.badgeClass}`}>{e.badgeText}</span>
                   </div>
                 ))}
               </div>

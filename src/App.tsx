@@ -2,30 +2,32 @@ import { useState } from 'react';
 import Topbar from './components/Topbar';
 import Sidebar from './components/Sidebar';
 import Dashboard from './screens/Dashboard';
-import BoardCalendar from './screens/BoardCalendar';
+import TripRequests from './screens/TripRequests';
+import MasterTripBoard from './screens/MasterTripBoard';
+import Calendar from './screens/BoardCalendar';
 import Tasks from './screens/Tasks';
-import Clients from './screens/Clients';
-import Trips from './screens/Trips';
-import Invoicing from './screens/Invoicing';
 import TimeRetainers from './screens/TimeRetainers';
+import Commissions from './screens/Commissions';
+import ClientFeedback from './screens/ClientFeedback';
 import ClientPortal from './screens/ClientPortal';
+import TemplatesHub from './screens/TemplatesHub';
 import Admin from './screens/Admin';
 
 const screens: Record<string, React.FC> = {
   dashboard: Dashboard,
-  clients: Clients,
-  trips: Trips,
-  board: BoardCalendar,
+  requests: TripRequests,
+  master: MasterTripBoard,
+  calendar: Calendar,
   tasks: Tasks,
   time: TimeRetainers,
-  invoicing: Invoicing,
+  commissions: Commissions,
+  feedback: ClientFeedback,
   portal: ClientPortal,
+  templates: TemplatesHub,
   admin: Admin,
 };
 
-const pageTabs: Record<string, string[]> = {
-  dashboard: ['Overview', 'Chen · Dubrovnik', 'Harrington · Maldives'],
-};
+const pageTabs: Record<string, string[]> = {};
 
 export default function App() {
   const [active, setActive] = useState('dashboard');
