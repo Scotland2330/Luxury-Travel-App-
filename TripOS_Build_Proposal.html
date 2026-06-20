@@ -1,0 +1,1957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TripOS — SaaS Build &amp; Licensing Proposal | First Class Operations</title>
+<style>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  @page {
+    size: letter;
+    margin: 0.75in 0.85in 1in 0.85in;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+    background: #fff;
+    font-size: 10.5pt;
+    line-height: 1.55;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ===== TYPOGRAPHY ===== */
+  h1, h2, h3, h4 {
+    font-family: Georgia, 'Times New Roman', serif;
+    color: #222;
+    line-height: 1.25;
+  }
+
+  h1 { font-size: 22pt; letter-spacing: 0.04em; }
+  h2 { font-size: 15pt; margin-bottom: 10px; }
+  h3 { font-size: 12pt; margin-bottom: 8px; }
+  h4 { font-size: 10.5pt; margin-bottom: 6px; }
+
+  p { margin-bottom: 10px; }
+
+  strong { font-weight: 700; }
+
+  /* ===== COLORS ===== */
+  :root {
+    --orange: #C65D28;
+    --green: #4CAF50;
+    --teal: #00897B;
+    --purple: #7E57C2;
+    --blue: #1565C0;
+    --amber: #F57F17;
+    --charcoal: #424242;
+    --light-bg: #f9f9f9;
+  }
+
+  /* ===== HEADER ===== */
+  .fco-header {
+    text-align: center;
+    padding-bottom: 6px;
+    margin-bottom: 18px;
+  }
+
+  .fco-header .fco-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 18pt;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: #222;
+    margin-bottom: 2px;
+  }
+
+  .fco-header .fco-tagline {
+    font-size: 9pt;
+    color: #666;
+    font-style: italic;
+    letter-spacing: 0.03em;
+    margin-bottom: 10px;
+  }
+
+  .orange-rule {
+    border: none;
+    height: 3px;
+    background: var(--orange);
+    margin: 10px auto 16px auto;
+    max-width: 100%;
+  }
+
+  /* ===== FOOTER ===== */
+  .page-footer {
+    position: relative;
+    margin-top: 30px;
+    padding-top: 8px;
+    border-top: 1px solid #ddd;
+    font-size: 8pt;
+    color: #888;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ===== COVER PAGE ===== */
+  .cover-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 92vh;
+    text-align: center;
+  }
+
+  .cover-page .page-footer {
+    width: 100%;
+    text-align: left;
+  }
+
+  .cover-page .product-name {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 42pt;
+    font-weight: 700;
+    color: var(--orange);
+    margin: 30px 0 6px 0;
+    letter-spacing: 0.05em;
+  }
+
+  .cover-page .product-subtitle {
+    font-size: 14pt;
+    color: #555;
+    margin-bottom: 4px;
+  }
+
+  .cover-page .product-type {
+    font-size: 11pt;
+    color: #777;
+    margin-bottom: 6px;
+  }
+
+  .cover-page .product-phase {
+    font-size: 11pt;
+    color: #555;
+    font-weight: 600;
+    margin-bottom: 40px;
+  }
+
+  .cover-details {
+    text-align: left;
+    width: 360px;
+    margin: 0 auto 40px auto;
+  }
+
+  .cover-details table {
+    width: 100%;
+    border: none;
+  }
+
+  .cover-details td {
+    padding: 4px 0;
+    font-size: 10.5pt;
+    border: none;
+    vertical-align: top;
+  }
+
+  .cover-details td:first-child {
+    font-weight: 600;
+    color: #555;
+    width: 155px;
+  }
+
+  .cover-details td:last-child {
+    color: #222;
+  }
+
+  /* ===== STAGE BAR ===== */
+  .stage-bar {
+    display: flex;
+    gap: 3px;
+    width: 100%;
+    max-width: 680px;
+    margin: 10px auto 0 auto;
+  }
+
+  .stage-bar .stage-block {
+    flex: 1;
+    padding: 8px 4px;
+    text-align: center;
+    color: #fff;
+    font-size: 7.5pt;
+    font-weight: 600;
+    border-radius: 3px;
+    line-height: 1.35;
+  }
+
+  .stage-block.s1 { background: var(--green); }
+  .stage-block.s2 { background: var(--teal); }
+  .stage-block.s3 { background: var(--purple); }
+  .stage-block.s4 { background: var(--blue); }
+  .stage-block.s5 { background: var(--amber); }
+  .stage-block.s6 { background: var(--charcoal); }
+
+  /* ===== TABLES ===== */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+    font-size: 10pt;
+  }
+
+  table th {
+    background: var(--charcoal);
+    color: #fff;
+    font-weight: 600;
+    text-align: left;
+    padding: 8px 10px;
+    font-size: 9.5pt;
+    letter-spacing: 0.02em;
+  }
+
+  table td {
+    padding: 7px 10px;
+    border-bottom: 1px solid #e0e0e0;
+    vertical-align: top;
+  }
+
+  table tr:nth-child(even) td {
+    background: var(--light-bg);
+  }
+
+  table tr:last-child td {
+    border-bottom: 2px solid #ccc;
+  }
+
+  table.no-stripe tr td {
+    background: #fff;
+  }
+
+  .total-row td {
+    font-weight: 700 !important;
+    background: #f0f0f0 !important;
+    border-top: 2px solid var(--charcoal);
+    border-bottom: 2px solid var(--charcoal) !important;
+  }
+
+  /* ===== SECTION STYLES ===== */
+  .section {
+    margin-bottom: 28px;
+  }
+
+  .section-number {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 9pt;
+    color: var(--orange);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .section h2 {
+    border-bottom: 2px solid var(--orange);
+    padding-bottom: 6px;
+    margin-bottom: 14px;
+  }
+
+  /* ===== FEATURE STATUS ===== */
+  .status-validated {
+    color: var(--green);
+    font-weight: 700;
+  }
+
+  .feature-area-header td {
+    background: #f5f0eb !important;
+    font-weight: 700;
+    color: var(--orange);
+    font-size: 10pt;
+    border-top: 2px solid var(--orange);
+  }
+
+  /* ===== CLIENT ACTIONS BOX ===== */
+  .client-actions {
+    border-left: 4px solid var(--orange);
+    background: #fdf6f0;
+    padding: 12px 16px;
+    margin: 14px 0 18px 0;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .client-actions h4 {
+    color: var(--orange);
+    margin-bottom: 6px;
+    font-family: Georgia, 'Times New Roman', serif;
+  }
+
+  .client-actions ul {
+    margin-left: 18px;
+    margin-bottom: 0;
+  }
+
+  .client-actions li {
+    margin-bottom: 4px;
+  }
+
+  /* ===== STAGE HEADERS ===== */
+  .stage-header {
+    padding: 10px 14px;
+    margin: 20px 0 12px 0;
+    border-left: 5px solid;
+    background: #fafafa;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .stage-header h3 {
+    font-family: Georgia, 'Times New Roman', serif;
+    margin-bottom: 2px;
+  }
+
+  .stage-header .stage-meta {
+    font-size: 9pt;
+    color: #666;
+  }
+
+  .stage-header.s1 { border-left-color: var(--green); }
+  .stage-header.s2 { border-left-color: var(--teal); }
+  .stage-header.s3 { border-left-color: var(--purple); }
+  .stage-header.s4 { border-left-color: var(--blue); }
+  .stage-header.s5 { border-left-color: var(--amber); }
+  .stage-header.s6 { border-left-color: var(--charcoal); }
+
+  .stage-header.s1 h3 { color: var(--green); }
+  .stage-header.s2 h3 { color: var(--teal); }
+  .stage-header.s3 h3 { color: var(--purple); }
+  .stage-header.s4 h3 { color: var(--blue); }
+  .stage-header.s5 h3 { color: var(--amber); }
+  .stage-header.s6 h3 { color: var(--charcoal); }
+
+  /* ===== TAGS ===== */
+  .tag {
+    display: inline-block;
+    font-size: 7.5pt;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+
+  .tag-build {
+    background: #e3f2fd;
+    color: var(--blue);
+  }
+
+  .tag-ops {
+    background: #fff3e0;
+    color: var(--orange);
+  }
+
+  /* ===== WEEK HEADERS ===== */
+  .week-header {
+    font-weight: 700;
+    font-size: 10pt;
+    color: #444;
+    margin: 12px 0 6px 0;
+  }
+
+  .week-items {
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+
+  .week-items li {
+    margin-bottom: 4px;
+    line-height: 1.45;
+  }
+
+  /* ===== REVENUE TABLE ===== */
+  .revenue-highlight td {
+    font-weight: 600;
+  }
+
+  /* ===== HIGHLIGHTS ===== */
+  .highlight-number {
+    color: var(--orange);
+    font-weight: 700;
+  }
+
+  .note-box {
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    padding: 12px 16px;
+    font-size: 9.5pt;
+    color: #555;
+    margin: 10px 0 16px 0;
+    border-radius: 4px;
+    font-style: italic;
+  }
+
+  /* ===== AT LAUNCH LIST ===== */
+  .launch-list {
+    margin-left: 18px;
+    margin-bottom: 16px;
+  }
+
+  .launch-list li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+
+  /* ===== NEXT STEPS ===== */
+  .next-steps ol {
+    margin-left: 18px;
+    margin-bottom: 16px;
+  }
+
+  .next-steps li {
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  /* ===== CLOSING ===== */
+  .closing {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 2px solid var(--orange);
+  }
+
+  .closing .fco-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 14pt;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #222;
+  }
+
+  .closing .fco-tagline {
+    font-size: 9pt;
+    color: #666;
+    font-style: italic;
+  }
+
+  /* ===== SUMMARY ROW ===== */
+  .summary-row td {
+    background: #f0f7f0 !important;
+    font-weight: 700;
+    color: var(--green);
+    border-top: 2px solid var(--green);
+  }
+
+  /* ===== PRINT STYLES ===== */
+  @media print {
+    body {
+      font-size: 9.5pt;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+
+    .no-break {
+      page-break-inside: avoid;
+    }
+
+    .cover-page {
+      min-height: 100vh;
+      page-break-after: always;
+    }
+
+    .stage-header {
+      page-break-inside: avoid;
+    }
+
+    .client-actions {
+      page-break-inside: avoid;
+    }
+
+    table {
+      page-break-inside: auto;
+    }
+
+    tr {
+      page-break-inside: avoid;
+    }
+
+    thead {
+      display: table-header-group;
+    }
+
+    .page-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 6px 0.85in;
+    }
+  }
+
+  /* ===== SCREEN ONLY ===== */
+  @media screen {
+    body {
+      max-width: 8.5in;
+      margin: 0 auto;
+      padding: 40px 50px;
+    }
+  }
+
+  /* ===== PROBLEM SECTION ===== */
+  .problem-block {
+    margin-bottom: 14px;
+  }
+
+  .problem-block h4 {
+    font-family: Georgia, 'Times New Roman', serif;
+    color: #444;
+  }
+
+  .problem-solve {
+    background: #f0f7f0;
+    border-left: 4px solid var(--green);
+    padding: 12px 16px;
+    margin: 14px 0;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .problem-solve strong {
+    color: var(--green);
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- COVER PAGE                                                     -->
+<!-- ============================================================ -->
+<div class="cover-page">
+  <div class="fco-header">
+    <div class="fco-title">FIRST CLASS OPERATIONS</div>
+    <div class="fco-tagline">Operational Excellence for Growing Businesses</div>
+  </div>
+  <hr class="orange-rule">
+
+  <div class="product-name">TripOS</div>
+  <div class="product-subtitle">Luxury Travel Operations Platform</div>
+  <div class="product-type">SaaS Build &amp; Licensing Proposal</div>
+  <div class="product-phase">Phase 1 Build &nbsp;|&nbsp; July &ndash; September 2026</div>
+
+  <div class="cover-details">
+    <table>
+      <tr><td>Client:</td><td>Emily Stone</td></tr>
+      <tr><td>Document Date:</td><td>June 20, 2026</td></tr>
+      <tr><td>Target Kickoff:</td><td>July 7, 2026</td></tr>
+      <tr><td>Target Active:</td><td>September 25, 2026</td></tr>
+      <tr><td>Total Duration:</td><td>12 weeks (6 stages)</td></tr>
+      <tr><td>Build Investment:</td><td><span class="highlight-number">$16,000</span></td></tr>
+    </table>
+  </div>
+
+  <div class="stage-bar">
+    <div class="stage-block s1">Stage 1<br>Jul 7&ndash;18</div>
+    <div class="stage-block s2">Stage 2<br>Jul 21&ndash;Aug 1</div>
+    <div class="stage-block s3">Stage 3<br>Aug 4&ndash;15</div>
+    <div class="stage-block s4">Stage 4<br>Aug 18&ndash;29</div>
+    <div class="stage-block s5">Stage 5<br>Sep 1&ndash;12</div>
+    <div class="stage-block s6">Stage 6<br>Sep 15&ndash;25</div>
+  </div>
+
+  <div class="page-footer">
+    <span>Confidential | June 2026</span>
+    <span>firstclassops.com</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 1: PROJECT AT A GLANCE                                -->
+<!-- ============================================================ -->
+<div class="section page-break">
+  <div class="fco-header">
+    <div class="fco-title">FIRST CLASS OPERATIONS</div>
+    <div class="fco-tagline">TripOS &mdash; Luxury Travel Operations Platform</div>
+  </div>
+  <hr class="orange-rule">
+
+  <div class="section-number">Section 1</div>
+  <h2>Project At a Glance</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:200px;">Item</th>
+        <th>Detail</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Deliverable</strong></td>
+        <td>Custom SaaS platform replacing Monday.com; 11 operational screens, full backend, multi-tenant architecture ready for agent resale</td>
+      </tr>
+      <tr>
+        <td><strong>Build Investment</strong></td>
+        <td><span class="highlight-number">$16,000</span> (one-time)</td>
+      </tr>
+      <tr>
+        <td><strong>Monthly Platform Fee</strong></td>
+        <td><span class="highlight-number">$997/month</span> (first 3 months complimentary &mdash; no charge while you onboard agents)</td>
+      </tr>
+      <tr>
+        <td><strong>SaaS Licensing</strong></td>
+        <td>Built for resale &mdash; each additional travel advisor seat generates recurring revenue</td>
+      </tr>
+      <tr>
+        <td><strong>Timeline</strong></td>
+        <td>12 weeks from kickoff to production launch</td>
+      </tr>
+      <tr>
+        <td><strong>Prototype Status</strong></td>
+        <td>Validated &mdash; clickable prototype reviewed and approved June 2026</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Confidential | June 2026</span>
+    <span>firstclassops.com</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 2: PROJECT SUMMARY                                    -->
+<!-- ============================================================ -->
+<div class="section page-break">
+  <div class="fco-header">
+    <div class="fco-title">FIRST CLASS OPERATIONS</div>
+    <div class="fco-tagline">TripOS &mdash; Luxury Travel Operations Platform</div>
+  </div>
+  <hr class="orange-rule">
+
+  <div class="section-number">Section 2</div>
+  <h2>Project Summary</h2>
+
+  <p>First Class Operations will design and build TripOS, a purpose-built luxury travel operations platform that replaces Monday.com with a dedicated system designed for how travel advisors actually work. TripOS manages the entire trip lifecycle &mdash; from initial client inquiry through post-trip follow-up &mdash; in a single, unified platform.</p>
+
+  <p>The platform is architected as a SaaS product from day one. Emily will use it for her own agency operations while simultaneously licensing it to other travel advisors, creating a new recurring revenue stream. Each agent gets their own branded workspace with the same powerful trip management, automation, and client intelligence tools.</p>
+
+  <p>A clickable prototype has already been validated through direct client feedback. The production build will transform this prototype into a fully functional platform with live data, authentication, automated workflows, and the multi-tenant infrastructure needed to scale across multiple agencies.</p>
+
+  <div class="page-footer">
+    <span>Confidential | June 2026</span>
+    <span>firstclassops.com</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 3: THE PROBLEM THIS SOLVES                            -->
+<!-- ============================================================ -->
+<div class="section page-break">
+  <div class="fco-header">
+    <div class="fco-title">FIRST CLASS OPERATIONS</div>
+    <div class="fco-tagline">TripOS &mdash; Luxury Travel Operations Platform</div>
+  </div>
+  <hr class="orange-rule">
+
+  <div class="section-number">Section 3</div>
+  <h2>The Problem This Solves</h2>
+
+  <h3 style="margin-bottom:16px; color:#444;">Three Core Challenges for Travel Advisors</h3>
+
+  <div class="problem-block">
+    <h4>1. Monday.com wasn't built for travel.</h4>
+    <p>Generic project management tools require constant workarounds. Trip stages, supplier tracking, commission pipelines, and client communication touchpoints don't fit into standard kanban boards. Advisors spend more time managing the tool than managing trips.</p>
+  </div>
+
+  <div class="problem-block">
+    <h4>2. Critical workflow steps fall through the cracks.</h4>
+    <p>Pre-arrival emails, bon voyage messages, insurance follow-ups, flight checks, and welcome home outreach each have specific timing requirements. Without purpose-built automations, these high-touch client moments depend entirely on memory and manual tracking.</p>
+  </div>
+
+  <div class="problem-block">
+    <h4>3. There's no single source of truth.</h4>
+    <p>Trip details live in Monday.com, commissions in spreadsheets, time tracking in separate tools, client feedback in emails, and templates scattered across drives. Advisors need one platform where everything connects &mdash; and that platform doesn't exist yet.</p>
+  </div>
+
+  <div class="problem-solve">
+    <strong>TripOS solves all three.</strong> Every screen, every automation, and every workflow was designed from direct input by a working travel advisor. It's not adapted from another industry &mdash; it's built for this one.
+  </div>
+
+  <div class="page-footer">
+    <span>Confidential | June 2026</span>
+    <span>firstclassops.com</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 4: PROTOTYPE VALIDATION                               -->
+<!-- ============================================================ -->
+<div class="section page-break">
+  <div class="fco-header">
+    <div class="fco-title">FIRST CLASS OPERATIONS</div>
+    <div class="fco-tagline">TripOS &mdash; Luxury Travel Operations Platform</div>
+  </div>
+  <hr class="orange-rule">
+
+  <div class="section-number">Section 4</div>
+  <h2>Prototype Validation &mdash; Feature Cross-Check</h2>
+
+  <p>The following features were designed, built, and validated during the prototype phase in June 2026. Each item was reviewed in a clickable prototype with real client data from the advisor's active Monday.com boards. This cross-check confirms scope alignment before the production build begins.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:145px;">Feature Area</th>
+        <th>Feature</th>
+        <th style="width:95px;">Prototype Status</th>
+        <th style="width:180px;">Production Scope</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Dashboard -->
+      <tr class="feature-area-header"><td colspan="4">Dashboard (Advisor Command Center)</td></tr>
+      <tr>
+        <td>Dashboard</td>
+        <td>Daily priorities checklist with 5 actionable items</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Live data, real-time updates</td>
+      </tr>
+      <tr>
+        <td>Dashboard</td>
+        <td>4 KPI cards: Active Trips, Pending Commissions, Hours This Week, Automation Alerts</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Connected to live database</td>
+      </tr>
+      <tr>
+        <td>Dashboard</td>
+        <td>Upcoming Departures with countdown timers</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Auto-calculated from trip dates</td>
+      </tr>
+      <tr>
+        <td>Dashboard</td>
+        <td>Automation Alerts feed with color-coded urgency</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Triggered by automation engine</td>
+      </tr>
+      <tr>
+        <td>Dashboard</td>
+        <td>Recent Feedback summary</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Pulled from feedback module</td>
+      </tr>
+
+      <!-- Trip Requests Pipeline -->
+      <tr class="feature-area-header"><td colspan="4">Trip Requests Pipeline</td></tr>
+      <tr>
+        <td>Trip Requests</td>
+        <td>3-column kanban: New Inquiry &rarr; Quoting &rarr; Ready to Book</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Full CRUD, drag-and-drop</td>
+      </tr>
+      <tr>
+        <td>Trip Requests</td>
+        <td>Client cards with budget, dates, lead advisor, notes</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Editable fields, live save</td>
+      </tr>
+      <tr>
+        <td>Trip Requests</td>
+        <td>&ldquo;Convert to Active Trip&rdquo; action button</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Auto-creates trip on Master Board</td>
+      </tr>
+
+      <!-- Master Trip Board -->
+      <tr class="feature-area-header"><td colspan="4">Master Trip Board</td></tr>
+      <tr>
+        <td>Master Board</td>
+        <td>Month-grouped table view (June, July, Completed)</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Dynamic grouping from trip dates</td>
+      </tr>
+      <tr>
+        <td>Master Board</td>
+        <td>14 stage columns with color-coded status pills</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Real-time status updates</td>
+      </tr>
+      <tr>
+        <td>Master Board</td>
+        <td>Collapsible month sections</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Persistent user preference</td>
+      </tr>
+      <tr>
+        <td>Master Board</td>
+        <td>Click-through to Trip Detail view</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Full detail navigation</td>
+      </tr>
+
+      <!-- Trip Detail View -->
+      <tr class="feature-area-header"><td colspan="4">Trip Detail View</td></tr>
+      <tr>
+        <td>Trip Detail</td>
+        <td>Status bar: Active/Lead/Departure/Return/Days Away</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Auto-calculated fields</td>
+      </tr>
+      <tr>
+        <td>Trip Detail</td>
+        <td>Stage progress visualization (10 dots)</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Live progress from stage data</td>
+      </tr>
+      <tr>
+        <td>Trip Detail</td>
+        <td>6 tabbed sections: Stages, Tasks, Payments, Documents, Notes, Feedback</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Full tab system with live data</td>
+      </tr>
+      <tr>
+        <td>Trip Detail</td>
+        <td>10 stage cards with checklists: Flights, Hotels, Touring, Transfers, Insurance, Concierge, AXUS Review, Bon Voyage, Pre-Arrival, Welcome Home</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Editable checklists, file uploads, supplier details</td>
+      </tr>
+      <tr>
+        <td>Trip Detail</td>
+        <td>Per-trip feedback collection with 5-star rating</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Saved to feedback module</td>
+      </tr>
+
+      <!-- Task Management -->
+      <tr class="feature-area-header"><td colspan="4">Task Management</td></tr>
+      <tr>
+        <td>Tasks</td>
+        <td>4-column kanban: To Do, In Progress, Blocked/Overdue, Completed</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Drag-and-drop, auto-dating</td>
+      </tr>
+      <tr>
+        <td>Tasks</td>
+        <td>Task cards with advisor avatars, priority tags, due dates</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Assignment system, notifications</td>
+      </tr>
+      <tr>
+        <td>Tasks</td>
+        <td>Slide-in task detail panel with checklist, attachments, chat</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Real-time collaboration</td>
+      </tr>
+      <tr>
+        <td>Tasks</td>
+        <td>Multi-advisor assignment (HM, ES)</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Role-based access</td>
+      </tr>
+
+      <!-- Automation Engine -->
+      <tr class="feature-area-header"><td colspan="4">Automation Engine (Admin)</td></tr>
+      <tr>
+        <td>Automations</td>
+        <td>12 configurable workflow rules from Monday.com migration</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Fully programmable trigger system</td>
+      </tr>
+      <tr>
+        <td>Automations</td>
+        <td>Toggle active/deactivated per rule</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Instant enable/disable</td>
+      </tr>
+      <tr>
+        <td>Automations</td>
+        <td>Trigger types: date-based, status-change, item-creation</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Custom trigger builder</td>
+      </tr>
+      <tr>
+        <td>Automations</td>
+        <td>Specific automations: Bon Voyage (2 days before), Pre-Arrival (2 days before), Welcome Home (1 week after), Insurance follow-up (7-day), Concierge initiation (2 months before), Flight Checks, AXUS Review, Transfer confirmation</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>All 25+ Monday.com rules replicated</td>
+      </tr>
+
+      <!-- Time & Retainer -->
+      <tr class="feature-area-header"><td colspan="4">Time &amp; Retainer Tracking</td></tr>
+      <tr>
+        <td>Time Tracking</td>
+        <td>Category-based time entry: Insurance (0.5h), Flights (0.15h), Hotels (0.15h), plus custom</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Auto-fill durations, forced logging</td>
+      </tr>
+      <tr>
+        <td>Time Tracking</td>
+        <td>Client retainer tracking with utilization bars</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Monthly calculations, overage alerts</td>
+      </tr>
+      <tr>
+        <td>Time Tracking</td>
+        <td>Time log with category, trip, task linking</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Billable/unbilled classification</td>
+      </tr>
+      <tr>
+        <td>Time Tracking</td>
+        <td>Monthly revenue summary (Retainer + Unbilled + Total)</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Auto-calculated financials</td>
+      </tr>
+
+      <!-- Commission Tracking -->
+      <tr class="feature-area-header"><td colspan="4">Commission Tracking</td></tr>
+      <tr>
+        <td>Commissions</td>
+        <td>Pipeline table: 8 active commissions with supplier, amount, notes</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Full CRUD pipeline</td>
+      </tr>
+      <tr>
+        <td>Commissions</td>
+        <td>4 status stages: Waiting on Supplier &rarr; Payment in Progress &rarr; Submitted &rarr; Completed</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Drag progression, notifications</td>
+      </tr>
+      <tr>
+        <td>Commissions</td>
+        <td>Commission summary: Total Earned, Pending, Collected</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Auto-calculated from pipeline</td>
+      </tr>
+      <tr>
+        <td>Commissions</td>
+        <td>Recently Completed log with dates</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Audit trail</td>
+      </tr>
+
+      <!-- Client Feedback -->
+      <tr class="feature-area-header"><td colspan="4">Client Feedback</td></tr>
+      <tr>
+        <td>Feedback</td>
+        <td>Table view: 16 entries with client, location, sentiment, rating, details</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Sortable, filterable</td>
+      </tr>
+      <tr>
+        <td>Feedback</td>
+        <td>Board view: Kanban by destination (Palm Heights, Scotland, Italy, NYC, etc.)</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Drag-and-drop, destination grouping</td>
+      </tr>
+      <tr>
+        <td>Feedback</td>
+        <td>Table/Board toggle</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Persistent view preference</td>
+      </tr>
+      <tr>
+        <td>Feedback</td>
+        <td>Sentiment badges and 5-star ratings</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Aggregated reporting</td>
+      </tr>
+
+      <!-- Client Portal -->
+      <tr class="feature-area-header"><td colspan="4">Client Portal</td></tr>
+      <tr>
+        <td>Client Portal</td>
+        <td>Branded client-facing view per trip</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>White-label ready, custom branding per agency</td>
+      </tr>
+      <tr>
+        <td>Client Portal</td>
+        <td>Trip countdown, payment due dates, secure checkout</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Payment gateway integration</td>
+      </tr>
+      <tr>
+        <td>Client Portal</td>
+        <td>Advisor contact information</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Configurable per agency</td>
+      </tr>
+
+      <!-- Templates & Knowledge Hub -->
+      <tr class="feature-area-header"><td colspan="4">Templates &amp; Knowledge Hub</td></tr>
+      <tr>
+        <td>Templates</td>
+        <td>Searchable template library with 24 items</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Full-text search, tagging</td>
+      </tr>
+      <tr>
+        <td>Templates</td>
+        <td>6 category filters: Email Templates, Workflows, Supplier Info, Destinations, Internal Docs</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Nested categorization</td>
+      </tr>
+      <tr>
+        <td>Templates</td>
+        <td>Usage tracking and last-updated dates</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Analytics dashboard</td>
+      </tr>
+
+      <!-- Admin & Settings -->
+      <tr class="feature-area-header"><td colspan="4">Admin &amp; Settings</td></tr>
+      <tr>
+        <td>Admin</td>
+        <td>Staff &amp; Roles: Owner, Advisor, Invited with permissions matrix</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Role-based access control</td>
+      </tr>
+      <tr>
+        <td>Admin</td>
+        <td>Passport &amp; Visa tracking with expiry alerts</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Automated reminders</td>
+      </tr>
+      <tr>
+        <td>Admin</td>
+        <td>Team Calendar: PTO and FAM trip tracking</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Shared calendar, conflict detection</td>
+      </tr>
+      <tr>
+        <td>Admin</td>
+        <td>Agency Settings and Notification preferences</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Per-agency configuration</td>
+      </tr>
+
+      <!-- Board Calendar -->
+      <tr class="feature-area-header"><td colspan="4">Board Calendar</td></tr>
+      <tr>
+        <td>Calendar</td>
+        <td>Board/Week/Agenda view toggle</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Three calendar modes</td>
+      </tr>
+      <tr>
+        <td>Calendar</td>
+        <td>Departures, Payments, Tasks, Overdue, Document Deadlines sections</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Unified timeline view</td>
+      </tr>
+      <tr>
+        <td>Calendar</td>
+        <td>Advisor filtering</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Multi-advisor support</td>
+      </tr>
+
+      <!-- Summary Row -->
+      <tr class="summary-row">
+        <td colspan="2"><strong>Total Features Validated: 60+</strong></td>
+        <td><strong>100%</strong></td>
+        <td><strong>Production-Ready Scope: Confirmed</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Confidential | June 2026</span>
+    <span>firstclassops.com</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 5: PRODUCTION BUILD SCOPE                             -->
+<!-- ============================================================ -->
+<div class="section page-break">
+  <div class="fco-header">
+    <div class="fco-title">FIRST CLASS OPERATIONS</div>
+    <div class="fco-tagline">TripOS &mdash; Luxury Travel Operations Platform</div>
+  </div>
+  <hr class="orange-rule">
+
+  <div class="section-number">Section 5</div>
+  <h2>Production Build Scope &mdash; What Changes from Prototype</h2>
+
+  <p>The validated prototype confirmed the design, layout, and workflow logic for all 11 screens. The production build transforms those static screens into a live, data-driven platform. The following capabilities are added during the 12-week build:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:200px;">Capability</th>
+        <th>What This Means</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Authentication &amp; Security</strong></td>
+        <td>Secure login, role-based access, session management, encrypted data at rest and in transit</td>
+      </tr>
+      <tr>
+        <td><strong>Live Database (Supabase)</strong></td>
+        <td>All trip, client, task, commission, and feedback data stored in a production PostgreSQL database with real-time sync</td>
+      </tr>
+      <tr>
+        <td><strong>Full CRUD Operations</strong></td>
+        <td>Create, read, update, and delete across all modules &mdash; trips, tasks, commissions, feedback, templates, time entries</td>
+      </tr>
+      <tr>
+        <td><strong>Automation Engine</strong></td>
+        <td>Server-side automation triggers that fire based on dates, status changes, and workflow rules &mdash; no manual intervention</td>
+      </tr>
+      <tr>
+        <td><strong>Multi-Tenant Architecture</strong></td>
+        <td>Each agency gets an isolated workspace; data is securely separated; branding is configurable per tenant</td>
+      </tr>
+      <tr>
+        <td><strong>Client Portal with Payments</strong></td>
+        <td>Secure, shareable client-facing portal with payment gateway integration for deposits and final balances</td>
+      </tr>
+      <tr>
+        <td><strong>Email Integration</strong></td>
+        <td>Automated email sending for bon voyage, pre-arrival, welcome home, insurance follow-ups, and task notifications</td>
+      </tr>
+      <tr>
+        <td><strong>File Management</strong></td>
+        <td>Document uploads, itinerary PDFs, supplier confirmations, and attachment management per trip</td>
+      </tr>
+      <tr>
+        <td><strong>Reporting &amp; Export</strong></td>
+        <td>CSV export, printable reports, commission summaries, and time/retainer invoicing</td>
+      </tr>
+      <tr>
+        <td><strong>Mobile Responsive</strong></td>
+        <td>Fully responsive design optimized for tablet and mobile use in the field</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Confidential | June 2026</span>
+    <span>firstclassops.com</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 6: BUILD TIMELINE                                     -->
+<!-- ============================================================ -->
+<div class="section page-break">
+  <div class="fco-header">
+    <div class="fco-title">FIRST CLASS OPERATIONS</div>
+    <div class="fco-tagline">TripOS &mdash; Luxury Travel Operations Platform</div>
+  </div>
+  <hr class="orange-rule">
+
+  <div class="section-number">Section 6</div>
+  <h2>Build Timeline &mdash; 12 Weeks, 6 Stages</h2>
+
+  <p>Work is organized into six stages, each producing working, reviewable deliverables. Every stage includes a client review checkpoint before the next stage begins.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:65px;">Stage</th>
+        <th style="width:115px;">Dates</th>
+        <th>Focus</th>
+        <th>Key Milestone</th>
+        <th style="width:75px;">Cost</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Stage 1</strong></td>
+        <td>Jul 7&ndash;18</td>
+        <td>Foundation: Auth, database, design system, app shell</td>
+        <td>Secure login + navigation live</td>
+        <td class="highlight-number">$3,000</td>
+      </tr>
+      <tr>
+        <td><strong>Stage 2</strong></td>
+        <td>Jul 21&ndash;Aug 1</td>
+        <td>Trip Pipeline: Master Board, Trip Detail, Trip Requests</td>
+        <td>Full trip lifecycle operational</td>
+        <td class="highlight-number">$3,500</td>
+      </tr>
+      <tr>
+        <td><strong>Stage 3</strong></td>
+        <td>Aug 4&ndash;15</td>
+        <td>Operations: Tasks, Automations, Calendar</td>
+        <td>Task management + 25 automations live</td>
+        <td class="highlight-number">$3,000</td>
+      </tr>
+      <tr>
+        <td><strong>Stage 4</strong></td>
+        <td>Aug 18&ndash;29</td>
+        <td>Intelligence: Time tracking, Commissions, Feedback</td>
+        <td>Business tracking modules live</td>
+        <td class="highlight-number">$2,500</td>
+      </tr>
+      <tr>
+        <td><strong>Stage 5</strong></td>
+        <td>Sep 1&ndash;12</td>
+        <td>Client &amp; Templates: Portal, Hub, Admin</td>
+        <td>Client-facing tools live</td>
+        <td class="highlight-number">$2,000</td>
+      </tr>
+      <tr>
+        <td><strong>Stage 6</strong></td>
+        <td>Sep 15&ndash;25</td>
+        <td>SaaS &amp; Launch: Multi-tenant, onboarding, deploy</td>
+        <td>Platform active September 25</td>
+        <td class="highlight-number">$2,000</td>
+      </tr>
+      <tr class="total-row">
+        <td><strong>TOTAL</strong></td>
+        <td><strong>12 weeks</strong></td>
+        <td><strong>Jul 7 &ndash; Sep 25, 2026</strong></td>
+        <td><strong>Active Sep 25</strong></td>
+        <td><strong>$16,000</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ===== STAGE 1 ===== -->
+  <div class="stage-header s1">
+    <h3>Stage 1 &mdash; Foundation</h3>
+    <div class="stage-meta">July 7&ndash;18 &nbsp;|&nbsp; $3,000</div>
+  </div>
+
+  <div class="week-header">Week 1 (Jul 7&ndash;11)</div>
+  <ul class="week-items">
+    <li><span class="tag tag-build">BUILD</span> Provision Supabase project: PostgreSQL database, authentication, row-level security</li>
+    <li><span class="tag tag-build">BUILD</span> Design and implement database schema: trips, clients, tasks, commissions, feedback, templates, time entries, users</li>
+    <li><span class="tag tag-build">BUILD</span> Build authentication system: secure login, registration, password reset, session management</li>
+    <li><span class="tag tag-build">BUILD</span> Implement role-based access control: Owner, Advisor, Invited roles with permission matrix</li>
+    <li><span class="tag tag-ops">OPS</span> Confirm data model with client; validate field names, relationships, and workflow mapping</li>
+  </ul>
+
+  <div class="week-header">Week 2 (Jul 12&ndash;18)</div>
+  <ul class="week-items">
+    <li><span class="tag tag-build">BUILD</span> Build app shell: responsive layout, sidebar navigation, topbar, routing between all 11 screens</li>
+    <li><span class="tag tag-build">BUILD</span> Implement design system: typography (Playfair Display + Jost), color tokens, component library</li>
+    <li><span class="tag tag-build">BUILD</span> Build Dashboard screen with live KPI connections to database</li>
+    <li><span class="tag tag-build">BUILD</span> Internal testing of auth flow and navigation</li>
+    <li><span class="tag tag-ops">OPS</span> Share Stage 1 build with client; demonstrate login, navigation, and live dashboard</li>
+  </ul>
+
+  <table class="no-break">
+    <thead>
+      <tr>
+        <th>Deliverable</th>
+        <th>Description</th>
+        <th style="width:130px;">Owner</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Authentication System</strong></td>
+        <td>Secure login with role-based access, session management, and password reset</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>Database Schema</strong></td>
+        <td>Complete PostgreSQL schema covering all 11 modules with relationships and row-level security</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>App Shell &amp; Design System</strong></td>
+        <td>Responsive layout, navigation, component library matching validated prototype</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>Live Dashboard</strong></td>
+        <td>Dashboard with KPIs pulling from production database</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>Client Stage 1 Review</strong></td>
+        <td>Operations Specialist shares build and gathers feedback</td>
+        <td>Operations Specialist</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="client-actions">
+    <h4>Client Actions Required</h4>
+    <ul>
+      <li>Review Stage 1 build when shared; confirm navigation and dashboard meet expectations</li>
+      <li>Provide agency branding assets (logo, colors) for client portal customization</li>
+    </ul>
+  </div>
+
+  <!-- ===== STAGE 2 ===== -->
+  <div class="stage-header s2">
+    <h3>Stage 2 &mdash; Trip Pipeline</h3>
+    <div class="stage-meta">July 21&ndash;August 1 &nbsp;|&nbsp; $3,500</div>
+  </div>
+
+  <div class="week-header">Week 3 (Jul 21&ndash;25)</div>
+  <ul class="week-items">
+    <li><span class="tag tag-build">BUILD</span> Build Master Trip Board: month-grouped table with 14 stage columns, real-time status pills, collapsible sections</li>
+    <li><span class="tag tag-build">BUILD</span> Build Trip Detail view: status bar, stage progress dots, 6 tabbed sections, 10 stage cards with editable checklists</li>
+    <li><span class="tag tag-build">BUILD</span> Implement full CRUD for trips: create, edit, archive, and delete with database persistence</li>
+    <li><span class="tag tag-ops">OPS</span> Review trip data model with client; confirm stage names, status options, and workflow rules</li>
+  </ul>
+
+  <div class="week-header">Week 4 (Jul 28&ndash;Aug 1)</div>
+  <ul class="week-items">
+    <li><span class="tag tag-build">BUILD</span> Build Trip Requests kanban: 3-column pipeline with drag-and-drop, card creation, and &ldquo;Convert to Active Trip&rdquo; action</li>
+    <li><span class="tag tag-build">BUILD</span> Build trip search, filtering, and sorting capabilities</li>
+    <li><span class="tag tag-build">BUILD</span> Internal testing of complete trip lifecycle: request &rarr; active &rarr; completed</li>
+    <li><span class="tag tag-ops">OPS</span> Data quality control: validate trip pipeline against client's current Monday.com data</li>
+    <li><span class="tag tag-ops">OPS</span> Share Stage 2 build with client; walk through trip creation and management flow</li>
+  </ul>
+
+  <table class="no-break">
+    <thead>
+      <tr>
+        <th>Deliverable</th>
+        <th>Description</th>
+        <th style="width:130px;">Owner</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Master Trip Board</strong></td>
+        <td>Month-grouped table with 14 stage columns, status pills, click-through to detail</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>Trip Detail View</strong></td>
+        <td>Full trip detail with stage cards, checklists, tasks, payments, documents, notes, feedback tabs</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>Trip Requests Pipeline</strong></td>
+        <td>3-column kanban with drag-and-drop and conversion to active trip</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>Trip CRUD Operations</strong></td>
+        <td>Create, edit, archive, delete trips with full database persistence</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>Client Stage 2 Review</strong></td>
+        <td>Client walkthrough of trip lifecycle</td>
+        <td>Operations Specialist</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="client-actions">
+    <h4>Client Actions Required</h4>
+    <ul>
+      <li>Review trip pipeline when shared; test trip creation and stage updates</li>
+      <li>Provide sample trip data for import (if migrating from Monday.com)</li>
+    </ul>
+  </div>
+
+  <!-- ===== STAGE 3 ===== -->
+  <div class="stage-header s3">
+    <h3>Stage 3 &mdash; Operations</h3>
+    <div class="stage-meta">August 4&ndash;15 &nbsp;|&nbsp; $3,000</div>
+  </div>
+
+  <div class="week-header">Week 5 (Aug 4&ndash;8)</div>
+  <ul class="week-items">
+    <li><span class="tag tag-build">BUILD</span> Build Task Management kanban: 4-column board with drag-and-drop, task detail panel with checklists, attachments, and advisor chat</li>
+    <li><span class="tag tag-build">BUILD</span> Build task assignment system: multi-advisor support, notifications, due date tracking</li>
+    <li><span class="tag tag-build">BUILD</span> Build Board Calendar: departures, payments, task deadlines, overdue items with advisor filtering</li>
+    <li><span class="tag tag-ops">OPS</span> Confirm automation rules with client; map all 25+ Monday.com automations to TripOS triggers</li>
+  </ul>
+
+  <div class="week-header">Week 6 (Aug 11&ndash;15)</div>
+  <ul class="week-items">
+    <li><span class="tag tag-build">BUILD</span> Build Automation Engine: server-side triggers for date-based, status-change, and item-creation events</li>
+    <li><span class="tag tag-build">BUILD</span> Implement all 25+ workflow automations: Bon Voyage, Pre-Arrival, Welcome Home, Insurance follow-up, Concierge, Flight Checks, AXUS Review, Transfer confirmation, and more</li>
+    <li><span class="tag tag-build">BUILD</span> Internal testing of task-to-trip linking and automation trigger accuracy</li>
+    <li><span class="tag tag-ops">OPS</span> Data quality control: validate automations fire correctly against test trip data</li>
+    <li><span class="tag tag-ops">OPS</span> Share Stage 3 build with client; demonstrate task management and automation system</li>
+  </ul>
+
+  <table class="no-break">
+    <thead>
+      <tr>
+        <th>Deliverable</th>
+        <th>Description</th>
+        <th style="width:130px;">Owner</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Task Management System</strong></td>
+        <td>4-column kanban with detail panel, checklists, attachments, chat, and advisor assignment</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>Automation Engine</strong></td>
+        <td>25+ configurable workflow triggers with date-based, status-change, and creation events</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>Board Calendar</strong></td>
+        <td>Unified calendar with departures, payments, deadlines, and advisor filtering</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>Client Stage 3 Review</strong></td>
+        <td>Demo of automations and task management</td>
+        <td>Operations Specialist</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="client-actions">
+    <h4>Client Actions Required</h4>
+    <ul>
+      <li>Review and confirm all automation rules match desired workflow</li>
+      <li>Test task creation and automation triggers</li>
+    </ul>
+  </div>
+
+  <!-- ===== STAGE 4 ===== -->
+  <div class="stage-header s4">
+    <h3>Stage 4 &mdash; Business Intelligence</h3>
+    <div class="stage-meta">August 18&ndash;29 &nbsp;|&nbsp; $2,500</div>
+  </div>
+
+  <div class="week-header">Week 7 (Aug 18&ndash;22)</div>
+  <ul class="week-items">
+    <li><span class="tag tag-build">BUILD</span> Build Time &amp; Retainer tracking: category-based entry with auto-fill durations, client retainer utilization, monthly revenue summary</li>
+    <li><span class="tag tag-build">BUILD</span> Build Commission Tracking: pipeline table with 4 status stages, commission summary, recently completed log</li>
+    <li><span class="tag tag-ops">OPS</span> Review retainer and commission data model with client; confirm billing rates and categories</li>
+  </ul>
+
+  <div class="week-header">Week 8 (Aug 25&ndash;29)</div>
+  <ul class="week-items">
+    <li><span class="tag tag-build">BUILD</span> Build Client Feedback system: dual-view table and board, sentiment analysis, 5-star ratings, destination grouping</li>
+    <li><span class="tag tag-build">BUILD</span> Connect feedback to trip detail view for per-trip feedback collection</li>
+    <li><span class="tag tag-build">BUILD</span> Internal testing of all business intelligence modules against sample data</li>
+    <li><span class="tag tag-ops">OPS</span> Data quality control: validate calculations for retainer utilization, commission totals, and feedback aggregation</li>
+    <li><span class="tag tag-ops">OPS</span> Share Stage 4 build with client</li>
+  </ul>
+
+  <table class="no-break">
+    <thead>
+      <tr>
+        <th>Deliverable</th>
+        <th>Description</th>
+        <th style="width:130px;">Owner</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Time &amp; Retainer Module</strong></td>
+        <td>Category-based time tracking with auto-fill, retainer utilization bars, monthly financials</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>Commission Tracking</strong></td>
+        <td>Pipeline with 4 status stages, auto-calculated summaries, audit trail</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>Client Feedback System</strong></td>
+        <td>Dual-view (table + board) with sentiment, ratings, and destination grouping</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>Client Stage 4 Review</strong></td>
+        <td>Walk-through of business tracking modules</td>
+        <td>Operations Specialist</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="client-actions">
+    <h4>Client Actions Required</h4>
+    <ul>
+      <li>Confirm retainer rates, billing categories, and commission pipeline stages</li>
+      <li>Provide any historical data for import</li>
+    </ul>
+  </div>
+
+  <!-- ===== STAGE 5 ===== -->
+  <div class="stage-header s5">
+    <h3>Stage 5 &mdash; Client &amp; Templates</h3>
+    <div class="stage-meta">September 1&ndash;12 &nbsp;|&nbsp; $2,000</div>
+  </div>
+
+  <div class="week-header">Week 9 (Sep 1&ndash;5)</div>
+  <ul class="week-items">
+    <li><span class="tag tag-build">BUILD</span> Build Client Portal: branded, shareable client-facing view with trip countdown, payment integration, secure checkout</li>
+    <li><span class="tag tag-build">BUILD</span> Build white-label system: configurable branding per agency (logo, colors, contact info)</li>
+    <li><span class="tag tag-ops">OPS</span> Review client portal branding with client; confirm design for end-client experience</li>
+  </ul>
+
+  <div class="week-header">Week 10 (Sep 8&ndash;12)</div>
+  <ul class="week-items">
+    <li><span class="tag tag-build">BUILD</span> Build Templates &amp; Knowledge Hub: searchable library with category filtering, usage analytics, create/edit/delete</li>
+    <li><span class="tag tag-build">BUILD</span> Build Admin panel: staff management, passport tracking, team calendar, notification settings</li>
+    <li><span class="tag tag-build">BUILD</span> Internal testing of client-facing tools and admin functionality</li>
+    <li><span class="tag tag-ops">OPS</span> Share Stage 5 build with client</li>
+  </ul>
+
+  <table class="no-break">
+    <thead>
+      <tr>
+        <th>Deliverable</th>
+        <th>Description</th>
+        <th style="width:130px;">Owner</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Client Portal</strong></td>
+        <td>Branded, shareable client view with payment integration and trip countdown</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>White-Label System</strong></td>
+        <td>Configurable branding per agency for SaaS resale</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>Templates &amp; Knowledge Hub</strong></td>
+        <td>Searchable library with 6 categories, CRUD operations, usage analytics</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>Admin Panel</strong></td>
+        <td>Staff management, passport tracking, team calendar, notifications</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>Client Stage 5 Review</strong></td>
+        <td>Demo of client-facing tools</td>
+        <td>Operations Specialist</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="client-actions">
+    <h4>Client Actions Required</h4>
+    <ul>
+      <li>Provide agency logo and brand colors for portal customization</li>
+      <li>Review client portal experience from end-client perspective</li>
+    </ul>
+  </div>
+
+  <!-- ===== STAGE 6 ===== -->
+  <div class="stage-header s6">
+    <h3>Stage 6 &mdash; SaaS &amp; Launch</h3>
+    <div class="stage-meta">September 15&ndash;25 &nbsp;|&nbsp; $2,000</div>
+  </div>
+
+  <div class="week-header">Week 11 (Sep 15&ndash;19)</div>
+  <ul class="week-items">
+    <li><span class="tag tag-build">BUILD</span> Implement multi-tenant architecture: isolated workspaces per agency, secure data separation</li>
+    <li><span class="tag tag-build">BUILD</span> Build agent onboarding flow: registration, agency setup wizard, initial data import</li>
+    <li><span class="tag tag-build">BUILD</span> Performance testing: verify all screens load under 2 seconds</li>
+    <li><span class="tag tag-build">BUILD</span> Security audit: penetration testing, credential storage review, API security verification</li>
+  </ul>
+
+  <div class="week-header">Week 12 (Sep 22&ndash;25)</div>
+  <ul class="week-items">
+    <li><span class="tag tag-build">BUILD</span> Deploy platform to production environment; run smoke tests across all 11 screens</li>
+    <li><span class="tag tag-build">BUILD</span> Final UI polish: spacing, labeling, color consistency, mobile responsiveness</li>
+    <li><span class="tag tag-ops">OPS</span> Final data quality control in production: validate all modules against expected behavior</li>
+    <li><span class="tag tag-ops">OPS</span> Deliver live training session: full walkthrough of all features, admin tools, and agent onboarding</li>
+    <li><span class="tag tag-ops">OPS</span> Write and deliver admin guide and troubleshooting playbook</li>
+    <li><span class="tag tag-ops">OPS</span> Conduct final build call; confirm platform is active</li>
+  </ul>
+
+  <table class="no-break">
+    <thead>
+      <tr>
+        <th>Deliverable</th>
+        <th>Description</th>
+        <th style="width:160px;">Owner</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Multi-Tenant Architecture</strong></td>
+        <td>Isolated workspaces per agency with secure data separation for SaaS resale</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>Agent Onboarding Flow</strong></td>
+        <td>Registration, agency setup wizard, and initial data import for new subscribers</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>Production Deployment</strong></td>
+        <td>Platform deployed to production, accessible via secure URL</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>Security Audit</strong></td>
+        <td>Complete security review covering auth, data access, API endpoints, and encryption</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>Live Training Session</strong></td>
+        <td>Full walkthrough of all 11 screens, automations, and admin tools</td>
+        <td>Operations Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>Admin Guide &amp; Playbook</strong></td>
+        <td>Documentation covering platform operation and common issues</td>
+        <td>Operations Specialist</td>
+      </tr>
+      <tr>
+        <td><strong>Recorded Training</strong></td>
+        <td>Full recording retained by client</td>
+        <td>Build + Ops</td>
+      </tr>
+      <tr>
+        <td><strong>Final Build Call</strong></td>
+        <td>30-minute close-out call confirming platform is active</td>
+        <td>Operations Specialist</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="client-actions">
+    <h4>Client Actions Required</h4>
+    <ul>
+      <li>Sep 22: Confirm receipt of production access</li>
+      <li>Sep 23: Attend live training session</li>
+      <li>Sep 25: Join 30-minute final build call</li>
+    </ul>
+  </div>
+
+  <div class="page-footer">
+    <span>Confidential | June 2026</span>
+    <span>firstclassops.com</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 7: SAAS LICENSING MODEL                               -->
+<!-- ============================================================ -->
+<div class="section page-break">
+  <div class="fco-header">
+    <div class="fco-title">FIRST CLASS OPERATIONS</div>
+    <div class="fco-tagline">TripOS &mdash; Luxury Travel Operations Platform</div>
+  </div>
+  <hr class="orange-rule">
+
+  <div class="section-number">Section 7</div>
+  <h2>SaaS Licensing Model</h2>
+
+  <p>TripOS is built from day one as a licensable SaaS product. While Emily uses TripOS to run her own agency, the platform is architected so that additional travel advisors can subscribe, each receiving their own branded workspace with the full suite of tools.</p>
+
+  <h3 style="margin-top:18px;">How It Works</h3>
+  <ul style="margin-left:18px; margin-bottom:18px;">
+    <li style="margin-bottom:6px;">Each new agent signs up through the onboarding flow and receives their own isolated workspace</li>
+    <li style="margin-bottom:6px;">Agency branding (logo, colors, agency name) is configurable per tenant</li>
+    <li style="margin-bottom:6px;">All trip, client, and financial data is securely separated between agencies</li>
+    <li style="margin-bottom:6px;">Emily controls agent access, pricing, and onboarding as the platform owner</li>
+  </ul>
+
+  <h3>Revenue Potential</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Agents Subscribed</th>
+        <th>Monthly Revenue (at $297/agent)</th>
+        <th>Annual Revenue</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>5 agents</td>
+        <td class="highlight-number">$1,485/mo</td>
+        <td>$17,820/yr</td>
+      </tr>
+      <tr>
+        <td>10 agents</td>
+        <td class="highlight-number">$2,970/mo</td>
+        <td>$35,640/yr</td>
+      </tr>
+      <tr>
+        <td>25 agents</td>
+        <td class="highlight-number">$7,425/mo</td>
+        <td>$89,100/yr</td>
+      </tr>
+      <tr>
+        <td>50 agents</td>
+        <td class="highlight-number">$14,850/mo</td>
+        <td>$178,200/yr</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="note-box">
+    Agent pricing is set by you. The example above uses $297/month per agent seat. Your cost to operate the platform is $997/month regardless of how many agents are subscribed &mdash; every additional agent is incremental margin.
+  </div>
+
+  <div class="page-footer">
+    <span>Confidential | June 2026</span>
+    <span>firstclassops.com</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 8: INVESTMENT                                         -->
+<!-- ============================================================ -->
+<div class="section page-break">
+  <div class="fco-header">
+    <div class="fco-title">FIRST CLASS OPERATIONS</div>
+    <div class="fco-tagline">TripOS &mdash; Luxury Travel Operations Platform</div>
+  </div>
+  <hr class="orange-rule">
+
+  <div class="section-number">Section 8</div>
+  <h2>Investment</h2>
+
+  <h3>Build Cost</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Component</th>
+        <th style="width:120px;">Investment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Stage 1: Foundation</td>
+        <td>$3,000</td>
+      </tr>
+      <tr>
+        <td>Stage 2: Trip Pipeline</td>
+        <td>$3,500</td>
+      </tr>
+      <tr>
+        <td>Stage 3: Operations</td>
+        <td>$3,000</td>
+      </tr>
+      <tr>
+        <td>Stage 4: Business Intelligence</td>
+        <td>$2,500</td>
+      </tr>
+      <tr>
+        <td>Stage 5: Client &amp; Templates</td>
+        <td>$2,000</td>
+      </tr>
+      <tr>
+        <td>Stage 6: SaaS &amp; Launch</td>
+        <td>$2,000</td>
+      </tr>
+      <tr class="total-row">
+        <td><strong>Total Build Investment</strong></td>
+        <td><strong class="highlight-number">$16,000</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top:24px;">Payment Options</h3>
+  <p>Choose the payment structure that works best for you:</p>
+
+  <h4 style="color:var(--orange); margin-top:14px;">Option A &mdash; Two-Payment Plan</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Payment</th>
+        <th>Trigger</th>
+        <th style="width:100px;">Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Deposit</td>
+        <td>Proposal signed</td>
+        <td class="highlight-number">$8,000</td>
+      </tr>
+      <tr>
+        <td>Balance</td>
+        <td>Project completion (Sep 25)</td>
+        <td class="highlight-number">$8,000</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 style="color:var(--orange); margin-top:14px;">Option B &mdash; Staged Payments</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Payment</th>
+        <th>Trigger</th>
+        <th style="width:100px;">Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Deposit</td>
+        <td>Proposal signed (Jul 7)</td>
+        <td class="highlight-number">$4,000</td>
+      </tr>
+      <tr>
+        <td>Stage 2 Complete</td>
+        <td>Aug 1</td>
+        <td class="highlight-number">$4,000</td>
+      </tr>
+      <tr>
+        <td>Stage 4 Complete</td>
+        <td>Aug 29</td>
+        <td class="highlight-number">$4,000</td>
+      </tr>
+      <tr>
+        <td>Final Balance</td>
+        <td>Project completion (Sep 25)</td>
+        <td class="highlight-number">$4,000</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top:24px;">Monthly Platform Fee</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Period</th>
+        <th style="width:130px;">Monthly Cost</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Months 1&ndash;3 (Oct&ndash;Dec 2026)</td>
+        <td style="color:var(--green); font-weight:700;">Complimentary</td>
+        <td>No charge while you onboard agents and build revenue</td>
+      </tr>
+      <tr>
+        <td>Month 4+ (Jan 2027 onward)</td>
+        <td class="highlight-number">$997/month</td>
+        <td>Hosting, updates, support, security, and scaling</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 style="margin-top:16px;">What's Covered in the Monthly Fee</h4>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Coverage Area</th>
+        <th>What This Means</th>
+        <th style="width:100px;">Monthly Cost</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Hosting &amp; Infrastructure</strong></td>
+        <td>Production server, database, CDN, SSL, backups, and 99.9% uptime SLA</td>
+        <td>$350</td>
+      </tr>
+      <tr>
+        <td><strong>Updates &amp; Bug Fixes</strong></td>
+        <td>Feature improvements, display changes, new views, and bug resolution</td>
+        <td>$350</td>
+      </tr>
+      <tr>
+        <td><strong>Security &amp; Training</strong></td>
+        <td>Security patches, monitoring, and training sessions for new agents or features</td>
+        <td>$297</td>
+      </tr>
+      <tr class="total-row">
+        <td><strong>Monthly Total</strong></td>
+        <td><strong>Begins January 2027</strong></td>
+        <td><strong class="highlight-number">$997/mo</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Confidential | June 2026</span>
+    <span>firstclassops.com</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 9: WHAT YOU GET                                       -->
+<!-- ============================================================ -->
+<div class="section page-break">
+  <div class="fco-header">
+    <div class="fco-title">FIRST CLASS OPERATIONS</div>
+    <div class="fco-tagline">TripOS &mdash; Luxury Travel Operations Platform</div>
+  </div>
+  <hr class="orange-rule">
+
+  <div class="section-number">Section 9</div>
+  <h2>What You Get</h2>
+
+  <h3>At Launch</h3>
+
+  <ul class="launch-list">
+    <li>A live SaaS platform with 11 interconnected screens, accessible from any browser, designed specifically for luxury travel advisors</li>
+    <li>Complete Monday.com replacement: every workflow, automation, and tracking system migrated into a purpose-built tool</li>
+    <li>25+ automated workflow triggers that handle bon voyage messages, pre-arrival prep, insurance follow-ups, flight checks, and welcome home outreach &mdash; without manual tracking</li>
+    <li>Full trip lifecycle management from initial inquiry through post-trip follow-up, with 10 stage-based checkpoints per trip</li>
+    <li>Time and retainer tracking with category-specific auto-fill durations and monthly revenue calculations</li>
+    <li>Commission pipeline tracking from supplier submission through payment collection</li>
+    <li>Client feedback intelligence with dual-view analysis (table + destination board) and sentiment tracking</li>
+    <li>A branded client portal you can share with travelers showing trip details, countdown, and secure payment</li>
+    <li>A searchable templates and knowledge hub with 24+ pre-built templates across 6 categories</li>
+    <li>Multi-tenant SaaS architecture ready for agent licensing from day one</li>
+    <li>Complete documentation, admin guide, troubleshooting playbook, and recorded training session</li>
+    <li>3 months of complimentary platform operation to build your agent base before monthly fees begin</li>
+  </ul>
+
+  <div class="page-footer">
+    <span>Confidential | June 2026</span>
+    <span>firstclassops.com</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 10: NEXT STEPS                                        -->
+<!-- ============================================================ -->
+<div class="section page-break">
+  <div class="fco-header">
+    <div class="fco-title">FIRST CLASS OPERATIONS</div>
+    <div class="fco-tagline">TripOS &mdash; Luxury Travel Operations Platform</div>
+  </div>
+  <hr class="orange-rule">
+
+  <div class="section-number">Section 10</div>
+  <h2>Next Steps</h2>
+
+  <div class="next-steps">
+    <p>To move forward, three things need to happen:</p>
+
+    <ol>
+      <li>
+        <strong>Review and confirm scope.</strong> Review this proposal and confirm that the build scope reflects what you need. If anything is missing or needs adjustment, let us know before work begins.
+      </li>
+      <li>
+        <strong>Select payment structure.</strong> Choose Option A (two payments) or Option B (staged payments). Both options total $16,000.
+      </li>
+      <li>
+        <strong>Sign off and schedule kickoff.</strong> Upon approval and receipt of the initial deposit, we will schedule a kickoff meeting for the week of July 7 to align on priorities, confirm data mapping, and begin Stage 1.
+      </li>
+    </ol>
+  </div>
+
+  <div class="closing">
+    <hr class="orange-rule" style="margin-bottom:20px;">
+    <div class="fco-title">FIRST CLASS OPERATIONS</div>
+    <div class="fco-tagline">Operational Excellence for Growing Businesses &nbsp;|&nbsp; firstclassops.com</div>
+    <hr class="orange-rule" style="margin-top:20px;">
+  </div>
+
+  <div class="page-footer" style="margin-top:60px;">
+    <span>Confidential | June 2026</span>
+    <span>firstclassops.com</span>
+  </div>
+</div>
+
+</body>
+</html>
