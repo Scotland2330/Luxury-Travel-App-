@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { AgencyProvider } from './AgencyContext';
 import Topbar from './components/Topbar';
 import Sidebar from './components/Sidebar';
 import Dashboard from './screens/Dashboard';
@@ -12,6 +13,7 @@ import ClientFeedback from './screens/ClientFeedback';
 import ClientPortal from './screens/ClientPortal';
 import TemplatesHub from './screens/TemplatesHub';
 import Admin from './screens/Admin';
+import Platform from './screens/Platform';
 
 const screens: Record<string, React.FC> = {
   dashboard: Dashboard,
@@ -25,6 +27,7 @@ const screens: Record<string, React.FC> = {
   portal: ClientPortal,
   templates: TemplatesHub,
   admin: Admin,
+  platform: Platform,
 };
 
 const pageTabs: Record<string, string[]> = {};
@@ -36,7 +39,7 @@ export default function App() {
   const tabs = pageTabs[active] || [];
 
   return (
-    <>
+    <AgencyProvider>
       <Topbar />
       <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
         <Sidebar active={active} onNav={(id) => { setActive(id); setActiveTab(0); }} />
@@ -55,6 +58,6 @@ export default function App() {
           <Screen />
         </div>
       </div>
-    </>
+    </AgencyProvider>
   );
 }

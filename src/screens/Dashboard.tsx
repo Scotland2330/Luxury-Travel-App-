@@ -33,13 +33,16 @@ const feedback = [
   { client: 'McGarey — Scotland', rating: '⭐⭐⭐⭐⭐', sentiment: 'Positive', snippet: '"Best trip we\'ve ever taken. The highland tour was breathtaking and perfectly paced for our group..."' },
 ];
 
+import { useAgency } from '../AgencyContext';
+
 export default function Dashboard() {
+  const { agency } = useAgency();
   return (
     <div style={{ padding: 28, overflowY: 'auto', flex: 1 }}>
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 28 }}>
         <div>
-          <h1 className="playfair" style={{ fontSize: 26, fontWeight: 400, letterSpacing: 0.5 }}>Good morning, Halie</h1>
+          <h1 className="playfair" style={{ fontSize: 26, fontWeight: 400, letterSpacing: 0.5 }}>Good morning, {agency.advisor}</h1>
           <p style={{ fontSize: 11, color: 'var(--slate)', marginTop: 4, letterSpacing: 0.5 }}>
             Friday, June 20 · 3 departures this month · 7 automation alerts pending
           </p>

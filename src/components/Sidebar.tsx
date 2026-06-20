@@ -19,6 +19,9 @@ const sections: { label: string; items: NavItem[] }[] = [
     { icon: '\u{1F4DA}', name: 'Templates & Hub', id: 'templates' },
     { icon: '⚙', name: 'Admin', id: 'admin' },
   ]},
+  { label: 'SAAS PLATFORM', items: [
+    { icon: '◈', name: 'Platform Admin', id: 'platform' },
+  ]},
 ];
 
 export default function Sidebar({ active, onNav }: { active: string; onNav: (id: string) => void }) {
