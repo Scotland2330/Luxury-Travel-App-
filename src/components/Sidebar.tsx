@@ -4,23 +4,24 @@ const sections: { label: string; items: NavItem[] }[] = [
     { icon: '◈', name: 'Dashboard', id: 'dashboard' },
     { icon: '✦', name: 'Trip Requests', id: 'requests', badge: '3' },
     { icon: '◫', name: 'Master Trip Board', id: 'master' },
-    { icon: '\u{1F4C5}', name: 'Calendar', id: 'calendar' },
+    { icon: '▦', name: 'Calendar', id: 'calendar' },
   ]},
   { label: 'OPERATIONS', items: [
     { icon: '☑', name: 'Tasks', id: 'tasks', badge: '5', alert: true },
-    { icon: '◷', name: 'Time & Retainers', id: 'time' },
-    { icon: '\u{1F4B0}', name: 'Commissions', id: 'commissions', badge: '2' },
+    { icon: '◔', name: 'Time & Retainers', id: 'time' },
+    { icon: '◆', name: 'Commissions', id: 'commissions', badge: '2' },
   ]},
   { label: 'CLIENT', items: [
-    { icon: '⭐', name: 'Client Feedback', id: 'feedback' },
+    { icon: '✧', name: 'Client Feedback', id: 'feedback' },
     { icon: '⬡', name: 'Client Portal', id: 'portal' },
   ]},
   { label: 'RESOURCES', items: [
-    { icon: '\u{1F4DA}', name: 'Templates & Hub', id: 'templates' },
+    { icon: '❖', name: 'Templates & Hub', id: 'templates' },
+    { icon: '◩', name: 'Reports', id: 'reports' },
     { icon: '⚙', name: 'Admin', id: 'admin' },
   ]},
-  { label: 'SAAS PLATFORM', items: [
-    { icon: '◈', name: 'Platform Admin', id: 'platform' },
+  { label: 'PLATFORM', items: [
+    { icon: '⊞', name: 'Agency Sub-Accounts', id: 'platform' },
   ]},
 ];
 

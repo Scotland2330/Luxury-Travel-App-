@@ -1,7 +1,15 @@
+import { useState } from 'react';
 import { useAgency, agencies } from '../AgencyContext';
 
-export default function Topbar() {
+export default function Topbar({ onNav }: { onNav?: (id: string) => void }) {
   const { agency, setAgency, showSwitcher, setShowSwitcher } = useAgency();
+  const [showNotifications, setShowNotifications] = useState(false);
+
+  const notifications = [
+    { dot: 'var(--ruby-lt)', text: 'Bon Voyage not sent — Diaz departs in 2 days', time: '1 hour ago' },
+    { dot: 'var(--cognac-lt)', text: 'Insurance reminder — Holland · 7-day follow-up due', time: 'Today' },
+    { dot: 'var(--emerald-lt)', text: 'Welcome Home — McGarey Scotland trip ended', time: 'Yesterday' },
+  ];
 
   return (
     <div style={{height:54,background:'var(--bg2)',borderBottom:'1px solid var(--border)',padding:'0 24px',display:'flex',alignItems:'center',justifyContent:'space-between',flexShrink:0,position:'relative'}}>
@@ -53,11 +61,38 @@ export default function Topbar() {
           )}
         </div>
 
-        <div style={{width:32,height:32,borderRadius:8,background:'var(--bg3)',border:'1px solid var(--border)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--slate)',cursor:'pointer',position:'relative',fontSize:14}}>
-          🔔
-          <div style={{position:'absolute',top:6,right:6,width:6,height:6,borderRadius:'50%',background:'var(--cognac-lt)'}}/>
+        <div style={{position:'relative'}}>
+          <div
+            onClick={() => { setShowNotifications(!showNotifications); setShowSwitcher(false); }}
+            style={{width:32,height:32,borderRadius:8,background:'var(--bg3)',border:'1px solid var(--border)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--slate)',cursor:'pointer',position:'relative',fontSize:14}}
+          >
+            🔔
+            <div style={{position:'absolute',top:6,right:6,width:6,height:6,borderRadius:'50%',background:'var(--cognac-lt)'}}/>
+          </div>
+          {showNotifications && (
+            <div style={{position:'absolute',top:'100%',right:0,marginTop:6,width:340,background:'var(--bg2)',border:'1px solid var(--border)',borderRadius:12,padding:12,zIndex:999,boxShadow:'0 12px 40px rgba(0,0,0,0.5)'}}>
+              <div style={{fontSize:8,letterSpacing:3,textTransform:'uppercase',color:'var(--slate)',marginBottom:10,paddingLeft:4}}>Notifications</div>
+              {notifications.map((n, i) => (
+                <div key={i} style={{display:'flex',gap:10,padding:'10px 8px',borderBottom: i < notifications.length - 1 ? '1px solid var(--border2)' : 'none',cursor:'pointer',borderRadius:8,transition:'background 0.1s'}}>
+                  <div style={{width:7,height:7,borderRadius:'50%',background:n.dot,marginTop:4,flexShrink:0}} />
+                  <div style={{flex:1,minWidth:0}}>
+                    <div style={{fontSize:11,color:'var(--ivory-dim)',lineHeight:1.5}}>{n.text}</div>
+                    <div style={{fontSize:9,color:'var(--slate)',marginTop:2}}>{n.time}</div>
+                  </div>
+                </div>
+              ))}
+              <div style={{borderTop:'1px solid var(--border)',marginTop:8,paddingTop:8}}>
+                <div style={{fontSize:9,color:'var(--champagne)',textAlign:'center',letterSpacing:1,textTransform:'uppercase',cursor:'pointer'}}>
+                  View All Notifications
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-        <div style={{width:32,height:32,borderRadius:8,background:'var(--bg3)',border:'1px solid var(--border)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--slate)',cursor:'pointer',fontSize:14}}>⚙</div>
+        <div
+          onClick={() => { onNav?.('admin'); setShowNotifications(false); setShowSwitcher(false); }}
+          style={{width:32,height:32,borderRadius:8,background:'var(--bg3)',border:'1px solid var(--border)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--slate)',cursor:'pointer',fontSize:14,transition:'all 0.15s'}}
+        >⚙</div>
         <div style={{width:32,height:32,borderRadius:'50%',border:`1px solid ${agency.accent}`,background:agency.avatarBg,display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:500,color:agency.accent,letterSpacing:1}}>{agency.initials}</div>
       </div>
     </div>

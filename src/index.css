@@ -30,16 +30,48 @@
   --shadow-sm: 0 2px 12px rgba(0,0,0,0.4);
 }
 
+[data-theme="light"] {
+  --bg: #f5f0eb;
+  --bg2: #ffffff;
+  --bg3: #ede7e0;
+  --bg4: #e2dbd2;
+  --bg5: #d9d1c8;
+  --champagne: #2a7a7a;
+  --champ-lt: #3a9a9a;
+  --champ-dim: rgba(42,122,122,0.08);
+  --champ-glow: rgba(42,122,122,0.04);
+  --cognac: #8a5a2a;
+  --cognac-lt: #a06a30;
+  --ivory: #1a1a1a;
+  --ivory-dim: #4a4a4a;
+  --slate: #6a6a5a;
+  --slate-dim: #8a8a7a;
+  --border: #d4cec5;
+  --border2: #e8e2da;
+  --emerald: #1a5a3a;
+  --emerald-lt: #2a7a4a;
+  --ruby: #8a2a2a;
+  --ruby-lt: #a03030;
+  --sapphire: #2a5a8a;
+  --sapphire-lt: #3a6a9a;
+  --amethyst: #5a3a7a;
+  --shadow: 0 8px 32px rgba(0,0,0,0.08);
+  --shadow-sm: 0 2px 12px rgba(0,0,0,0.05);
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
 body {
   font-family: 'Jost', sans-serif;
   background: var(--bg);
   color: var(--ivory);
-  height: 100vh;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
   font-weight: 300;
 }
 

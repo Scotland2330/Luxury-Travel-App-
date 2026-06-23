@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTheme } from '../ThemeContext';
 
 const tabs = ['Staff & Roles', 'Automations', 'Agency Settings', 'Notifications', 'Passport & Visas', 'Team Calendar'];
 const tabIds = ['staff', 'automations', 'agency', 'notifications', 'passports', 'calendar'];
@@ -58,6 +59,7 @@ export default function Admin() {
   const [activeTab, setActiveTab] = useState('staff');
   const [notifToggles, setNotifToggles] = useState(notifications.map(() => true));
   const [autoToggles, setAutoToggles] = useState(automations.map(a => a.active));
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <div style={{padding:28,overflowY:'auto',flex:1}}>
@@ -173,6 +175,19 @@ export default function Admin() {
                     {f.el}
                   </div>
                 ))}
+              </div>
+              {/* Theme Toggle */}
+              <div style={{marginTop:20,marginBottom:20,padding:'16px',background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:10}}>
+                <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                  <div>
+                    <div style={{fontSize:12,color:'var(--ivory)',fontWeight:500}}>Theme</div>
+                    <div style={{fontSize:10,color:'var(--slate)',marginTop:2}}>{theme === 'dark' ? 'Dark Mode' : 'Light Mode'}</div>
+                  </div>
+                  <div style={{display:'flex',alignItems:'center',gap:10}}>
+                    <span style={{fontSize:10,color:'var(--slate)',letterSpacing:0.5,textTransform:'uppercase'}}>{theme === 'dark' ? 'Dark' : 'Light'}</span>
+                    <div className={`toggle${theme === 'light' ? ' on' : ''}`} onClick={toggleTheme}/>
+                  </div>
+                </div>
               </div>
               <button className="btn btn-champ">Save Settings</button>
             </div>

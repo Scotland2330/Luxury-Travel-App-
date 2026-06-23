@@ -1,8 +1,8 @@
 const kpis = [
-  { label: 'Active Trips', value: '12', sub: '3 departing this month', subColor: 'var(--emerald-lt)' },
-  { label: 'Pending Commissions', value: '$4,280', sub: '2 awaiting supplier payment', subColor: 'var(--cognac-lt)', gold: true },
-  { label: 'Hours This Week', value: '18.5', sub: '$2,775 retainer · 6.5h unbilled', subColor: 'var(--slate)' },
-  { label: 'Automation Alerts', value: '7', sub: '3 overdue · 4 upcoming', subColor: 'var(--slate)' },
+  { label: 'Active Trips', value: '12', sub: '3 departing this month', subColor: 'var(--emerald-lt)', navTarget: 'master' },
+  { label: 'Pending Commissions', value: '$4,280', sub: '2 awaiting supplier payment', subColor: 'var(--cognac-lt)', gold: true, navTarget: 'commissions' },
+  { label: 'Hours This Week', value: '18.5', sub: '$2,775 retainer · 6.5h unbilled', subColor: 'var(--slate)', navTarget: 'time' },
+  { label: 'Automation Alerts', value: '7', sub: '3 overdue · 4 upcoming', subColor: 'var(--slate)', navTarget: 'admin' },
 ];
 
 const priorities = [
@@ -35,7 +35,7 @@ const feedback = [
 
 import { useAgency } from '../AgencyContext';
 
-export default function Dashboard() {
+export default function Dashboard({ onNav }: { onNav?: (id: string) => void }) {
   const { agency } = useAgency();
   return (
     <div style={{ padding: 28, overflowY: 'auto', flex: 1 }}>
@@ -56,7 +56,7 @@ export default function Dashboard() {
       {/* KPI Row */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 14, marginBottom: 24 }}>
         {kpis.map((k, i) => (
-          <div key={i} style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12, padding: 20, position: 'relative', overflow: 'hidden' }}>
+          <div key={i} onClick={() => onNav?.(k.navTarget)} style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12, padding: 20, position: 'relative', overflow: 'hidden', cursor: 'pointer', transition: 'all 0.15s' }}>
             <div style={{ position: 'absolute', top: -30, right: -30, width: 80, height: 80, borderRadius: '50%', background: 'var(--champ-glow)' }} />
             <div style={{ fontSize: 9, letterSpacing: 2, textTransform: 'uppercase', color: 'var(--slate)', marginBottom: 12 }}>{k.label}</div>
             <div className="playfair" style={{ fontSize: 34, fontWeight: 400, color: k.gold ? 'var(--champagne)' : 'var(--ivory)', lineHeight: 1 }}>{k.value}</div>

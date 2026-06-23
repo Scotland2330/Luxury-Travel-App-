@@ -102,7 +102,8 @@ const columnHeaders = ['Trip Name', 'Lead', 'Start', 'End', ...stageLabels];
 
 /* ─── Component ─── */
 export default function MasterTripBoard() {
-  const [view, setView] = useState<'table' | 'detail'>('table');
+  const [view, setView] = useState<'table' | 'cards' | 'detail'>('table');
+  const currentView = view; // prevent TS control-flow narrowing in JSX
   const [activeTrip, setActiveTrip] = useState<Trip | null>(null);
   const [activeTab, setActiveTab] = useState('stages');
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({ completed: true });
@@ -187,8 +188,8 @@ export default function MasterTripBoard() {
 
   return (
     <div style={{ padding: 28, overflowY: 'auto', flex: 1 }}>
-      {/* ════════════════════════ TABLE VIEW ════════════════════════ */}
-      {view === 'table' && (
+      {/* ════════════════════════ TABLE / CARDS VIEW ════════════════════════ */}
+      {(view === 'table' || view === 'cards') && (
         <div>
           {/* Header */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 28 }}>
@@ -198,12 +199,12 @@ export default function MasterTripBoard() {
             </div>
             <div style={{ display: 'flex', gap: 8 }}>
               <div style={{ display: 'flex', borderRadius: 8, overflow: 'hidden', border: '1px solid var(--border)' }}>
-                <button
-                  style={{ padding: '7px 14px', fontSize: 10, letterSpacing: 0.8, textTransform: 'uppercase', background: 'var(--champ-dim)', color: 'var(--champagne)', border: 'none', cursor: 'pointer', fontWeight: 500 }}>
+                <button onClick={() => setView('table')}
+                  style={{ padding: '7px 14px', fontSize: 10, letterSpacing: 0.8, textTransform: 'uppercase', background: view === 'table' ? 'var(--champ-dim)' : 'var(--bg3)', color: view === 'table' ? 'var(--champagne)' : 'var(--slate)', border: 'none', cursor: 'pointer', fontWeight: view === 'table' ? 500 : 400 }}>
                   Table
                 </button>
-                <button
-                  style={{ padding: '7px 14px', fontSize: 10, letterSpacing: 0.8, textTransform: 'uppercase', background: 'var(--bg3)', color: 'var(--slate)', border: 'none', borderLeft: '1px solid var(--border)', cursor: 'pointer' }}>
+                <button onClick={() => setView('cards')}
+                  style={{ padding: '7px 14px', fontSize: 10, letterSpacing: 0.8, textTransform: 'uppercase', background: currentView === 'cards' ? 'var(--champ-dim)' : 'var(--bg3)', color: currentView === 'cards' ? 'var(--champagne)' : 'var(--slate)', border: 'none', borderLeft: '1px solid var(--border)', cursor: 'pointer', fontWeight: currentView === 'cards' ? 500 : 400 }}>
                   Cards
                 </button>
               </div>
@@ -211,10 +212,70 @@ export default function MasterTripBoard() {
             </div>
           </div>
 
-          {/* Month Groups */}
-          {renderMonthGroup('June 2026', 'june', juneTrips)}
-          {renderMonthGroup('July 2026', 'july', julyTrips)}
-          {renderMonthGroup('Completed Trips', 'completed', completedTrips)}
+          {/* Table View */}
+          {view === 'table' && (
+            <>
+              {renderMonthGroup('June 2026', 'june', juneTrips)}
+              {renderMonthGroup('July 2026', 'july', julyTrips)}
+              {renderMonthGroup('Completed Trips', 'completed', completedTrips)}
+            </>
+          )}
+
+          {/* Cards View */}
+          {view === 'cards' && (
+            <>
+              {[
+                { label: 'June 2026', trips: juneTrips },
+                { label: 'July 2026', trips: julyTrips },
+                { label: 'Completed Trips', trips: completedTrips },
+              ].map(group => (
+                <div key={group.label} style={{ marginBottom: 24 }}>
+                  <div style={{ fontSize: 13, color: 'var(--champagne)', fontWeight: 500, letterSpacing: 0.5, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 }}>
+                    {group.label}
+                    <span style={{ fontSize: 10, color: 'var(--slate)' }}>{group.trips.length} trip{group.trips.length !== 1 ? 's' : ''}</span>
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 14 }}>
+                    {group.trips.map(trip => {
+                      const completedCount = stageKeys.filter(k => {
+                        const s = trip[k] as StageStatus;
+                        return s === 'Done' || s === 'Booked' || s === 'Confirmed' || s === 'Sent';
+                      }).length;
+                      const totalStages = stageKeys.length;
+                      const pct = Math.round((completedCount / totalStages) * 100);
+                      return (
+                        <div key={trip.id} onClick={() => openTrip(trip)}
+                          style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12, padding: 18, cursor: 'pointer', transition: 'all 0.15s', position: 'relative', overflow: 'hidden' }}
+                          onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--champagne)')}
+                          onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--border)')}>
+                          <div style={{ position: 'absolute', top: -20, right: -20, width: 60, height: 60, borderRadius: '50%', background: 'var(--champ-glow)' }} />
+                          <div style={{ fontSize: 14, color: 'var(--ivory)', fontWeight: 500, marginBottom: 4 }}>{trip.name}</div>
+                          <div style={{ fontSize: 11, color: 'var(--slate)', marginBottom: 12 }}>{trip.lead} &middot; {trip.start} – {trip.end}</div>
+                          <div style={{ display: 'flex', gap: 4, marginBottom: 10, flexWrap: 'wrap' }}>
+                            {stageKeys.map((k, i) => {
+                              const s = trip[k] as StageStatus;
+                              const st = statusStyle(s);
+                              if (s === '—' || s === '') return null;
+                              return (
+                                <span key={k} style={{ ...st, fontSize: 8, padding: '2px 6px', borderRadius: 4, fontWeight: 500, whiteSpace: 'nowrap' }}>
+                                  {stageLabels[i]}: {s}
+                                </span>
+                              );
+                            })}
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                            <div style={{ flex: 1, height: 4, background: 'var(--bg3)', borderRadius: 2, overflow: 'hidden' }}>
+                              <div style={{ width: `${pct}%`, height: '100%', background: pct === 100 ? 'var(--emerald)' : 'var(--champagne)', borderRadius: 2, transition: 'width 0.3s' }} />
+                            </div>
+                            <span style={{ fontSize: 10, color: 'var(--slate)', whiteSpace: 'nowrap' }}>{completedCount}/{totalStages}</span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
         </div>
       )}
 
