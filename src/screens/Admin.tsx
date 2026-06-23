@@ -5,8 +5,8 @@ const tabs = ['Staff & Roles', 'Automations', 'Agency Settings', 'Notifications'
 const tabIds = ['staff', 'automations', 'agency', 'notifications', 'passports', 'calendar'];
 
 const staff = [
-  { init: 'HM', name: 'Halie McGee', email: 'halie@agency.com', role: 'Owner', roleBadge: 'b-ch', rate: '$150/hr', status: 'Active', statusBadge: 'b-em', bg: 'linear-gradient(135deg,#3a2a10,#6a4a1a)', color: 'var(--champagne)', borderColor: 'rgba(212,175,106,0.3)', owner: true },
-  { init: 'ES', name: 'Emily Stone', email: 'emily@agency.com', role: 'Advisor', roleBadge: 'b-sa', rate: '$120/hr', status: 'Active', statusBadge: 'b-em', bg: 'linear-gradient(135deg,#1a2a3a,#2a4060)', color: 'var(--sapphire-lt)', borderColor: 'rgba(46,95,158,0.3)' },
+  { init: 'HM', name: 'Halie McGee', email: 'halie@agency.com', role: 'Owner', roleBadge: 'b-ch', rate: '$150/hr', status: 'Active', statusBadge: 'b-em', bg: 'linear-gradient(135deg,#1B4B5A,#3B9A9C)', color: 'var(--champagne)', borderColor: 'rgba(59,154,156,0.3)', owner: true },
+  { init: 'ES', name: 'Emily Stone', email: 'emily@agency.com', role: 'Advisor', roleBadge: 'b-sa', rate: '$120/hr', status: 'Active', statusBadge: 'b-em', bg: 'linear-gradient(135deg,#1B4B5A,#4088AB)', color: 'var(--sapphire-lt)', borderColor: 'rgba(64,136,171,0.3)' },
   { init: '?', name: 'Pending Invite', email: 'newadvisor@agency.com', role: 'Advisor', roleBadge: 'b-mu', rate: '—', status: 'Invited', statusBadge: 'b-og', bg: 'transparent', color: 'var(--slate)', borderColor: 'var(--border)', dashed: true },
 ];
 
@@ -127,7 +127,7 @@ export default function Admin() {
                     <tr key={i}>
                       <td className="td-main">
                         <div style={{display:'flex',alignItems:'center',gap:8}}>
-                          <div style={{width:28,height:28,borderRadius:'50%',background:isLight && s.init === 'HM' ? 'linear-gradient(135deg,#e8cc94,#d4af6a)' : isLight && s.init === 'ES' ? 'linear-gradient(135deg,#94b8e8,#6a8ed4)' : s.bg,border:`1px solid ${isLight && !s.dashed ? 'var(--border)' : s.borderColor}`,display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,color:isLight && s.init === 'HM' ? '#4a3a1a' : isLight && s.init === 'ES' ? '#1a2a4a' : s.color,fontWeight:500,borderStyle:s.dashed?'dashed':'solid'}}>{s.init}</div>
+                          <div style={{width:28,height:28,borderRadius:'50%',background:isLight && s.init === 'HM' ? 'linear-gradient(135deg,#F0BF9A,#E8A87C)' : isLight && s.init === 'ES' ? 'linear-gradient(135deg,#A0DCD8,#85CDCA)' : s.bg,border:`1px solid ${isLight && !s.dashed ? 'var(--border)' : s.borderColor}`,display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,color:isLight && s.init === 'HM' ? '#6A4020' : isLight && s.init === 'ES' ? '#1B4B5A' : s.color,fontWeight:500,borderStyle:s.dashed?'dashed':'solid'}}>{s.init}</div>
                           {s.name}
                         </div>
                       </td>
@@ -138,7 +138,7 @@ export default function Admin() {
                       <td>{s.owner ? '—' : s.dashed ? <button className="btn btn-ghost btn-xs">Resend</button> :
                         <div style={{display:'flex',gap:4}}>
                           <button className="btn btn-ghost btn-xs">Edit</button>
-                          <button className="btn btn-xs" style={{background:isLight ? 'rgba(154,42,42,0.15)' : 'rgba(155,58,58,0.2)',color:isLight ? '#7a1a1a' : 'var(--ruby-lt)',border:'none'}}>Remove</button>
+                          <button className="btn btn-xs" style={{background:isLight ? 'rgba(181,64,64,0.15)' : 'rgba(155,58,58,0.2)',color:isLight ? '#8A2020' : 'var(--ruby-lt)',border:'none'}}>Remove</button>
                         </div>}
                       </td>
                     </tr>
@@ -199,7 +199,7 @@ export default function Admin() {
                 {[
                   { label: 'Agency Name', el: <input className="td-input" defaultValue="Halie McGee Travel"/> },
                   { label: 'Subdomain', el: <input className="td-input" defaultValue="haliemcgee"/> },
-                  { label: 'Brand Color', el: <div style={{display:'flex',gap:8}}><input type="color" defaultValue="#d4af6a" style={{width:40,height:36,border:'none',background:'transparent',cursor:'pointer'}}/><input className="td-input" defaultValue="d4af6a" style={{width:100}}/></div> },
+                  { label: 'Brand Color', el: <div style={{display:'flex',gap:8}}><input type="color" defaultValue="#3B9A9C" style={{width:40,height:36,border:'none',background:'transparent',cursor:'pointer'}}/><input className="td-input" defaultValue="3B9A9C" style={{width:100}}/></div> },
                   { label: 'Timezone', el: <select className="td-input"><option>America/New_York (EST)</option><option>America/Los_Angeles (PST)</option><option>Europe/London (GMT)</option></select> },
                 ].map((f,i) => (
                   <div key={i}>

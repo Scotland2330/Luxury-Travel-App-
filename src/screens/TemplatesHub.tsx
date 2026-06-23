@@ -240,7 +240,7 @@ export default function TemplatesHub() {
             style={{
               padding: '6px 14px',
               borderRadius: 20,
-              border: activeTab === tab ? '1px solid rgba(212,175,106,0.18)' : '1px solid var(--border)',
+              border: activeTab === tab ? '1px solid rgba(59,154,156,0.18)' : '1px solid var(--border)',
               background: activeTab === tab ? 'var(--champ-dim)' : 'transparent',
               color: activeTab === tab ? 'var(--champagne)' : 'var(--slate)',
               fontSize: 10,
@@ -564,13 +564,13 @@ export default function TemplatesHub() {
                       padding: '4px 10px',
                       borderRadius: 6,
                       background: 'var(--champ-dim)',
-                      border: '1px solid rgba(212,175,106,0.18)',
+                      border: '1px solid rgba(59,154,156,0.18)',
                       color: 'var(--champagne)',
                       fontSize: 10,
                       cursor: 'pointer',
                       transition: 'all 0.12s',
                     }}
-                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(212,175,106,0.25)'; }}
+                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(59,154,156,0.15)'; }}
                     onMouseLeave={e => { e.currentTarget.style.background = 'var(--champ-dim)'; }}
                   >
                     {field}
@@ -591,7 +591,7 @@ export default function TemplatesHub() {
             style={{
               resize: 'vertical',
               lineHeight: 1.6,
-              fontFamily: "'Jost', sans-serif",
+              fontFamily: "'Aptos Display', 'Aptos', 'Inter', sans-serif",
               fontSize: 12,
               minHeight: 260,
               marginBottom: 14,

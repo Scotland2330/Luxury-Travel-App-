@@ -63,8 +63,8 @@ function getStatusDef(label: string, statuses: StatusDef[]): StatusDef | undefin
 }
 
 const lightBadgeOverrides: Record<string, React.CSSProperties> = {
-  'Holding': { background: 'rgba(80,46,122,0.12)', color: '#5a2a8a' },
-  'Money is on the Way': { background: 'rgba(50,100,30,0.12)', color: '#2a6a10' },
+  'Holding': { background: 'rgba(107,74,139,0.15)', color: '#6B4A8B' },
+  'Money is on the Way': { background: 'rgba(46,123,90,0.15)', color: '#2E7B5A' },
 };
 
 function badgeProps(label: string, statuses: StatusDef[], isLight = false): { className: string; style?: React.CSSProperties } {
@@ -369,7 +369,7 @@ export default function Commissions() {
                       onClick={() => removeStatus(s.label)}
                       style={{
                         background: 'none', border: 'none', color: 'var(--ruby-lt)',
-                        cursor: 'pointer', fontSize: 14, padding: '2px 6px', fontFamily: 'Jost',
+                        cursor: 'pointer', fontSize: 14, padding: '2px 6px', fontFamily: "'Aptos Display', 'Aptos', 'Inter', sans-serif",
                       }}
                       title={`Remove "${s.label}"`}
                     >

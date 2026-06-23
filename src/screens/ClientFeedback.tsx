@@ -48,19 +48,19 @@ const locationColorsDark: Record<string, { bg: string; color: string }> = {
 };
 
 const locationColorsLight: Record<string, { bg: string; color: string }> = {
-  'Kenya': { bg: 'rgba(26,106,58,0.15)', color: '#1a5a3a' },
-  'Scotland': { bg: 'rgba(26,74,122,0.15)', color: '#1a4a7a' },
-  'Palm Heights': { bg: 'rgba(138,90,32,0.15)', color: '#6a4a10' },
-  'Italy': { bg: 'rgba(154,42,42,0.15)', color: '#7a1a1a' },
-  'Spain': { bg: 'rgba(138,90,32,0.15)', color: '#6a4a10' },
-  'Amsterdam/Belgium': { bg: 'rgba(74,42,106,0.15)', color: '#4a2a6a' },
-  'Maroma (Mexico)': { bg: 'rgba(138,90,32,0.15)', color: '#6a4a10' },
-  'California': { bg: 'rgba(138,90,32,0.15)', color: '#6a4a10' },
-  'Bhutan': { bg: 'rgba(138,90,32,0.15)', color: '#6a4a10' },
-  'NYC Hotels': { bg: 'rgba(90,90,74,0.15)', color: '#4a4a3a' },
-  'Puerto Rico': { bg: 'rgba(154,42,42,0.15)', color: '#7a1a1a' },
-  'Florida': { bg: 'rgba(154,42,42,0.15)', color: '#7a1a1a' },
-  'Grand Canyon/Sedona': { bg: 'rgba(154,42,42,0.15)', color: '#7a1a1a' },
+  'Kenya': { bg: 'rgba(46,123,90,0.15)', color: '#2E7B5A' },
+  'Scotland': { bg: 'rgba(46,107,139,0.15)', color: '#2E6B8B' },
+  'Palm Heights': { bg: 'rgba(194,120,73,0.15)', color: '#A06030' },
+  'Italy': { bg: 'rgba(181,64,64,0.15)', color: '#8A2020' },
+  'Spain': { bg: 'rgba(194,120,73,0.15)', color: '#A06030' },
+  'Amsterdam/Belgium': { bg: 'rgba(107,74,139,0.15)', color: '#6B4A8B' },
+  'Maroma (Mexico)': { bg: 'rgba(194,120,73,0.15)', color: '#A06030' },
+  'California': { bg: 'rgba(194,120,73,0.15)', color: '#A06030' },
+  'Bhutan': { bg: 'rgba(194,120,73,0.15)', color: '#A06030' },
+  'NYC Hotels': { bg: 'rgba(90,122,133,0.15)', color: '#4A6A75' },
+  'Puerto Rico': { bg: 'rgba(181,64,64,0.15)', color: '#8A2020' },
+  'Florida': { bg: 'rgba(181,64,64,0.15)', color: '#8A2020' },
+  'Grand Canyon/Sedona': { bg: 'rgba(181,64,64,0.15)', color: '#8A2020' },
 };
 
 function sentimentBadgeClass(sentiment: string) {
@@ -90,12 +90,12 @@ const kanbanColumnsDark = [
 ];
 
 const kanbanColumnsLight = [
-  { destination: 'Palm Heights', headerColor: '#6a4a10', headerBg: 'rgba(138,90,32,0.12)' },
-  { destination: 'Scotland', headerColor: '#1a4a7a', headerBg: 'rgba(26,74,122,0.12)' },
-  { destination: 'Italy', headerColor: '#7a1a1a', headerBg: 'rgba(154,42,42,0.12)' },
-  { destination: 'NYC Hotels', headerColor: '#4a4a3a', headerBg: 'rgba(90,90,74,0.12)' },
-  { destination: 'Puerto Rico', headerColor: '#7a1a1a', headerBg: 'rgba(154,42,42,0.12)' },
-  { destination: 'Kenya', headerColor: '#1a5a3a', headerBg: 'rgba(26,106,58,0.12)' },
+  { destination: 'Palm Heights', headerColor: '#A06030', headerBg: 'rgba(194,120,73,0.12)' },
+  { destination: 'Scotland', headerColor: '#2E6B8B', headerBg: 'rgba(46,107,139,0.12)' },
+  { destination: 'Italy', headerColor: '#8A2020', headerBg: 'rgba(181,64,64,0.12)' },
+  { destination: 'NYC Hotels', headerColor: '#4A6A75', headerBg: 'rgba(90,122,133,0.12)' },
+  { destination: 'Puerto Rico', headerColor: '#8A2020', headerBg: 'rgba(181,64,64,0.12)' },
+  { destination: 'Kenya', headerColor: '#2E7B5A', headerBg: 'rgba(46,123,90,0.12)' },
 ];
 
 const destinationFilterOptions = ['All', 'Italy', 'Scotland', 'Palm Heights', 'NYC Hotels', 'Puerto Rico', 'Kenya'];
@@ -296,10 +296,10 @@ export default function ClientFeedback() {
                         fontWeight: 500,
                         letterSpacing: 0.5,
                         background: f.source === 'Client Portal'
-                          ? (isLight ? 'rgba(26,106,58,0.15)' : 'rgba(61,139,110,0.15)')
-                          : (isLight ? 'rgba(90,90,74,0.12)' : 'rgba(58,69,84,0.3)'),
+                          ? (isLight ? 'rgba(46,123,90,0.15)' : 'rgba(61,139,110,0.15)')
+                          : (isLight ? 'rgba(90,122,133,0.12)' : 'rgba(58,69,84,0.3)'),
                         color: f.source === 'Client Portal'
-                          ? (isLight ? '#1a5a3a' : 'var(--emerald-lt)')
+                          ? (isLight ? '#2E7B5A' : 'var(--emerald-lt)')
                           : 'var(--slate)',
                       }}>
                         {f.source}
@@ -384,9 +384,9 @@ export default function ClientFeedback() {
                             textTransform: 'uppercase',
                             padding: '2px 8px',
                             borderRadius: 4,
-                            borderLeft: isLight ? '3px solid #1a5a3a' : '3px solid var(--emerald)',
-                            background: isLight ? 'rgba(26,106,58,0.12)' : 'rgba(61,139,110,0.12)',
-                            color: isLight ? '#1a5a3a' : 'var(--emerald-lt)',
+                            borderLeft: isLight ? '3px solid #2E7B5A' : '3px solid var(--emerald)',
+                            background: isLight ? 'rgba(46,123,90,0.12)' : 'rgba(61,139,110,0.12)',
+                            color: isLight ? '#2E7B5A' : 'var(--emerald-lt)',
                           }}
                         >
                           {card.sentimentEmoji} {card.sentiment}
@@ -424,7 +424,7 @@ export default function ClientFeedback() {
                       color: 'var(--slate)',
                       fontSize: 10,
                       cursor: 'pointer',
-                      fontFamily: 'Jost',
+                      fontFamily: "'Aptos Display', 'Aptos', 'Inter', sans-serif",
                       transition: 'color 0.15s, border-color 0.15s',
                     }}
                     onMouseEnter={e => { e.currentTarget.style.color = 'var(--champagne)'; e.currentTarget.style.borderColor = 'var(--champagne)'; }}

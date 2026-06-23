@@ -36,7 +36,7 @@ export default function Sidebar({ active, onNav }: { active: string; onNav: (id:
               style={{display:'flex',alignItems:'center',gap:10,padding:'8px 10px',borderRadius:8,
                 color: active===i.id ? 'var(--champagne)' : 'var(--slate)',
                 background: active===i.id ? 'var(--champ-dim)' : 'transparent',
-                border: active===i.id ? '1px solid rgba(212,175,106,0.18)' : '1px solid transparent',
+                border: active===i.id ? '1px solid rgba(59,154,156,0.18)' : '1px solid transparent',
                 fontSize:12,fontWeight:400,marginBottom:2,cursor:'pointer',transition:'all 0.15s',letterSpacing:0.3}}>
               <span style={{fontSize:13,width:16,textAlign:'center',flexShrink:0}}>{i.icon}</span>
               <span>{i.name}</span>

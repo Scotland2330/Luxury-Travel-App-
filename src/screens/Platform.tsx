@@ -10,7 +10,7 @@ const subscribedAgents = [
 
 const platformKpis = [
   { label: 'Active Agents', value: '5', sub: '1 trial · 4 paid', color: 'var(--emerald-lt)' },
-  { label: 'Monthly Revenue', value: '$1,088', sub: '$297 avg per agent', color: '#d4af6a' },
+  { label: 'Monthly Revenue', value: '$1,088', sub: '$297 avg per agent', color: 'var(--champagne)' },
   { label: 'Total Trips Managed', value: '29', sub: 'Across all workspaces', color: 'var(--sapphire-lt)' },
   { label: 'Platform Uptime', value: '99.9%', sub: 'Last 30 days', color: 'var(--emerald-lt)' },
 ];
@@ -129,7 +129,7 @@ export default function Platform() {
               </thead>
               <tbody>
                 {revenueProjection.map((r, i) => (
-                  <tr key={i} style={{ background: i === 0 ? 'rgba(212,175,106,0.05)' : undefined }}>
+                  <tr key={i} style={{ background: i === 0 ? 'rgba(59,154,156,0.05)' : undefined }}>
                     <td style={{ fontSize: 12, color: 'var(--ivory)' }}>{r.agents} agents</td>
                     <td className="td-gold">{r.monthly}</td>
                     <td style={{ fontSize: 12, fontWeight: 600, color: 'var(--emerald-lt)' }}>{r.annual}</td>

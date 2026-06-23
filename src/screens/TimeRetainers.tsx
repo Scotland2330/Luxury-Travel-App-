@@ -155,9 +155,9 @@ function fmtHrs(n: number): string {
 
 function progressColor(pct: number, isLight = false): string {
   if (isLight) {
-    if (pct > 85) return '#7a1a1a';
-    if (pct > 60) return '#6a4a10';
-    return '#1a5a3a';
+    if (pct > 85) return '#B54040';
+    if (pct > 60) return '#A06030';
+    return '#3A9068';
   }
   if (pct > 85) return 'var(--ruby-lt)';
   if (pct > 60) return 'var(--cognac-lt)';
@@ -166,9 +166,9 @@ function progressColor(pct: number, isLight = false): string {
 
 function progressBg(pct: number, isLight = false): string {
   if (isLight) {
-    if (pct > 85) return 'rgba(122,26,26,0.15)';
-    if (pct > 60) return 'rgba(122,74,26,0.15)';
-    return 'rgba(26,90,58,0.12)';
+    if (pct > 85) return 'rgba(181,64,64,0.15)';
+    if (pct > 60) return 'rgba(194,120,73,0.12)';
+    return 'rgba(46,123,90,0.12)';
   }
   if (pct > 85) return 'rgba(155,58,58,0.18)';
   if (pct > 60) return 'rgba(181,96,30,0.15)';
@@ -196,7 +196,7 @@ const tabBase: React.CSSProperties = {
   background: 'transparent',
   color: 'var(--slate)',
   borderBottom: '2px solid transparent',
-  fontFamily: 'Jost',
+  fontFamily: "'Aptos Display', 'Aptos', 'Inter', sans-serif",
   transition: 'all 0.15s',
 };
 
@@ -374,7 +374,7 @@ export default function TimeRetainers() {
                     alignItems: 'center',
                     gap: 5,
                     background: 'var(--champ-dim)',
-                    border: '1px solid rgba(212,175,106,0.2)',
+                    border: '1px solid rgba(59,154,156,0.2)',
                     borderRadius: 6,
                     padding: '4px 10px',
                     fontSize: 10,
@@ -444,7 +444,7 @@ export default function TimeRetainers() {
                             alignItems: 'center',
                             gap: 5,
                             background: 'var(--champ-dim)',
-                            border: '1px solid rgba(212,175,106,0.2)',
+                            border: '1px solid rgba(59,154,156,0.2)',
                             borderRadius: 6,
                             padding: '2px 7px',
                             fontSize: 9,

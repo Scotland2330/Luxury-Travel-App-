@@ -68,17 +68,17 @@ function statusStyle(s: StageStatus, isLight = false): React.CSSProperties {
   if (isLight) {
     switch (s) {
       case 'Booked': case 'Done': case 'Confirmed':
-        return { background: 'rgba(26,90,58,0.15)', color: '#1a5a3a' };
+        return { background: 'rgba(46,123,90,0.15)', color: '#2E7B5A' };
       case 'In Progress': case 'In Review':
-        return { background: 'rgba(26,74,122,0.15)', color: '#1a4a7a' };
+        return { background: 'rgba(46,107,139,0.15)', color: '#2E6B8B' };
       case 'Quoted': case 'Sent':
-        return { background: 'rgba(122,74,26,0.15)', color: '#6a4a10' };
+        return { background: 'rgba(194,120,73,0.15)', color: '#A06030' };
       case 'N/A':
-        return { background: 'rgba(90,90,74,0.12)', color: '#5a5a4a' };
+        return { background: 'rgba(90,122,133,0.12)', color: '#5A7A85' };
       case 'Missing': case 'Did Not Send':
-        return { background: 'rgba(122,26,26,0.15)', color: '#7a1a1a' };
+        return { background: 'rgba(181,64,64,0.15)', color: '#8A2020' };
       case 'Pending':
-        return { background: 'rgba(122,74,26,0.15)', color: '#6a4a10' };
+        return { background: 'rgba(194,120,73,0.15)', color: '#A06030' };
       case '—': case '':
       default:
         return { background: 'var(--bg3)' };
@@ -477,7 +477,7 @@ export default function MasterTripBoard() {
           {activeTab === 'notes' && (
             <div className="card">
               <div className="card-b">
-                <textarea style={{ width: '100%', background: 'transparent', border: 'none', outline: 'none', fontFamily: 'Jost', fontSize: 12, color: 'var(--ivory-dim)', fontWeight: 300, minHeight: 200, resize: 'none', lineHeight: 1.7 }} defaultValue={'Client prefers aisle seats on flights.\nHotel Caesar Augustus: request room with Faraglioni view.\nDining: Reserve Da Paolino (lemon tree restaurant) for Jul 8.\nBlue Grotto tour: early morning slot preferred (less crowded).\nClient anniversary Jul 10 — arrange champagne & flowers at hotel.'} />
+                <textarea style={{ width: '100%', background: 'transparent', border: 'none', outline: 'none', fontFamily: "'Aptos Display', 'Aptos', 'Inter', sans-serif", fontSize: 12, color: 'var(--ivory-dim)', fontWeight: 400, minHeight: 200, resize: 'none', lineHeight: 1.7 }} defaultValue={'Client prefers aisle seats on flights.\nHotel Caesar Augustus: request room with Faraglioni view.\nDining: Reserve Da Paolino (lemon tree restaurant) for Jul 8.\nBlue Grotto tour: early morning slot preferred (less crowded).\nClient anniversary Jul 10 — arrange champagne & flowers at hotel.'} />
               </div>
             </div>
           )}
@@ -505,10 +505,10 @@ export default function MasterTripBoard() {
                     {['Positive', 'Neutral', 'Negative'].map(s => {
                       const selected = feedbackSentiment === s;
                       const bgMap: Record<string, string> = isLight
-                        ? { Positive: 'rgba(26,90,58,0.15)', Neutral: 'rgba(26,74,122,0.15)', Negative: 'rgba(122,26,26,0.15)' }
+                        ? { Positive: 'rgba(46,123,90,0.25)', Neutral: 'rgba(46,107,139,0.25)', Negative: 'rgba(181,64,64,0.25)' }
                         : { Positive: 'rgba(61,139,110,0.25)', Neutral: 'rgba(46,95,158,0.25)', Negative: 'rgba(155,58,58,0.25)' };
                       const colorMap: Record<string, string> = isLight
-                        ? { Positive: '#1a5a3a', Neutral: '#1a4a7a', Negative: '#7a1a1a' }
+                        ? { Positive: '#2E7B5A', Neutral: '#2E6B8B', Negative: '#B54040' }
                         : { Positive: 'var(--emerald-lt)', Neutral: 'var(--sapphire-lt)', Negative: 'var(--ruby-lt)' };
                       return (
                         <button key={s} onClick={() => setFeedbackSentiment(s)} style={{ padding: '6px 16px', fontSize: 11, borderRadius: 6, border: selected ? 'none' : '1px solid var(--border)', background: selected ? bgMap[s] : 'var(--bg3)', color: selected ? colorMap[s] : 'var(--slate)', cursor: 'pointer', fontWeight: selected ? 500 : 400 }}>{s}</button>
@@ -520,7 +520,7 @@ export default function MasterTripBoard() {
                 {/* Feedback text */}
                 <div style={{ marginBottom: 20 }}>
                   <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--slate)', marginBottom: 8 }}>Feedback</div>
-                  <textarea className="td-input" value={feedbackText} onChange={e => setFeedbackText(e.target.value)} placeholder="Enter client feedback..." style={{ width: '100%', minHeight: 120, resize: 'vertical', fontFamily: 'Jost', fontSize: 12, lineHeight: 1.7, color: 'var(--ivory-dim)', fontWeight: 300 }} />
+                  <textarea className="td-input" value={feedbackText} onChange={e => setFeedbackText(e.target.value)} placeholder="Enter client feedback..." style={{ width: '100%', minHeight: 120, resize: 'vertical', fontFamily: "'Aptos Display', 'Aptos', 'Inter', sans-serif", fontSize: 12, lineHeight: 1.7, color: 'var(--ivory-dim)', fontWeight: 400 }} />
                 </div>
 
                 {/* Save button */}

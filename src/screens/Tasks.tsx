@@ -45,9 +45,9 @@ const chatMessages = [
 ];
 
 const avColorsDark: Record<string, string> = { HM: 'linear-gradient(135deg,#2a1a0a,#5a3a10)', ES: 'linear-gradient(135deg,#0d1b3a,#1a3a6a)' };
-const avColorsLight: Record<string, string> = { HM: 'linear-gradient(135deg,#e8cc94,#d4af6a)', ES: 'linear-gradient(135deg,#94b8e8,#6a8ed4)' };
+const avColorsLight: Record<string, string> = { HM: 'linear-gradient(135deg,#F0BF9A,#E8A87C)', ES: 'linear-gradient(135deg,#A0DCD8,#85CDCA)' };
 const avTextColorsDark: Record<string, string> = { HM: 'var(--champagne)', ES: 'var(--sapphire-lt)' };
-const avTextColorsLight: Record<string, string> = { HM: '#4a3a1a', ES: '#1a2a4a' };
+const avTextColorsLight: Record<string, string> = { HM: '#6A4020', ES: '#1B4B5A' };
 
 /* Auto-rate defaults by category */
 const categoryRates: Record<string, number> = {
@@ -152,7 +152,7 @@ export default function Tasks() {
           <div key={ci} style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12, overflow: 'hidden' }}>
             <div style={{ padding: '14px 16px', borderBottom: '1px solid var(--border2)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <span style={{ fontSize: 10, fontWeight: 500, letterSpacing: 1.5, textTransform: 'uppercase', color: col.ruby ? 'var(--ruby-lt)' : 'var(--ivory-dim)' }}>{col.title}</span>
-              <span style={{ fontSize: 9, padding: '2px 7px', borderRadius: 8, background: col.ruby ? (isLight ? 'rgba(122,26,26,0.15)' : 'rgba(155,58,58,0.2)') : 'var(--bg4)', color: col.ruby ? (isLight ? '#7a1a1a' : 'var(--ruby-lt)') : 'var(--slate)' }}>{col.count}</span>
+              <span style={{ fontSize: 9, padding: '2px 7px', borderRadius: 8, background: col.ruby ? (isLight ? 'rgba(181,64,64,0.15)' : 'rgba(155,58,58,0.2)') : 'var(--bg4)', color: col.ruby ? (isLight ? '#8A2020' : 'var(--ruby-lt)') : 'var(--slate)' }}>{col.count}</span>
             </div>
             <div style={{ padding: 10, display: 'flex', flexDirection: 'column', gap: 8, minHeight: 160 }}>
               {col.tasks.map((t, ti) => (
@@ -177,7 +177,7 @@ export default function Tasks() {
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, marginBottom: 8, marginLeft: 24 }}>
                     <span style={{ fontSize: 9, padding: '2px 7px', borderRadius: 5, background: 'var(--champ-dim)', color: 'var(--champagne)' }}>{t.trip}</span>
                     {t.tags?.map((tag, i) => (
-                      <span key={i} style={{ fontSize: 9, padding: '2px 7px', borderRadius: 5, background: tag.includes('Overdue') ? (isLight ? 'rgba(122,26,26,0.15)' : 'rgba(155,58,58,0.3)') : 'var(--bg5)', color: tag.includes('Overdue') ? (isLight ? '#7a1a1a' : 'var(--ruby-lt)') : 'var(--slate)' }}>{tag}</span>
+                      <span key={i} style={{ fontSize: 9, padding: '2px 7px', borderRadius: 5, background: tag.includes('Overdue') ? (isLight ? 'rgba(181,64,64,0.15)' : 'rgba(155,58,58,0.3)') : 'var(--bg5)', color: tag.includes('Overdue') ? (isLight ? '#8A2020' : 'var(--ruby-lt)') : 'var(--slate)' }}>{tag}</span>
                     ))}
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginLeft: 24 }}>
@@ -203,7 +203,7 @@ export default function Tasks() {
       {/* Task Detail Panel */}
       <div className={`task-detail${panelOpen ? ' open' : ''}`}>
         <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexShrink: 0 }}>
-          <textarea className="playfair" style={{ fontSize: 20, fontWeight: 400, color: 'var(--ivory)', background: 'transparent', border: 'none', outline: 'none', width: '100%', resize: 'none', lineHeight: 1.4, fontFamily: "'Playfair Display',serif" }} defaultValue="AXUS Review — Holland Capri Itinerary" rows={2} />
+          <textarea className="playfair" style={{ fontSize: 20, fontWeight: 400, color: 'var(--ivory)', background: 'transparent', border: 'none', outline: 'none', width: '100%', resize: 'none', lineHeight: 1.4, fontFamily: "'Aptos Display', 'Aptos', 'Inter', sans-serif" }} defaultValue="AXUS Review — Holland Capri Itinerary" rows={2} />
           <button onClick={() => setPanelOpen(false)} style={{ width: 28, height: 28, borderRadius: 6, background: 'var(--bg3)', border: '1px solid var(--border)', cursor: 'pointer', color: 'var(--slate)', fontSize: 14, flexShrink: 0 }}>&#10005;</button>
         </div>
 
@@ -236,7 +236,7 @@ export default function Tasks() {
           <div style={{ marginBottom: 14 }}>
             <div style={{ fontSize: 9, letterSpacing: 2, textTransform: 'uppercase', color: 'var(--slate)', marginBottom: 6 }}>Also Assign To</div>
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-              {[{ init: 'HM', color: 'var(--champagne)', border: 'rgba(212,175,106,0.2)' }, { init: 'ES', color: 'var(--sapphire-lt)', border: 'rgba(74,134,232,0.2)' }].map((a, i) => (
+              {[{ init: 'HM', color: 'var(--champagne)', border: 'rgba(59,154,156,0.2)' }, { init: 'ES', color: 'var(--sapphire-lt)', border: 'rgba(74,134,232,0.2)' }].map((a, i) => (
                 <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '4px 10px', borderRadius: 6, background: 'var(--bg3)', border: `1px solid ${a.border}`, fontSize: 10, color: a.color }}>
                   <span style={{ width: 14, height: 14, borderRadius: '50%', background: avColors[a.init], display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 7, color: avTextColors[a.init] }}>{a.init}</span>
                   {a.init}
@@ -357,7 +357,7 @@ export default function Tasks() {
           </div>
           {chatMessages.map((m, i) => (
             <div key={i} style={{ display: 'flex', gap: 10, marginBottom: 14 }}>
-              <div style={{ width: 28, height: 28, borderRadius: '50%', flexShrink: 0, background: avColors[m.init], border: `1px solid ${m.init === 'HM' ? 'rgba(212,175,106,0.2)' : 'rgba(74,134,232,0.2)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, color: avTextColors[m.init] }}>{m.init}</div>
+              <div style={{ width: 28, height: 28, borderRadius: '50%', flexShrink: 0, background: avColors[m.init], border: `1px solid ${m.init === 'HM' ? 'rgba(59,154,156,0.2)' : 'rgba(74,134,232,0.2)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, color: avTextColors[m.init] }}>{m.init}</div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 10, color: m.init === 'HM' ? 'var(--champagne)' : 'var(--sapphire-lt)', fontWeight: 500, marginBottom: 4 }}>{m.name}</div>
                 <div className="chat-bubble">{m.text}</div>
@@ -434,7 +434,7 @@ export default function Tasks() {
                           flex: 1,
                           padding: '9px 12px',
                           fontSize: 11,
-                          fontFamily: 'Jost',
+                          fontFamily: "'Aptos Display', 'Aptos', 'Inter', sans-serif",
                           fontWeight: 400,
                           cursor: 'pointer',
                           border: 'none',

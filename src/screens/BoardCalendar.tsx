@@ -2,14 +2,14 @@ import { useState, useRef, useEffect } from 'react';
 import { useTheme } from '../ThemeContext';
 
 const ADVISOR_COLORS = [
-  { name: 'Ocean', value: '#2e7d9e', light: '#e8f4f8' },
-  { name: 'Forest', value: '#3d8b5a', light: '#e8f5ec' },
-  { name: 'Sunset', value: '#c4722a', light: '#fef3e8' },
-  { name: 'Berry', value: '#9b3d6e', light: '#f8e8f0' },
-  { name: 'Slate', value: '#5a6e82', light: '#eef2f6' },
-  { name: 'Plum', value: '#7a4a9e', light: '#f2e8fa' },
-  { name: 'Coral', value: '#c05050', light: '#fce8e8' },
-  { name: 'Teal', value: '#2a8a7a', light: '#e8f6f4' },
+  { name: 'Ocean', value: '#3B9A9C', light: '#E5F4F4' },
+  { name: 'Forest', value: '#2E7B5A', light: '#E5F0EA' },
+  { name: 'Sunset', value: '#C27849', light: '#F8EDE5' },
+  { name: 'Berry', value: '#9B3D6E', light: '#F5E5EE' },
+  { name: 'Slate', value: '#5A7A85', light: '#ECF0F2' },
+  { name: 'Plum', value: '#6B4A8B', light: '#F0E8F5' },
+  { name: 'Coral', value: '#CC5555', light: '#F8E5E5' },
+  { name: 'Teal', value: '#1B4B5A', light: '#E5EEF2' },
 ];
 
 const toggles = [
@@ -63,23 +63,23 @@ const sections: { type: string; title: string; dot: string; count: string; count
 const pillStylesDark: Record<string, { bg: string; color: string }> = {
   soon: { bg: 'rgba(181,96,30,0.2)', color: 'var(--cognac-lt)' },
   ok: { bg: 'rgba(61,139,110,0.15)', color: 'var(--emerald-lt)' },
-  today: { bg: 'rgba(212,175,106,0.15)', color: 'var(--champagne)' },
+  today: { bg: 'rgba(59,154,156,0.15)', color: 'var(--champagne)' },
   ruby: { bg: 'rgba(155,58,58,0.2)', color: 'var(--ruby-lt)' },
 };
 
 const pillStylesLight: Record<string, { bg: string; color: string }> = {
-  soon: { bg: 'rgba(122,74,26,0.15)', color: '#6a4a10' },
-  ok: { bg: 'rgba(26,90,58,0.12)', color: '#1a5a3a' },
-  today: { bg: 'rgba(26,106,106,0.12)', color: '#1a5a5a' },
-  ruby: { bg: 'rgba(122,26,26,0.15)', color: '#7a1a1a' },
+  soon: { bg: 'rgba(194,120,73,0.15)', color: '#A06030' },
+  ok: { bg: 'rgba(46,123,90,0.12)', color: '#2E7B5A' },
+  today: { bg: 'rgba(59,154,156,0.12)', color: '#2A7A7C' },
+  ruby: { bg: 'rgba(181,64,64,0.15)', color: '#8A2020' },
 };
 
 const lightCountStyles: Record<string, { bg: string; color: string }> = {
-  dep: { bg: 'rgba(26,74,122,0.12)', color: '#1a4a7a' },
-  pay: { bg: 'rgba(122,74,26,0.12)', color: '#6a4a10' },
-  task: { bg: 'rgba(26,90,58,0.12)', color: '#1a5a3a' },
-  over: { bg: 'rgba(122,26,26,0.12)', color: '#7a1a1a' },
-  doc: { bg: 'rgba(80,46,122,0.12)', color: '#5a2a8a' },
+  dep: { bg: 'rgba(46,107,139,0.12)', color: '#2E6B8B' },
+  pay: { bg: 'rgba(194,120,73,0.12)', color: '#A06030' },
+  task: { bg: 'rgba(46,123,90,0.12)', color: '#2E7B5A' },
+  over: { bg: 'rgba(181,64,64,0.12)', color: '#8A2020' },
+  doc: { bg: 'rgba(107,74,139,0.12)', color: '#6B4A8B' },
 };
 
 /* Map advisorInit codes to full advisor names */
@@ -144,10 +144,10 @@ export default function BoardCalendar() {
           {['Board', 'Week', 'Agenda'].map(v => (
             <button key={v} onClick={() => setView(v)} style={{
               padding: '6px 14px', borderRadius: 6, fontSize: 10, fontWeight: 500, cursor: 'pointer', letterSpacing: 0.5, textTransform: 'uppercase',
-              border: v === view ? '1px solid rgba(212,175,106,0.25)' : '1px solid var(--border)',
+              border: v === view ? '1px solid rgba(59,154,156,0.25)' : '1px solid var(--border)',
               background: v === view ? 'var(--champ-dim)' : 'transparent',
               color: v === view ? 'var(--champagne)' : 'var(--slate)',
-              fontFamily: 'Jost',
+              fontFamily: "'Aptos Display', 'Aptos', 'Inter', sans-serif",
             }}>{v}</button>
           ))}
         </div>
@@ -159,7 +159,7 @@ export default function BoardCalendar() {
           {toggles.map(t => (
             <button key={t.type} onClick={() => setVisible(v => ({ ...v, [t.type]: !v[t.type] }))}
               style={{
-                display: 'flex', alignItems: 'center', gap: 6, padding: '7px 14px', borderRadius: 20, fontSize: 10, fontWeight: 500, letterSpacing: 0.5, textTransform: 'uppercase', cursor: 'pointer', fontFamily: 'Jost',
+                display: 'flex', alignItems: 'center', gap: 6, padding: '7px 14px', borderRadius: 20, fontSize: 10, fontWeight: 500, letterSpacing: 0.5, textTransform: 'uppercase', cursor: 'pointer', fontFamily: "'Aptos Display', 'Aptos', 'Inter', sans-serif",
                 border: visible[t.type] ? `1px solid ${t.color}` : '1px solid var(--border)',
                 background: visible[t.type] ? t.bg : 'transparent',
                 color: visible[t.type] ? t.color : 'var(--slate)',
@@ -217,7 +217,7 @@ export default function BoardCalendar() {
                     : `1px solid ${isLight ? ac.value + '40' : ac.value + '40'}`,
                   background: isLight ? ac.light : ac.value + '18',
                   cursor: 'pointer',
-                  fontFamily: 'Jost',
+                  fontFamily: "'Aptos Display', 'Aptos', 'Inter', sans-serif",
                   fontSize: 11,
                   fontWeight: 500,
                   color: ac.value,
@@ -375,7 +375,7 @@ export default function BoardCalendar() {
                             width: 16,
                             height: 16,
                             borderRadius: '50%',
-                            background: ac ? ac.value : 'linear-gradient(135deg,#3a2a10,#6a4a1a)',
+                            background: ac ? ac.value : 'linear-gradient(135deg,#1B4B5A,#3B9A9C)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',

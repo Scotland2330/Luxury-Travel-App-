@@ -244,7 +244,7 @@ function ClientView() {
         border: '1px solid var(--champagne)',
         borderRadius: 14,
         overflow: 'hidden',
-        boxShadow: '0 12px 48px rgba(212,175,106,0.08), 0 4px 20px rgba(0,0,0,0.4)',
+        boxShadow: '0 12px 48px rgba(59,154,156,0.08), 0 4px 20px rgba(0,0,0,0.2)',
       }}
     >
       {/* Browser bar */}
