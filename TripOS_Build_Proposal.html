@@ -541,7 +541,7 @@
   <div class="cover-details">
     <table>
       <tr><td>Client:</td><td>Emily Stone</td></tr>
-      <tr><td>Document Date:</td><td>June 20, 2026</td></tr>
+      <tr><td>Document Date:</td><td>June 23, 2026</td></tr>
       <tr><td>Target Kickoff:</td><td>July 7, 2026</td></tr>
       <tr><td>Target Active:</td><td>September 25, 2026</td></tr>
       <tr><td>Total Duration:</td><td>12 weeks (6 stages)</td></tr>
@@ -587,7 +587,7 @@
     <tbody>
       <tr>
         <td><strong>Deliverable</strong></td>
-        <td>Custom SaaS platform replacing Monday.com; 11 operational screens, full backend, multi-tenant architecture ready for agent resale</td>
+        <td>Custom SaaS platform replacing Monday.com; 13 operational screens, full backend, multi-tenant architecture ready for agent resale</td>
       </tr>
       <tr>
         <td><strong>Build Investment</strong></td>
@@ -631,11 +631,11 @@
   <div class="section-number">Section 2</div>
   <h2>Project Summary</h2>
 
-  <p>First Class Operations will design and build TripOS, a purpose-built luxury travel operations platform that replaces Monday.com with a dedicated system designed for how travel advisors actually work. TripOS manages the entire trip lifecycle &mdash; from initial client inquiry through post-trip follow-up &mdash; in a single, unified platform.</p>
+  <p>First Class Operations will design and build TripOS, a purpose-built luxury travel operations platform that replaces Monday.com with a dedicated system designed for how travel advisors actually work. TripOS manages the entire trip lifecycle &mdash; from initial client inquiry through post-trip follow-up &mdash; in a single, unified platform with 13 interconnected screens.</p>
 
   <p>The platform is architected as a SaaS product from day one. Emily will use it for her own agency operations while simultaneously licensing it to other travel advisors, creating a new recurring revenue stream. Each agent gets their own branded workspace with the same powerful trip management, automation, and client intelligence tools.</p>
 
-  <p>A clickable prototype has already been validated through direct client feedback. The production build will transform this prototype into a fully functional platform with live data, authentication, automated workflows, and the multi-tenant infrastructure needed to scale across multiple agencies.</p>
+  <p>A fully interactive prototype has already been validated through direct client feedback. The prototype includes a working multi-agency demo with three sample agencies (Meridian Travel Group, Wanderlust Luxury Travel, and Atlas &amp; Compass Travel), a custom design system with Aptos Display typography and a curated five-color palette, and a light/dark theme toggle. The production build will transform this prototype into a fully functional platform with live data, authentication, automated workflows, and the multi-tenant infrastructure needed to scale across multiple agencies.</p>
 
   <div class="page-footer">
     <span>Confidential | June 2026</span>
@@ -1036,20 +1036,119 @@
       </tr>
       <tr>
         <td>Calendar</td>
-        <td>Departures, Payments, Tasks, Overdue, Document Deadlines sections</td>
+        <td>Departures, Payments, Tasks, Overdue, Document Deadlines &mdash; 5 toggleable sections</td>
         <td class="status-validated">&#10003; Validated</td>
         <td>Unified timeline view</td>
       </tr>
       <tr>
         <td>Calendar</td>
-        <td>Advisor filtering</td>
+        <td>Advisor filtering with dropdown</td>
         <td class="status-validated">&#10003; Validated</td>
         <td>Multi-advisor support</td>
+      </tr>
+      <tr>
+        <td>Calendar</td>
+        <td>Per-advisor color-coding: 8-color palette with clickable legend bar and color picker</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Persistent per-user color assignments</td>
+      </tr>
+      <tr>
+        <td>Calendar</td>
+        <td>Color-coded card borders keyed to assigned advisor</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Visual at-a-glance advisor identification</td>
+      </tr>
+
+      <!-- Reports -->
+      <tr class="feature-area-header"><td colspan="4">Reports</td></tr>
+      <tr>
+        <td>Reports</td>
+        <td>8 tabbed report types: Retainer, Revenue, Time Spent, Commission Status, Passport Status, Task Deadlines, Feedback, Trip Pipeline</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Live data, real-time calculations</td>
+      </tr>
+      <tr>
+        <td>Reports</td>
+        <td>Revenue breakdown with visual bar charts (retainer, hourly, commissions)</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Auto-calculated from modules</td>
+      </tr>
+      <tr>
+        <td>Reports</td>
+        <td>Trip pipeline funnel visualization with stage conversion rates</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Dynamic funnel from live data</td>
+      </tr>
+      <tr>
+        <td>Reports</td>
+        <td>Date range filtering, CSV export, and print-ready output</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Full export and print support</td>
+      </tr>
+
+      <!-- Platform Management -->
+      <tr class="feature-area-header"><td colspan="4">Platform Management (Agency Sub-Accounts)</td></tr>
+      <tr>
+        <td>Platform</td>
+        <td>4 platform KPIs: Active Agents, Monthly Revenue, Total Trips Managed, Platform Uptime</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Live metrics from all tenants</td>
+      </tr>
+      <tr>
+        <td>Platform</td>
+        <td>Subscribed agents table with plan, status, MRR, active trips, join date</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Full agent management CRUD</td>
+      </tr>
+      <tr>
+        <td>Platform</td>
+        <td>Revenue dashboard with monthly totals and agent breakdown</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Auto-calculated financials</td>
+      </tr>
+      <tr>
+        <td>Platform</td>
+        <td>Plans &amp; Pricing tiers: Starter ($197/mo), Professional ($297/mo), Enterprise (custom)</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Configurable pricing engine</td>
+      </tr>
+      <tr>
+        <td>Platform</td>
+        <td>Onboarding and agent invitation flow</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Self-service agent signup</td>
+      </tr>
+
+      <!-- Design System & Theme -->
+      <tr class="feature-area-header"><td colspan="4">Design System &amp; Theme</td></tr>
+      <tr>
+        <td>Design System</td>
+        <td>Custom 5-color palette: Peach, Light Teal, Terracotta, Teal, Dark Navy</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>CSS custom property tokens</td>
+      </tr>
+      <tr>
+        <td>Design System</td>
+        <td>Light/Dark theme toggle with light mode as default</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Per-user theme persistence</td>
+      </tr>
+      <tr>
+        <td>Design System</td>
+        <td>Aptos Display typography with Inter (Google Fonts) as web fallback</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>Production font licensing</td>
+      </tr>
+      <tr>
+        <td>Design System</td>
+        <td>Multi-agency demo with 3 agencies and per-tenant accent colors and gradients</td>
+        <td class="status-validated">&#10003; Validated</td>
+        <td>White-label branding per tenant</td>
       </tr>
 
       <!-- Summary Row -->
       <tr class="summary-row">
-        <td colspan="2"><strong>Total Features Validated: 60+</strong></td>
+        <td colspan="2"><strong>Total Features Validated: 75+</strong></td>
         <td><strong>100%</strong></td>
         <td><strong>Production-Ready Scope: Confirmed</strong></td>
       </tr>
@@ -1075,7 +1174,7 @@
   <div class="section-number">Section 5</div>
   <h2>Production Build Scope &mdash; What Changes from Prototype</h2>
 
-  <p>The validated prototype confirmed the design, layout, and workflow logic for all 11 screens. The production build transforms those static screens into a live, data-driven platform. The following capabilities are added during the 12-week build:</p>
+  <p>The validated prototype confirmed the design, layout, and workflow logic for all 13 screens. The production build transforms those interactive screens into a live, data-driven platform. The following capabilities are added during the 12-week build:</p>
 
   <table>
     <thead>
@@ -1124,6 +1223,10 @@
       <tr>
         <td><strong>Mobile Responsive</strong></td>
         <td>Fully responsive design optimized for tablet and mobile use in the field</td>
+      </tr>
+      <tr>
+        <td><strong>Design System &amp; Theming</strong></td>
+        <td>Custom Aptos Display typography, curated 5-color palette (Peach, Light Teal, Terracotta, Teal, Dark Navy), and light/dark theme toggle with CSS custom properties</td>
       </tr>
     </tbody>
   </table>
@@ -1184,8 +1287,8 @@
       <tr>
         <td><strong>Stage 4</strong></td>
         <td>Aug 18&ndash;29</td>
-        <td>Intelligence: Time tracking, Commissions, Feedback</td>
-        <td>Business tracking modules live</td>
+        <td>Intelligence: Time tracking, Commissions, Feedback, Reports</td>
+        <td>Business tracking + reports live</td>
         <td class="highlight-number">$2,500</td>
       </tr>
       <tr>
@@ -1198,7 +1301,7 @@
       <tr>
         <td><strong>Stage 6</strong></td>
         <td>Sep 15&ndash;25</td>
-        <td>SaaS &amp; Launch: Multi-tenant, onboarding, deploy</td>
+        <td>SaaS &amp; Launch: Multi-tenant, Platform Management, onboarding, deploy</td>
         <td>Platform active September 25</td>
         <td class="highlight-number">$2,000</td>
       </tr>
@@ -1229,8 +1332,8 @@
 
   <div class="week-header">Week 2 (Jul 12&ndash;18)</div>
   <ul class="week-items">
-    <li><span class="tag tag-build">BUILD</span> Build app shell: responsive layout, sidebar navigation, topbar, routing between all 11 screens</li>
-    <li><span class="tag tag-build">BUILD</span> Implement design system: typography (Playfair Display + Jost), color tokens, component library</li>
+    <li><span class="tag tag-build">BUILD</span> Build app shell: responsive layout, sidebar navigation, topbar, routing between all 13 screens</li>
+    <li><span class="tag tag-build">BUILD</span> Implement design system: typography (Aptos Display + Inter), color tokens, light/dark theme, component library</li>
     <li><span class="tag tag-build">BUILD</span> Build Dashboard screen with live KPI connections to database</li>
     <li><span class="tag tag-build">BUILD</span> Internal testing of auth flow and navigation</li>
     <li><span class="tag tag-ops">OPS</span> Share Stage 1 build with client; demonstrate login, navigation, and live dashboard</li>
@@ -1252,7 +1355,7 @@
       </tr>
       <tr>
         <td><strong>Database Schema</strong></td>
-        <td>Complete PostgreSQL schema covering all 11 modules with relationships and row-level security</td>
+        <td>Complete PostgreSQL schema covering all 13 modules with relationships and row-level security</td>
         <td>Build Specialist</td>
       </tr>
       <tr>
@@ -1359,7 +1462,7 @@
   <ul class="week-items">
     <li><span class="tag tag-build">BUILD</span> Build Task Management kanban: 4-column board with drag-and-drop, task detail panel with checklists, attachments, and advisor chat</li>
     <li><span class="tag tag-build">BUILD</span> Build task assignment system: multi-advisor support, notifications, due date tracking</li>
-    <li><span class="tag tag-build">BUILD</span> Build Board Calendar: departures, payments, task deadlines, overdue items with advisor filtering</li>
+    <li><span class="tag tag-build">BUILD</span> Build Board Calendar: departures, payments, task deadlines, overdue items with advisor filtering and per-advisor color-coding</li>
     <li><span class="tag tag-ops">OPS</span> Confirm automation rules with client; map all 25+ Monday.com automations to TripOS triggers</li>
   </ul>
 
@@ -1393,7 +1496,7 @@
       </tr>
       <tr>
         <td><strong>Board Calendar</strong></td>
-        <td>Unified calendar with departures, payments, deadlines, and advisor filtering</td>
+        <td>Unified calendar with departures, payments, deadlines, advisor filtering, and per-advisor color-coding</td>
         <td>Build Specialist</td>
       </tr>
       <tr>
@@ -1429,6 +1532,7 @@
   <ul class="week-items">
     <li><span class="tag tag-build">BUILD</span> Build Client Feedback system: dual-view table and board, sentiment analysis, 5-star ratings, destination grouping</li>
     <li><span class="tag tag-build">BUILD</span> Connect feedback to trip detail view for per-trip feedback collection</li>
+    <li><span class="tag tag-build">BUILD</span> Build Reports hub: 8 tabbed report types (Retainer, Revenue, Time Spent, Commission Status, Passport Status, Task Deadlines, Feedback, Trip Pipeline) with date filtering, CSV export, and visual charts</li>
     <li><span class="tag tag-build">BUILD</span> Internal testing of all business intelligence modules against sample data</li>
     <li><span class="tag tag-ops">OPS</span> Data quality control: validate calculations for retainer utilization, commission totals, and feedback aggregation</li>
     <li><span class="tag tag-ops">OPS</span> Share Stage 4 build with client</li>
@@ -1459,8 +1563,13 @@
         <td>Build Specialist</td>
       </tr>
       <tr>
+        <td><strong>Reports Hub</strong></td>
+        <td>8 tabbed reports with visual charts, funnel visualization, date filtering, CSV export</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
         <td><strong>Client Stage 4 Review</strong></td>
-        <td>Walk-through of business tracking modules</td>
+        <td>Walk-through of business tracking and reporting modules</td>
         <td>Operations Specialist</td>
       </tr>
     </tbody>
@@ -1549,6 +1658,7 @@
   <div class="week-header">Week 11 (Sep 15&ndash;19)</div>
   <ul class="week-items">
     <li><span class="tag tag-build">BUILD</span> Implement multi-tenant architecture: isolated workspaces per agency, secure data separation</li>
+    <li><span class="tag tag-build">BUILD</span> Build Platform Management screen: agent subscription table, MRR tracking, revenue dashboard, plans &amp; pricing tiers</li>
     <li><span class="tag tag-build">BUILD</span> Build agent onboarding flow: registration, agency setup wizard, initial data import</li>
     <li><span class="tag tag-build">BUILD</span> Performance testing: verify all screens load under 2 seconds</li>
     <li><span class="tag tag-build">BUILD</span> Security audit: penetration testing, credential storage review, API security verification</li>
@@ -1556,7 +1666,7 @@
 
   <div class="week-header">Week 12 (Sep 22&ndash;25)</div>
   <ul class="week-items">
-    <li><span class="tag tag-build">BUILD</span> Deploy platform to production environment; run smoke tests across all 11 screens</li>
+    <li><span class="tag tag-build">BUILD</span> Deploy platform to production environment; run smoke tests across all 13 screens</li>
     <li><span class="tag tag-build">BUILD</span> Final UI polish: spacing, labeling, color consistency, mobile responsiveness</li>
     <li><span class="tag tag-ops">OPS</span> Final data quality control in production: validate all modules against expected behavior</li>
     <li><span class="tag tag-ops">OPS</span> Deliver live training session: full walkthrough of all features, admin tools, and agent onboarding</li>
@@ -1579,6 +1689,11 @@
         <td>Build Specialist</td>
       </tr>
       <tr>
+        <td><strong>Platform Management Screen</strong></td>
+        <td>Agent subscription dashboard with MRR tracking, revenue metrics, and plans &amp; pricing configuration</td>
+        <td>Build Specialist</td>
+      </tr>
+      <tr>
         <td><strong>Agent Onboarding Flow</strong></td>
         <td>Registration, agency setup wizard, and initial data import for new subscribers</td>
         <td>Build Specialist</td>
@@ -1595,7 +1710,7 @@
       </tr>
       <tr>
         <td><strong>Live Training Session</strong></td>
-        <td>Full walkthrough of all 11 screens, automations, and admin tools</td>
+        <td>Full walkthrough of all 13 screens, automations, and admin tools</td>
         <td>Operations Specialist</td>
       </tr>
       <tr>
@@ -1891,16 +2006,20 @@
   <h3>At Launch</h3>
 
   <ul class="launch-list">
-    <li>A live SaaS platform with 11 interconnected screens, accessible from any browser, designed specifically for luxury travel advisors</li>
+    <li>A live SaaS platform with 13 interconnected screens, accessible from any browser, designed specifically for luxury travel advisors</li>
     <li>Complete Monday.com replacement: every workflow, automation, and tracking system migrated into a purpose-built tool</li>
     <li>25+ automated workflow triggers that handle bon voyage messages, pre-arrival prep, insurance follow-ups, flight checks, and welcome home outreach &mdash; without manual tracking</li>
     <li>Full trip lifecycle management from initial inquiry through post-trip follow-up, with 10 stage-based checkpoints per trip</li>
+    <li>A Board Calendar with per-advisor color-coding, 5 toggleable sections, and clickable legend for at-a-glance workload visibility</li>
     <li>Time and retainer tracking with category-specific auto-fill durations and monthly revenue calculations</li>
     <li>Commission pipeline tracking from supplier submission through payment collection</li>
     <li>Client feedback intelligence with dual-view analysis (table + destination board) and sentiment tracking</li>
+    <li>A Reports hub with 8 tabbed report types, visual charts, funnel analytics, date filtering, CSV export, and printable output</li>
     <li>A branded client portal you can share with travelers showing trip details, countdown, and secure payment</li>
     <li>A searchable templates and knowledge hub with 24+ pre-built templates across 6 categories</li>
-    <li>Multi-tenant SaaS architecture ready for agent licensing from day one</li>
+    <li>A Platform Management screen to track subscribed agents, MRR, revenue metrics, and configurable pricing tiers</li>
+    <li>A custom design system with Aptos Display typography, a curated 5-color palette (Peach, Light Teal, Terracotta, Teal, Dark Navy), and a light/dark theme toggle</li>
+    <li>Multi-tenant SaaS architecture with per-agency branding, ready for agent licensing from day one</li>
     <li>Complete documentation, admin guide, troubleshooting playbook, and recorded training session</li>
     <li>3 months of complimentary platform operation to build your agent base before monthly fees begin</li>
   </ul>
