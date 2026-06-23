@@ -74,6 +74,7 @@ export default function Admin() {
   const [notifToggles, setNotifToggles] = useState(notifications.map(() => true));
   const [autoToggles, setAutoToggles] = useState(automations.map(a => a.active));
   const { theme, toggleTheme } = useTheme();
+  const isLight = theme === 'light';
 
   /* Automation edit modal state: index = -1 means "new", null means closed */
   const [editIndex, setEditIndex] = useState<number | null>(null);
@@ -126,7 +127,7 @@ export default function Admin() {
                     <tr key={i}>
                       <td className="td-main">
                         <div style={{display:'flex',alignItems:'center',gap:8}}>
-                          <div style={{width:28,height:28,borderRadius:'50%',background:s.bg,border:`1px solid ${s.borderColor}`,display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,color:s.color,fontWeight:500,borderStyle:s.dashed?'dashed':'solid'}}>{s.init}</div>
+                          <div style={{width:28,height:28,borderRadius:'50%',background:isLight && s.init === 'HM' ? 'linear-gradient(135deg,#e8cc94,#d4af6a)' : isLight && s.init === 'ES' ? 'linear-gradient(135deg,#94b8e8,#6a8ed4)' : s.bg,border:`1px solid ${isLight && !s.dashed ? 'var(--border)' : s.borderColor}`,display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,color:isLight && s.init === 'HM' ? '#4a3a1a' : isLight && s.init === 'ES' ? '#1a2a4a' : s.color,fontWeight:500,borderStyle:s.dashed?'dashed':'solid'}}>{s.init}</div>
                           {s.name}
                         </div>
                       </td>
@@ -137,7 +138,7 @@ export default function Admin() {
                       <td>{s.owner ? '—' : s.dashed ? <button className="btn btn-ghost btn-xs">Resend</button> :
                         <div style={{display:'flex',gap:4}}>
                           <button className="btn btn-ghost btn-xs">Edit</button>
-                          <button className="btn btn-xs" style={{background:'rgba(155,58,58,0.2)',color:'var(--ruby-lt)',border:'none'}}>Remove</button>
+                          <button className="btn btn-xs" style={{background:isLight ? 'rgba(154,42,42,0.15)' : 'rgba(155,58,58,0.2)',color:isLight ? '#7a1a1a' : 'var(--ruby-lt)',border:'none'}}>Remove</button>
                         </div>}
                       </td>
                     </tr>

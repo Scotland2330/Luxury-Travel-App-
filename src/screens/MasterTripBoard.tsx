@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTheme } from '../ThemeContext';
 
 /* ─── Stage status types ─── */
 type StageStatus = 'Booked' | 'Done' | 'Confirmed' | 'In Progress' | 'In Review' | 'Quoted' | 'Sent' | 'N/A' | 'Pending' | 'Missing' | 'Did Not Send' | '—' | '';
@@ -63,7 +64,26 @@ const capriStages: StageDetail[] = [
 ];
 
 /* ─── Helpers ─── */
-function statusStyle(s: StageStatus): React.CSSProperties {
+function statusStyle(s: StageStatus, isLight = false): React.CSSProperties {
+  if (isLight) {
+    switch (s) {
+      case 'Booked': case 'Done': case 'Confirmed':
+        return { background: 'rgba(26,90,58,0.15)', color: '#1a5a3a' };
+      case 'In Progress': case 'In Review':
+        return { background: 'rgba(26,74,122,0.15)', color: '#1a4a7a' };
+      case 'Quoted': case 'Sent':
+        return { background: 'rgba(122,74,26,0.15)', color: '#6a4a10' };
+      case 'N/A':
+        return { background: 'rgba(90,90,74,0.12)', color: '#5a5a4a' };
+      case 'Missing': case 'Did Not Send':
+        return { background: 'rgba(122,26,26,0.15)', color: '#7a1a1a' };
+      case 'Pending':
+        return { background: 'rgba(122,74,26,0.15)', color: '#6a4a10' };
+      case '—': case '':
+      default:
+        return { background: 'var(--bg3)' };
+    }
+  }
   switch (s) {
     case 'Booked': case 'Done': case 'Confirmed':
       return { background: 'rgba(61,139,110,0.25)', color: 'var(--emerald-lt)' };
@@ -102,6 +122,8 @@ const columnHeaders = ['Trip Name', 'Lead', 'Start', 'End', ...stageLabels];
 
 /* ─── Component ─── */
 export default function MasterTripBoard() {
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
   const [view, setView] = useState<'table' | 'cards' | 'detail'>('table');
   const currentView = view; // prevent TS control-flow narrowing in JSX
   const [activeTrip, setActiveTrip] = useState<Trip | null>(null);
@@ -129,7 +151,7 @@ export default function MasterTripBoard() {
 
   /* ─── Cell renderer ─── */
   const renderStatusCell = (status: StageStatus, key: string) => {
-    const st = statusStyle(status);
+    const st = statusStyle(status, isLight);
     const label = status === '' ? '' : status;
     return (
       <td key={key} style={{ padding: '6px 4px', textAlign: 'center' }}>
@@ -253,7 +275,7 @@ export default function MasterTripBoard() {
                           <div style={{ display: 'flex', gap: 4, marginBottom: 10, flexWrap: 'wrap' }}>
                             {stageKeys.map((k, i) => {
                               const s = trip[k] as StageStatus;
-                              const st = statusStyle(s);
+                              const st = statusStyle(s, isLight);
                               if (s === '—' || s === '') return null;
                               return (
                                 <span key={k} style={{ ...st, fontSize: 8, padding: '2px 6px', borderRadius: 4, fontWeight: 500, whiteSpace: 'nowrap' }}>
@@ -345,7 +367,7 @@ export default function MasterTripBoard() {
           {activeTab === 'stages' && (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 14 }}>
               {activeStages.map((stage, i) => {
-                const st = statusStyle(stage.status);
+                const st = statusStyle(stage.status, isLight);
                 return (
                   <div key={i} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 16 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
@@ -482,8 +504,12 @@ export default function MasterTripBoard() {
                   <div style={{ display: 'flex', gap: 8 }}>
                     {['Positive', 'Neutral', 'Negative'].map(s => {
                       const selected = feedbackSentiment === s;
-                      const bgMap: Record<string, string> = { Positive: 'rgba(61,139,110,0.25)', Neutral: 'rgba(46,95,158,0.25)', Negative: 'rgba(155,58,58,0.25)' };
-                      const colorMap: Record<string, string> = { Positive: 'var(--emerald-lt)', Neutral: 'var(--sapphire-lt)', Negative: 'var(--ruby-lt)' };
+                      const bgMap: Record<string, string> = isLight
+                        ? { Positive: 'rgba(26,90,58,0.15)', Neutral: 'rgba(26,74,122,0.15)', Negative: 'rgba(122,26,26,0.15)' }
+                        : { Positive: 'rgba(61,139,110,0.25)', Neutral: 'rgba(46,95,158,0.25)', Negative: 'rgba(155,58,58,0.25)' };
+                      const colorMap: Record<string, string> = isLight
+                        ? { Positive: '#1a5a3a', Neutral: '#1a4a7a', Negative: '#7a1a1a' }
+                        : { Positive: 'var(--emerald-lt)', Neutral: 'var(--sapphire-lt)', Negative: 'var(--ruby-lt)' };
                       return (
                         <button key={s} onClick={() => setFeedbackSentiment(s)} style={{ padding: '6px 16px', fontSize: 11, borderRadius: 6, border: selected ? 'none' : '1px solid var(--border)', background: selected ? bgMap[s] : 'var(--bg3)', color: selected ? colorMap[s] : 'var(--slate)', cursor: 'pointer', fontWeight: selected ? 500 : 400 }}>{s}</button>
                       );

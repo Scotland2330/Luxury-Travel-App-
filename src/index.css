@@ -36,28 +36,45 @@
   --bg3: #ede7e0;
   --bg4: #e2dbd2;
   --bg5: #d9d1c8;
-  --champagne: #2a7a7a;
-  --champ-lt: #3a9a9a;
-  --champ-dim: rgba(42,122,122,0.08);
-  --champ-glow: rgba(42,122,122,0.04);
-  --cognac: #8a5a2a;
-  --cognac-lt: #a06a30;
+  --champagne: #1a6a6a;
+  --champ-lt: #2a8a8a;
+  --champ-dim: rgba(26,106,106,0.10);
+  --champ-glow: rgba(26,106,106,0.05);
+  --cognac: #7a4a1a;
+  --cognac-lt: #8a5a20;
   --ivory: #1a1a1a;
-  --ivory-dim: #4a4a4a;
-  --slate: #6a6a5a;
+  --ivory-dim: #3a3a3a;
+  --slate: #5a5a4a;
   --slate-dim: #8a8a7a;
-  --border: #d4cec5;
-  --border2: #e8e2da;
+  --border: #cdc7be;
+  --border2: #ddd7ce;
   --emerald: #1a5a3a;
-  --emerald-lt: #2a7a4a;
+  --emerald-lt: #1a6a3a;
   --ruby: #8a2a2a;
-  --ruby-lt: #a03030;
-  --sapphire: #2a5a8a;
-  --sapphire-lt: #3a6a9a;
-  --amethyst: #5a3a7a;
+  --ruby-lt: #9a2a2a;
+  --sapphire: #1a4a7a;
+  --sapphire-lt: #2a5a8a;
+  --amethyst: #4a2a6a;
   --shadow: 0 8px 32px rgba(0,0,0,0.08);
   --shadow-sm: 0 2px 12px rgba(0,0,0,0.05);
 }
+
+/* Light mode badge overrides — stronger backgrounds for readability */
+[data-theme="light"] .b-em { background: rgba(26,106,58,0.15); color: #1a5a3a; }
+[data-theme="light"] .b-og { background: rgba(138,90,32,0.15); color: #6a4a10; }
+[data-theme="light"] .b-rb { background: rgba(154,42,42,0.15); color: #7a1a1a; }
+[data-theme="light"] .b-sa { background: rgba(26,74,122,0.15); color: #1a4a7a; }
+[data-theme="light"] .b-ch { background: rgba(26,106,106,0.12); color: #1a5a5a; }
+[data-theme="light"] .b-mu { background: rgba(90,90,74,0.15); color: #4a4a3a; }
+
+/* Light mode button text contrast */
+[data-theme="light"] .btn-champ { color: #ffffff; }
+[data-theme="light"] .btn-ghost { color: #4a4a3a; border-color: #cdc7be; }
+
+/* Light mode task card and date card shadows */
+[data-theme="light"] .date-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.10); }
+[data-theme="light"] .task-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+[data-theme="light"] .task-detail { box-shadow: -8px 0 40px rgba(0,0,0,0.12); }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 

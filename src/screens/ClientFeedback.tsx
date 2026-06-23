@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTheme } from '../ThemeContext';
 
 type FeedbackRow = {
   client: string;
@@ -30,7 +31,7 @@ const feedbackData: FeedbackRow[] = [
   { client: 'Christian Mudgett', location: 'Puerto Rico', feedback: 'PR was great. Hotel (no fault of yours as I told you to book it)...', sentiment: 'Mixed', sentimentEmoji: '\u{1F610}', rating: 4, source: 'Client Portal', date: '2025-06-15' },
 ];
 
-const locationColors: Record<string, { bg: string; color: string }> = {
+const locationColorsDark: Record<string, { bg: string; color: string }> = {
   'Kenya': { bg: 'rgba(61,139,110,0.22)', color: 'var(--emerald-lt)' },
   'Scotland': { bg: 'rgba(46,95,158,0.22)', color: 'var(--sapphire-lt)' },
   'Palm Heights': { bg: 'rgba(181,96,30,0.22)', color: 'var(--cognac-lt)' },
@@ -44,6 +45,22 @@ const locationColors: Record<string, { bg: string; color: string }> = {
   'Puerto Rico': { bg: 'rgba(192,80,80,0.18)', color: '#d48a8a' },
   'Florida': { bg: 'rgba(192,80,80,0.18)', color: '#d48a8a' },
   'Grand Canyon/Sedona': { bg: 'rgba(155,58,58,0.22)', color: 'var(--ruby-lt)' },
+};
+
+const locationColorsLight: Record<string, { bg: string; color: string }> = {
+  'Kenya': { bg: 'rgba(26,106,58,0.15)', color: '#1a5a3a' },
+  'Scotland': { bg: 'rgba(26,74,122,0.15)', color: '#1a4a7a' },
+  'Palm Heights': { bg: 'rgba(138,90,32,0.15)', color: '#6a4a10' },
+  'Italy': { bg: 'rgba(154,42,42,0.15)', color: '#7a1a1a' },
+  'Spain': { bg: 'rgba(138,90,32,0.15)', color: '#6a4a10' },
+  'Amsterdam/Belgium': { bg: 'rgba(74,42,106,0.15)', color: '#4a2a6a' },
+  'Maroma (Mexico)': { bg: 'rgba(138,90,32,0.15)', color: '#6a4a10' },
+  'California': { bg: 'rgba(138,90,32,0.15)', color: '#6a4a10' },
+  'Bhutan': { bg: 'rgba(138,90,32,0.15)', color: '#6a4a10' },
+  'NYC Hotels': { bg: 'rgba(90,90,74,0.15)', color: '#4a4a3a' },
+  'Puerto Rico': { bg: 'rgba(154,42,42,0.15)', color: '#7a1a1a' },
+  'Florida': { bg: 'rgba(154,42,42,0.15)', color: '#7a1a1a' },
+  'Grand Canyon/Sedona': { bg: 'rgba(154,42,42,0.15)', color: '#7a1a1a' },
 };
 
 function sentimentBadgeClass(sentiment: string) {
@@ -63,13 +80,22 @@ function Stars({ count }: { count: number }) {
   );
 }
 
-const kanbanColumns = [
+const kanbanColumnsDark = [
   { destination: 'Palm Heights', headerColor: 'var(--cognac)', headerBg: 'rgba(181,96,30,0.25)' },
   { destination: 'Scotland', headerColor: 'var(--sapphire-lt)', headerBg: 'rgba(46,95,158,0.25)' },
   { destination: 'Italy', headerColor: 'var(--ruby-lt)', headerBg: 'rgba(155,58,58,0.25)' },
   { destination: 'NYC Hotels', headerColor: 'var(--slate)', headerBg: 'rgba(58,69,84,0.35)' },
   { destination: 'Puerto Rico', headerColor: '#d48a8a', headerBg: 'rgba(192,80,80,0.2)' },
   { destination: 'Kenya', headerColor: 'var(--emerald-lt)', headerBg: 'rgba(61,139,110,0.25)' },
+];
+
+const kanbanColumnsLight = [
+  { destination: 'Palm Heights', headerColor: '#6a4a10', headerBg: 'rgba(138,90,32,0.12)' },
+  { destination: 'Scotland', headerColor: '#1a4a7a', headerBg: 'rgba(26,74,122,0.12)' },
+  { destination: 'Italy', headerColor: '#7a1a1a', headerBg: 'rgba(154,42,42,0.12)' },
+  { destination: 'NYC Hotels', headerColor: '#4a4a3a', headerBg: 'rgba(90,90,74,0.12)' },
+  { destination: 'Puerto Rico', headerColor: '#7a1a1a', headerBg: 'rgba(154,42,42,0.12)' },
+  { destination: 'Kenya', headerColor: '#1a5a3a', headerBg: 'rgba(26,106,58,0.12)' },
 ];
 
 const destinationFilterOptions = ['All', 'Italy', 'Scotland', 'Palm Heights', 'NYC Hotels', 'Puerto Rico', 'Kenya'];
@@ -84,6 +110,10 @@ const clientList = ['Deb Hastings', 'Patrick + Cristin McGarey', "O'Brien", 'Kim
 const tripList = ['Kenya Safari 2025', 'Scotland Highlands Tour', 'Palm Heights Getaway', 'Italy Grand Tour', 'NYC Hotel Circuit', 'Puerto Rico Escape', 'Bhutan Adventure', 'California Coast'];
 
 export default function ClientFeedback() {
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
+  const locationColors = isLight ? locationColorsLight : locationColorsDark;
+  const kanbanColumns = isLight ? kanbanColumnsLight : kanbanColumnsDark;
   const [view, setView] = useState<'table' | 'board'>('table');
   const [filterDest, setFilterDest] = useState('All');
   const [filterSentiment, setFilterSentiment] = useState('All');
@@ -225,7 +255,7 @@ export default function ClientFeedback() {
             </thead>
             <tbody>
               {filteredAndSorted.map((f, i) => {
-                const loc = locationColors[f.location] || { bg: 'rgba(58,69,84,0.3)', color: 'var(--slate)' };
+                const loc = locationColors[f.location] || { bg: isLight ? 'rgba(90,90,74,0.12)' : 'rgba(58,69,84,0.3)', color: 'var(--slate)' };
                 return (
                   <tr key={i}>
                     <td className="td-main">{f.client}</td>
@@ -265,8 +295,12 @@ export default function ClientFeedback() {
                         fontSize: 9,
                         fontWeight: 500,
                         letterSpacing: 0.5,
-                        background: f.source === 'Client Portal' ? 'rgba(61,139,110,0.15)' : 'rgba(58,69,84,0.3)',
-                        color: f.source === 'Client Portal' ? 'var(--emerald-lt)' : 'var(--slate)',
+                        background: f.source === 'Client Portal'
+                          ? (isLight ? 'rgba(26,106,58,0.15)' : 'rgba(61,139,110,0.15)')
+                          : (isLight ? 'rgba(90,90,74,0.12)' : 'rgba(58,69,84,0.3)'),
+                        color: f.source === 'Client Portal'
+                          ? (isLight ? '#1a5a3a' : 'var(--emerald-lt)')
+                          : 'var(--slate)',
                       }}>
                         {f.source}
                       </span>
@@ -350,9 +384,9 @@ export default function ClientFeedback() {
                             textTransform: 'uppercase',
                             padding: '2px 8px',
                             borderRadius: 4,
-                            borderLeft: '3px solid var(--emerald)',
-                            background: 'rgba(61,139,110,0.12)',
-                            color: 'var(--emerald-lt)',
+                            borderLeft: isLight ? '3px solid #1a5a3a' : '3px solid var(--emerald)',
+                            background: isLight ? 'rgba(26,106,58,0.12)' : 'rgba(61,139,110,0.12)',
+                            color: isLight ? '#1a5a3a' : 'var(--emerald-lt)',
                           }}
                         >
                           {card.sentimentEmoji} {card.sentiment}

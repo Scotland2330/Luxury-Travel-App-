@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTheme } from '../ThemeContext';
 
 /* ─── Status definitions ─── */
 interface StatusDef {
@@ -61,10 +62,18 @@ function getStatusDef(label: string, statuses: StatusDef[]): StatusDef | undefin
   return statuses.find(s => s.label === label);
 }
 
-function badgeProps(label: string, statuses: StatusDef[]): { className: string; style?: React.CSSProperties } {
+const lightBadgeOverrides: Record<string, React.CSSProperties> = {
+  'Holding': { background: 'rgba(80,46,122,0.12)', color: '#5a2a8a' },
+  'Money is on the Way': { background: 'rgba(50,100,30,0.12)', color: '#2a6a10' },
+};
+
+function badgeProps(label: string, statuses: StatusDef[], isLight = false): { className: string; style?: React.CSSProperties } {
   const def = getStatusDef(label, statuses);
   if (!def) return { className: 'badge b-mu' };
   const cls = `badge ${def.badgeClass}`.trim();
+  if (isLight && lightBadgeOverrides[label]) {
+    return { className: cls, style: lightBadgeOverrides[label] };
+  }
   return def.badgeStyle ? { className: cls, style: def.badgeStyle } : { className: cls };
 }
 
@@ -73,6 +82,8 @@ const BLANK_FORM = { client: '', property: '', supplier: '', amount: '', status:
 
 /* ─── Component ─── */
 export default function Commissions() {
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
   const [data, setData] = useState<Commission[]>(INITIAL_DATA);
   const [statuses, setStatuses] = useState<StatusDef[]>(DEFAULT_STATUSES);
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
@@ -273,7 +284,7 @@ export default function Commissions() {
                       </thead>
                       <tbody>
                         {rows.map(r => {
-                          const bp = badgeProps(r.status, statuses);
+                          const bp = badgeProps(r.status, statuses, isLight);
                           return (
                             <tr key={r.id}>
                               <td className="td-main">{r.client}</td>
@@ -350,7 +361,7 @@ export default function Commissions() {
             </div>
             <div style={{ padding: 20, maxHeight: 400, overflowY: 'auto' }}>
               {statuses.map(s => {
-                const bp = badgeProps(s.label, statuses);
+                const bp = badgeProps(s.label, statuses, isLight);
                 return (
                   <div key={s.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid var(--border2)' }}>
                     <span className={bp.className} style={bp.style}>{s.label}</span>

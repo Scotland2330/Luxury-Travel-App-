@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTheme } from '../ThemeContext';
 
 /* ─── Data ─── */
 
@@ -152,13 +153,23 @@ function fmtHrs(n: number): string {
   return n % 1 === 0 ? `${n}h` : `${n.toFixed(2).replace(/0$/, '')}h`;
 }
 
-function progressColor(pct: number): string {
+function progressColor(pct: number, isLight = false): string {
+  if (isLight) {
+    if (pct > 85) return '#7a1a1a';
+    if (pct > 60) return '#6a4a10';
+    return '#1a5a3a';
+  }
   if (pct > 85) return 'var(--ruby-lt)';
   if (pct > 60) return 'var(--cognac-lt)';
   return 'var(--emerald-lt)';
 }
 
-function progressBg(pct: number): string {
+function progressBg(pct: number, isLight = false): string {
+  if (isLight) {
+    if (pct > 85) return 'rgba(122,26,26,0.15)';
+    if (pct > 60) return 'rgba(122,74,26,0.15)';
+    return 'rgba(26,90,58,0.12)';
+  }
   if (pct > 85) return 'rgba(155,58,58,0.18)';
   if (pct > 60) return 'rgba(181,96,30,0.15)';
   return 'rgba(61,139,110,0.15)';
@@ -209,6 +220,8 @@ const statBox: React.CSSProperties = {
 type Tab = 'time' | 'retainers' | 'invoicing';
 
 export default function TimeRetainers() {
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
   const [activeTab, setActiveTab] = useState<Tab>('time');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [filterClient, setFilterClient] = useState('');
@@ -474,7 +487,7 @@ export default function TimeRetainers() {
                     <span style={{ fontSize: 11, color: 'var(--slate)' }}>{fmt(rc.monthlyAmount)}/month</span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                    <span style={{ fontSize: 11, color: progressColor(pct) }}>{pct.toFixed(0)}% used</span>
+                    <span style={{ fontSize: 11, color: progressColor(pct, isLight) }}>{pct.toFixed(0)}% used</span>
                     <span style={{ fontSize: 16, color: 'var(--slate)', transform: isExpanded ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}>
                       v
                     </span>
@@ -483,13 +496,13 @@ export default function TimeRetainers() {
 
                 <div className="card-b">
                   {/* Progress bar */}
-                  <div style={{ background: progressBg(pct), borderRadius: 6, height: 8, marginBottom: 16, overflow: 'hidden' }}>
+                  <div style={{ background: progressBg(pct, isLight), borderRadius: 6, height: 8, marginBottom: 16, overflow: 'hidden' }}>
                     <div
                       style={{
                         width: `${Math.min(pct, 100)}%`,
                         height: 8,
                         borderRadius: 6,
-                        background: progressColor(pct),
+                        background: progressColor(pct, isLight),
                         transition: 'width 0.4s ease',
                       }}
                     />

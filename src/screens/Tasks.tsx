@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTheme } from '../ThemeContext';
 
 type Task = { title: string; trip: string; client?: string; tags?: string[]; due: string; dueClass?: string; assignees: string[]; attach?: string; comments?: string; border?: string; start?: string; done?: string; category?: string };
 
@@ -43,8 +44,10 @@ const chatMessages = [
   { init: 'HM', name: 'Halie M.', text: 'Yes, please add it. Client specifically requested morning slot.', time: 'Jun 19, 9:00am' },
 ];
 
-const avColors: Record<string, string> = { HM: 'linear-gradient(135deg,#2a1a0a,#5a3a10)', ES: 'linear-gradient(135deg,#0d1b3a,#1a3a6a)' };
-const avTextColors: Record<string, string> = { HM: 'var(--champagne)', ES: 'var(--sapphire-lt)' };
+const avColorsDark: Record<string, string> = { HM: 'linear-gradient(135deg,#2a1a0a,#5a3a10)', ES: 'linear-gradient(135deg,#0d1b3a,#1a3a6a)' };
+const avColorsLight: Record<string, string> = { HM: 'linear-gradient(135deg,#e8cc94,#d4af6a)', ES: 'linear-gradient(135deg,#94b8e8,#6a8ed4)' };
+const avTextColorsDark: Record<string, string> = { HM: 'var(--champagne)', ES: 'var(--sapphire-lt)' };
+const avTextColorsLight: Record<string, string> = { HM: '#4a3a1a', ES: '#1a2a4a' };
 
 /* Auto-rate defaults by category */
 const categoryRates: Record<string, number> = {
@@ -61,6 +64,10 @@ const categoryRates: Record<string, number> = {
 const HOURLY_RATE = 150;
 
 export default function Tasks() {
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
+  const avColors = isLight ? avColorsLight : avColorsDark;
+  const avTextColors = isLight ? avTextColorsLight : avTextColorsDark;
   const [panelOpen, setPanelOpen] = useState(false);
   const [checkState, setCheckState] = useState(checklist.map(c => c.done));
   const [autoPromptTime, setAutoPromptTime] = useState(true);
@@ -145,7 +152,7 @@ export default function Tasks() {
           <div key={ci} style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12, overflow: 'hidden' }}>
             <div style={{ padding: '14px 16px', borderBottom: '1px solid var(--border2)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <span style={{ fontSize: 10, fontWeight: 500, letterSpacing: 1.5, textTransform: 'uppercase', color: col.ruby ? 'var(--ruby-lt)' : 'var(--ivory-dim)' }}>{col.title}</span>
-              <span style={{ fontSize: 9, padding: '2px 7px', borderRadius: 8, background: col.ruby ? 'rgba(155,58,58,0.2)' : 'var(--bg4)', color: col.ruby ? 'var(--ruby-lt)' : 'var(--slate)' }}>{col.count}</span>
+              <span style={{ fontSize: 9, padding: '2px 7px', borderRadius: 8, background: col.ruby ? (isLight ? 'rgba(122,26,26,0.15)' : 'rgba(155,58,58,0.2)') : 'var(--bg4)', color: col.ruby ? (isLight ? '#7a1a1a' : 'var(--ruby-lt)') : 'var(--slate)' }}>{col.count}</span>
             </div>
             <div style={{ padding: 10, display: 'flex', flexDirection: 'column', gap: 8, minHeight: 160 }}>
               {col.tasks.map((t, ti) => (
@@ -170,7 +177,7 @@ export default function Tasks() {
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, marginBottom: 8, marginLeft: 24 }}>
                     <span style={{ fontSize: 9, padding: '2px 7px', borderRadius: 5, background: 'var(--champ-dim)', color: 'var(--champagne)' }}>{t.trip}</span>
                     {t.tags?.map((tag, i) => (
-                      <span key={i} style={{ fontSize: 9, padding: '2px 7px', borderRadius: 5, background: tag.includes('Overdue') ? 'rgba(155,58,58,0.3)' : 'var(--bg5)', color: tag.includes('Overdue') ? 'var(--ruby-lt)' : 'var(--slate)' }}>{tag}</span>
+                      <span key={i} style={{ fontSize: 9, padding: '2px 7px', borderRadius: 5, background: tag.includes('Overdue') ? (isLight ? 'rgba(122,26,26,0.15)' : 'rgba(155,58,58,0.3)') : 'var(--bg5)', color: tag.includes('Overdue') ? (isLight ? '#7a1a1a' : 'var(--ruby-lt)') : 'var(--slate)' }}>{tag}</span>
                     ))}
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginLeft: 24 }}>
