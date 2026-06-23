@@ -40,7 +40,7 @@ export default function Sidebar({ active, onNav }: { active: string; onNav: (id:
                 fontSize:12,fontWeight:400,marginBottom:2,cursor:'pointer',transition:'all 0.15s',letterSpacing:0.3}}>
               <span style={{fontSize:13,width:16,textAlign:'center',flexShrink:0}}>{i.icon}</span>
               <span>{i.name}</span>
-              {i.badge && <span style={{marginLeft:'auto',background:i.alert?'var(--ruby)':'var(--cognac)',color:'var(--ivory)',fontSize:9,fontWeight:500,padding:'2px 7px',borderRadius:10}}>{i.badge}</span>}
+              {i.badge && <span style={{marginLeft:'auto',background:i.alert?'var(--ruby)':'var(--cognac)',color:'#fff',fontSize:9,fontWeight:600,padding:'2px 7px',borderRadius:10}}>{i.badge}</span>}
             </div>
           ))}
         </div>
