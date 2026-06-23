@@ -2031,7 +2031,7 @@
 </div>
 
 <!-- ============================================================ -->
-<!-- SECTION 10: NEXT STEPS                                        -->
+<!-- SECTION 10: PHASE II — ITINERARY BUILDER                      -->
 <!-- ============================================================ -->
 <div class="section page-break">
   <div class="fco-header">
@@ -2041,6 +2041,332 @@
   <hr class="orange-rule">
 
   <div class="section-number">Section 10</div>
+  <h2>Phase II &mdash; Itinerary Builder &amp; Client Delivery Platform</h2>
+
+  <p>Phase II adds a full itinerary design and client delivery system to TripOS, replacing the need for third-party itinerary tools like AXUS Travel App (~$35/month per seat). This module gives advisors a day-by-day trip builder, three client delivery formats, real-time partner collaboration, and a complete document and preference management system &mdash; all within the same platform they already use to manage their trips.</p>
+
+  <p>A clickable prototype of the Itinerary Builder has been validated alongside the Phase I screens. It will not be built into production until Phase II begins, after the Phase I platform is live and operational.</p>
+
+  <div class="note-box">
+    <strong>Why this matters:</strong> AXUS charges $35/month per advisor seat ($420/year). An agency with 5 advisors pays $2,100/year for itinerary delivery alone. By building this capability directly into TripOS, Emily eliminates that cost for her own agency, increases the value proposition for subscribed agents, and can factor itinerary delivery into her per-seat SaaS pricing &mdash; turning a recurring expense into a competitive advantage.
+  </div>
+
+  <h3 style="margin-top:18px;">Phase II Feature Scope</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:160px;">Feature Area</th>
+        <th>Feature</th>
+        <th style="width:95px;">Prototype Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Day-by-Day Builder -->
+      <tr class="feature-area-header"><td colspan="3">Day-by-Day Itinerary Builder</td></tr>
+      <tr>
+        <td>Builder</td>
+        <td>Day-by-day trip structure with expandable/collapsible day sections</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+      <tr>
+        <td>Builder</td>
+        <td>6 segment types: Flight, Hotel, Activity, Transfer, Dining, Note &mdash; each with time, title, subtitle, and expandable details</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+      <tr>
+        <td>Builder</td>
+        <td>Per-segment confirmation status tracking (Confirmed / Pending)</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+      <tr>
+        <td>Builder</td>
+        <td>Drag-and-drop segment reordering, day reordering, and cross-day segment moves</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+      <tr>
+        <td>Builder</td>
+        <td>Itinerary Overview sidebar: total days, segment counts, confirmation percentage</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+      <tr>
+        <td>Builder</td>
+        <td>Segment toolbar: add flights, hotels, activities, transfers, dining, and notes</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+      <tr>
+        <td>Builder</td>
+        <td>Trip selector for switching between active itineraries</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+
+      <!-- Client Delivery -->
+      <tr class="feature-area-header"><td colspan="3">Client Delivery (3 Formats)</td></tr>
+      <tr>
+        <td>Delivery</td>
+        <td>Mobile App preview: branded trip view with day cards, quick links, bottom navigation, push notification support</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+      <tr>
+        <td>Delivery</td>
+        <td>Web View: shareable URL with agency branding, day-by-day timeline with color-coded segment borders, real-time updates</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+      <tr>
+        <td>Delivery</td>
+        <td>Branded PDF export: print-ready document with agency logo, teal accent color, page numbering, day/segment layout</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+      <tr>
+        <td>Delivery</td>
+        <td>E-Pages: dateless proposal versions of itineraries for pre-sale presentations</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+      <tr>
+        <td>Delivery</td>
+        <td>One-click &ldquo;Send to Client&rdquo; with format selection</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+
+      <!-- Traveler Profile & Preferences -->
+      <tr class="feature-area-header"><td colspan="3">Traveler Profile &amp; Preferences</td></tr>
+      <tr>
+        <td>Traveler Profile</td>
+        <td>10+ preference fields: dietary, room, airline, hotel loyalty, activity level, communication style, budget, special occasions, past trip notes, insurance status</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+      <tr>
+        <td>Traveler Profile</td>
+        <td>Traveler information: passport details, DOB, expiration dates for each traveler</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+      <tr>
+        <td>Traveler Profile</td>
+        <td>Destination-specific tipping guidelines with customizable categories (Hotel, Dining, Transport &amp; Tours)</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+
+      <!-- Document & Voucher Management -->
+      <tr class="feature-area-header"><td colspan="3">Document &amp; Voucher Management</td></tr>
+      <tr>
+        <td>Documents</td>
+        <td>Drag-and-drop file upload area (PDF, JPG, PNG, GIF up to 25 MB)</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+      <tr>
+        <td>Documents</td>
+        <td>Document status tracking: Uploaded, Pending, Missing &mdash; with summary counters</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+      <tr>
+        <td>Documents</td>
+        <td>12 document types: flight confirmations, hotel vouchers, insurance, passports, tour vouchers, charter agreements, transfer confirmations, visa/entry, emergency contact, budget breakdown</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+      <tr>
+        <td>Documents</td>
+        <td>Per-document actions: View, Share with client, Upload, and inline management</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+
+      <!-- Partner Collaboration -->
+      <tr class="feature-area-header"><td colspan="3">Partner &amp; DMC Collaboration</td></tr>
+      <tr>
+        <td>Collaboration</td>
+        <td>Real-time message thread between advisor, DMC partners, and suppliers</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+      <tr>
+        <td>Collaboration</td>
+        <td>Trip partner panel: invite DMCs, insurance partners, transfer companies, hotel concierge &mdash; with Active/Invited/Pending status</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+      <tr>
+        <td>Collaboration</td>
+        <td>Access controls: 5 toggleable permissions (edit segments, upload docs, see pricing, client comment, client request changes)</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+
+      <!-- Destination Images -->
+      <tr class="feature-area-header"><td colspan="3">Destination Image Library</td></tr>
+      <tr>
+        <td>Images</td>
+        <td>Browseable destination image library with per-location imagery</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+      <tr>
+        <td>Images</td>
+        <td>Image assignment to itinerary days and segments for client-facing output</td>
+        <td class="status-validated">&#10003; Validated</td>
+      </tr>
+
+      <!-- Summary -->
+      <tr class="summary-row">
+        <td colspan="2"><strong>Phase II Features Validated: 25+</strong></td>
+        <td><strong>100%</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Confidential | June 2026</span>
+    <span>firstclassops.com</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 10 (cont): PHASE II TIMELINE & INVESTMENT             -->
+<!-- ============================================================ -->
+<div class="section page-break">
+  <div class="fco-header">
+    <div class="fco-title">FIRST CLASS OPERATIONS</div>
+    <div class="fco-tagline">TripOS &mdash; Luxury Travel Operations Platform</div>
+  </div>
+  <hr class="orange-rule">
+
+  <div class="section-number">Section 10 (continued)</div>
+  <h2>Phase II &mdash; Timeline &amp; Investment</h2>
+
+  <h3>Recommended Timeline</h3>
+
+  <p>Phase II begins after the Phase I platform is live. The recommended start is <strong>October 2026</strong>, allowing 2&ndash;4 weeks of production use before expanding the platform. Phase II is organized into 4 stages over 8 weeks.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:65px;">Stage</th>
+        <th style="width:115px;">Dates</th>
+        <th>Focus</th>
+        <th>Key Milestone</th>
+        <th style="width:75px;">Cost</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Stage A</strong></td>
+        <td>Oct 6&ndash;17</td>
+        <td>Core Builder: day-by-day engine, segment types, drag-and-drop, trip selector</td>
+        <td>Itinerary builder functional</td>
+        <td class="highlight-number">$2,000</td>
+      </tr>
+      <tr>
+        <td><strong>Stage B</strong></td>
+        <td>Oct 20&ndash;31</td>
+        <td>Traveler &amp; Documents: preference system, tipping guides, file upload, voucher tracking</td>
+        <td>Traveler profile + docs live</td>
+        <td class="highlight-number">$1,750</td>
+      </tr>
+      <tr>
+        <td><strong>Stage C</strong></td>
+        <td>Nov 3&ndash;14</td>
+        <td>Collaboration &amp; Delivery: partner messaging, access controls, 3 delivery formats, E-Pages</td>
+        <td>Client delivery operational</td>
+        <td class="highlight-number">$1,750</td>
+      </tr>
+      <tr>
+        <td><strong>Stage D</strong></td>
+        <td>Nov 17&ndash;28</td>
+        <td>Polish &amp; Integration: image library, itinerary-to-trip linking, mobile optimization, testing</td>
+        <td>Phase II complete</td>
+        <td class="highlight-number">$1,000</td>
+      </tr>
+      <tr class="total-row">
+        <td><strong>TOTAL</strong></td>
+        <td><strong>8 weeks</strong></td>
+        <td><strong>Oct 6 &ndash; Nov 28, 2026</strong></td>
+        <td><strong>Active Nov 28</strong></td>
+        <td><strong>$6,500</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top:24px;">Phase II Investment</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Component</th>
+        <th style="width:120px;">Investment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Stage A: Core Builder</td>
+        <td>$2,000</td>
+      </tr>
+      <tr>
+        <td>Stage B: Traveler &amp; Documents</td>
+        <td>$1,750</td>
+      </tr>
+      <tr>
+        <td>Stage C: Collaboration &amp; Delivery</td>
+        <td>$1,750</td>
+      </tr>
+      <tr>
+        <td>Stage D: Polish &amp; Integration</td>
+        <td>$1,000</td>
+      </tr>
+      <tr class="total-row">
+        <td><strong>Phase II Build Investment</strong></td>
+        <td><strong class="highlight-number">$6,500</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top:24px;">Combined Project Summary</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Phase</th>
+        <th>Scope</th>
+        <th style="width:80px;">Duration</th>
+        <th style="width:100px;">Investment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Phase I</strong></td>
+        <td>TripOS Operations Platform &mdash; 13 screens, full backend, SaaS architecture</td>
+        <td>12 weeks</td>
+        <td class="highlight-number">$16,000</td>
+      </tr>
+      <tr>
+        <td><strong>Phase II</strong></td>
+        <td>Itinerary Builder &amp; Client Delivery Platform &mdash; AXUS replacement</td>
+        <td>8 weeks</td>
+        <td class="highlight-number">$6,500</td>
+      </tr>
+      <tr class="total-row">
+        <td><strong>TOTAL</strong></td>
+        <td><strong>Complete TripOS Platform with Itinerary Builder</strong></td>
+        <td><strong>20 weeks</strong></td>
+        <td><strong class="highlight-number">$22,500</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="note-box">
+    Phase II is optional and can begin at any time after Phase I is live. The $997/month platform fee is unchanged &mdash; the Itinerary Builder is included in the existing hosting and support package at no additional monthly cost. Phase II can also be paid in two installments: $3,250 at kickoff and $3,250 at completion.
+  </div>
+
+  <div class="page-footer">
+    <span>Confidential | June 2026</span>
+    <span>firstclassops.com</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 11: NEXT STEPS                                        -->
+<!-- ============================================================ -->
+<div class="section page-break">
+  <div class="fco-header">
+    <div class="fco-title">FIRST CLASS OPERATIONS</div>
+    <div class="fco-tagline">TripOS &mdash; Luxury Travel Operations Platform</div>
+  </div>
+  <hr class="orange-rule">
+
+  <div class="section-number">Section 11</div>
   <h2>Next Steps</h2>
 
   <div class="next-steps">
