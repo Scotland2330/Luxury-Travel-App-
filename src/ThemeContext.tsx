@@ -4,7 +4,7 @@ type ThemeCtx = { theme: string; toggleTheme: () => void };
 const Ctx = createContext<ThemeCtx>({ theme: 'dark', toggleTheme: () => {} });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState('light');
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);

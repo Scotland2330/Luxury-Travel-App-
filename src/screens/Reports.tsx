@@ -117,7 +117,7 @@ export default function Reports() {
   return (
     <div style={{ padding: 28, overflowY: 'auto', flex: 1 }}>
       {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 28 }}>
         <div>
           <h1 className="playfair" style={{ fontSize: 26, fontWeight: 400, letterSpacing: 0.5 }}>Reports</h1>
           <p style={{ fontSize: 11, color: 'var(--slate)', marginTop: 4, letterSpacing: 0.5 }}>Generate, view, and export agency reports</p>
@@ -125,7 +125,7 @@ export default function Reports() {
       </div>
 
       {/* Tabs */}
-      <div style={{ display: 'flex', borderBottom: '1px solid var(--border)', marginBottom: 20, flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', borderBottom: '1px solid var(--border)', marginBottom: 24, flexWrap: 'wrap' }}>
         {TABS.map((t, i) => (
           <div
             key={i}
@@ -148,7 +148,7 @@ export default function Reports() {
       </div>
 
       {/* Action bar */}
-      <div style={{ marginBottom: 20 }}>{actionBar}</div>
+      <div style={{ marginBottom: 24 }}>{actionBar}</div>
 
       {/* ═══ Retainer Report ═══ */}
       {activeTab === 0 && (

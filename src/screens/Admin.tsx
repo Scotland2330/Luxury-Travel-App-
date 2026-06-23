@@ -55,11 +55,39 @@ const calendarEntries = [
   { person: 'Halie McGee', desc: 'FAM Trip: Aman Tokyo Aug 5–10', badgeText: 'FAM', badgeClass: 'b-ch' },
 ];
 
+const triggerTypes = ['Days Before Start Date', 'Days After End Date', 'On Status Change', 'On Trip Creation', 'On Booking Confirmation'];
+const actionTypes = ['Notify Lead', 'Send Email', 'Move Status', 'Create Task', 'Set Reminder'];
+
+interface AutomationForm {
+  rule: string;
+  desc: string;
+  triggerType: string;
+  triggerValue: string;
+  action: string;
+  active: boolean;
+}
+
+const emptyForm: AutomationForm = { rule: '', desc: '', triggerType: triggerTypes[0], triggerValue: '', action: actionTypes[0], active: true };
+
 export default function Admin() {
   const [activeTab, setActiveTab] = useState('staff');
   const [notifToggles, setNotifToggles] = useState(notifications.map(() => true));
   const [autoToggles, setAutoToggles] = useState(automations.map(a => a.active));
   const { theme, toggleTheme } = useTheme();
+
+  /* Automation edit modal state: index = -1 means "new", null means closed */
+  const [editIndex, setEditIndex] = useState<number | null>(null);
+  const [editForm, setEditForm] = useState<AutomationForm>(emptyForm);
+
+  const openEdit = (i: number) => {
+    const a = automations[i];
+    setEditForm({ rule: a.rule, desc: a.desc, triggerType: triggerTypes[0], triggerValue: '', action: actionTypes[0], active: autoToggles[i] });
+    setEditIndex(i);
+  };
+  const openNew = () => { setEditForm({ ...emptyForm }); setEditIndex(-1); };
+  const closeModal = () => setEditIndex(null);
+  const handleSave = () => { /* persist logic would go here */ closeModal(); };
+  const handleDelete = () => { /* delete logic would go here */ closeModal(); };
 
   return (
     <div style={{padding:28,overflowY:'auto',flex:1}}>
@@ -139,7 +167,10 @@ export default function Admin() {
           {/* Automations */}
           {activeTab === 'automations' && (
             <div>
-              <div style={{fontSize:13,color:'var(--ivory)',fontWeight:500}}>Workflow Automations</div>
+              <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:4}}>
+                <div style={{fontSize:13,color:'var(--ivory)',fontWeight:500}}>Workflow Automations</div>
+                <button className="btn btn-champ btn-sm" onClick={openNew}>+ New Automation</button>
+              </div>
               <div style={{fontSize:11,color:'var(--slate)',marginBottom:24}}>Manage automated triggers and notifications</div>
 
               <div style={{display:'flex',flexDirection:'column',gap:10}}>
@@ -152,7 +183,7 @@ export default function Admin() {
                         <div style={{fontSize:10,color:'var(--slate)'}}>{a.desc}</div>
                       </div>
                     </div>
-                    <button className="btn btn-ghost btn-xs">Edit</button>
+                    <button className="btn btn-ghost btn-xs" onClick={() => openEdit(i)}>Edit</button>
                   </div>
                 ))}
               </div>
@@ -254,6 +285,64 @@ export default function Admin() {
           )}
         </div>
       </div>
+
+      {/* Automation Edit Modal */}
+      {editIndex !== null && (
+        <div style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.6)',zIndex:999,display:'flex',alignItems:'center',justifyContent:'center'}} onClick={closeModal}>
+          <div style={{background:'var(--bg2)',border:'1px solid var(--border)',borderRadius:14,padding:28,maxWidth:560,width:'90%'}} onClick={e => e.stopPropagation()}>
+            {/* Header */}
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:20}}>
+              <div style={{fontSize:15,color:'var(--ivory)',fontWeight:500}}>{editIndex === -1 ? 'New Automation' : 'Edit Automation'}</div>
+              <div onClick={closeModal} style={{cursor:'pointer',fontSize:18,color:'var(--slate)',lineHeight:1}}>&#x2715;</div>
+            </div>
+
+            {/* Fields */}
+            <div style={{display:'flex',flexDirection:'column',gap:14}}>
+              <div>
+                <div style={{fontSize:9,letterSpacing:2,textTransform:'uppercase',color:'var(--slate)',marginBottom:6}}>Rule Name</div>
+                <input className="td-input" style={{width:'100%'}} value={editForm.rule} onChange={e => setEditForm(f => ({...f, rule: e.target.value}))}/>
+              </div>
+              <div>
+                <div style={{fontSize:9,letterSpacing:2,textTransform:'uppercase',color:'var(--slate)',marginBottom:6}}>Description</div>
+                <input className="td-input" style={{width:'100%'}} value={editForm.desc} onChange={e => setEditForm(f => ({...f, desc: e.target.value}))}/>
+              </div>
+              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:14}}>
+                <div>
+                  <div style={{fontSize:9,letterSpacing:2,textTransform:'uppercase',color:'var(--slate)',marginBottom:6}}>Trigger Type</div>
+                  <select className="td-input" style={{width:'100%'}} value={editForm.triggerType} onChange={e => setEditForm(f => ({...f, triggerType: e.target.value}))}>
+                    {triggerTypes.map(t => <option key={t} value={t}>{t}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <div style={{fontSize:9,letterSpacing:2,textTransform:'uppercase',color:'var(--slate)',marginBottom:6}}>Trigger Value</div>
+                  <input className="td-input" style={{width:'100%'}} placeholder="e.g. 2 days, 1 week" value={editForm.triggerValue} onChange={e => setEditForm(f => ({...f, triggerValue: e.target.value}))}/>
+                </div>
+              </div>
+              <div>
+                <div style={{fontSize:9,letterSpacing:2,textTransform:'uppercase',color:'var(--slate)',marginBottom:6}}>Action</div>
+                <select className="td-input" style={{width:'100%'}} value={editForm.action} onChange={e => setEditForm(f => ({...f, action: e.target.value}))}>
+                  {actionTypes.map(a => <option key={a} value={a}>{a}</option>)}
+                </select>
+              </div>
+              <div style={{display:'flex',alignItems:'center',gap:10}}>
+                <div className={`toggle${editForm.active?' on':''}`} onClick={() => setEditForm(f => ({...f, active: !f.active}))}/>
+                <span style={{fontSize:11,color:'var(--ivory)'}}>{editForm.active ? 'Active' : 'Inactive'}</span>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:24}}>
+              {editIndex !== -1 ? (
+                <button className="btn btn-ghost" style={{color:'var(--ruby-lt)'}} onClick={handleDelete}>Delete Automation</button>
+              ) : <div/>}
+              <div style={{display:'flex',gap:8}}>
+                <button className="btn btn-ghost" onClick={closeModal}>Cancel</button>
+                <button className="btn btn-champ" onClick={handleSave}>Save Changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

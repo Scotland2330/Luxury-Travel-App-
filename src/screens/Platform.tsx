@@ -49,7 +49,7 @@ export default function Platform() {
       </div>
 
       {/* Tabs */}
-      <div style={{ display: 'flex', borderBottom: '1px solid var(--border)', marginBottom: 20 }}>
+      <div style={{ display: 'flex', borderBottom: '1px solid var(--border)', marginBottom: 24 }}>
         {tabs.map((t, i) => (
           <div key={i} onClick={() => setTab(i)} style={{
             padding: '12px 18px', fontSize: 11, fontWeight: 400, letterSpacing: 0.8, textTransform: 'uppercase', cursor: 'pointer', transition: 'all 0.15s',
