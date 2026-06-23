@@ -23,6 +23,9 @@ const sections: { label: string; items: NavItem[] }[] = [
   { label: 'PLATFORM', items: [
     { icon: '⊞', name: 'Agency Sub-Accounts', id: 'platform' },
   ]},
+  { label: 'PHASE II', items: [
+    { icon: '◈', name: 'Itinerary Builder', id: 'itinerary' },
+  ]},
 ];
 
 export default function Sidebar({ active, onNav }: { active: string; onNav: (id: string) => void }) {

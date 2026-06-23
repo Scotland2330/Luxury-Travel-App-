@@ -16,6 +16,7 @@ import TemplatesHub from './screens/TemplatesHub';
 import Admin from './screens/Admin';
 import Platform from './screens/Platform';
 import Reports from './screens/Reports';
+import ItineraryBuilder from './screens/ItineraryBuilder';
 
 const screens: Record<string, React.FC<{ onNav?: (id: string) => void }>> = {
   dashboard: Dashboard,
@@ -31,6 +32,7 @@ const screens: Record<string, React.FC<{ onNav?: (id: string) => void }>> = {
   admin: Admin,
   platform: Platform,
   reports: Reports,
+  itinerary: ItineraryBuilder,
 };
 
 const pageTabs: Record<string, string[]> = {};
