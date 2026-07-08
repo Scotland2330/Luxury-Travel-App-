@@ -153,13 +153,17 @@ function ClientSignIn({ onSignIn }: { onSignIn: () => void }) {
         overflow: 'hidden', boxShadow: '0 12px 48px rgba(59,154,156,0.08), 0 4px 20px rgba(0,0,0,0.2)',
       }}>
         <div style={{ textAlign: 'center', padding: '36px 32px 28px' }}>
-          <div className="playfair" style={{
-            fontSize: 28, letterSpacing: 5,
+          <div style={{
+            width: 56, height: 56, borderRadius: '50%', margin: '0 auto 16px',
             background: 'linear-gradient(135deg, var(--champagne), var(--cognac-lt))',
-            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-          }}>MERIDIAN TRAVEL</div>
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: 22, color: 'var(--bg)', fontWeight: 600,
+          }}>✦</div>
+          <div className="playfair" style={{
+            fontSize: 22, letterSpacing: 2, color: 'var(--ivory)',
+          }}>Your Travel Portal</div>
           <div style={{ width: 50, height: 1, background: 'var(--champagne)', opacity: 0.35, margin: '14px auto' }} />
-          <div style={{ fontSize: 12, color: 'var(--slate)', fontWeight: 300 }}>Client Portal</div>
+          <div style={{ fontSize: 12, color: 'var(--slate)', fontWeight: 300 }}>Sign in to view your trips, documents & more</div>
         </div>
 
         <div style={{ padding: '0 32px 36px' }}>
@@ -234,19 +238,21 @@ function ClientView() {
         marginBottom: 24, padding: '16px 20px',
         background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12,
       }}>
-        <div className="playfair" style={{
-          fontSize: 16, letterSpacing: 3,
-          background: 'linear-gradient(135deg, var(--champagne), var(--cognac-lt))',
-          WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-        }}>MERIDIAN TRAVEL</div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <span style={{ fontSize: 11, color: 'var(--ivory-dim)' }}>Augusta Holland</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <div style={{
-            width: 30, height: 30, borderRadius: '50%',
+            width: 38, height: 38, borderRadius: '50%',
             background: 'linear-gradient(135deg, var(--champagne), var(--cognac-lt))',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 11, color: 'var(--bg)', fontWeight: 600,
+            fontSize: 13, color: 'var(--bg)', fontWeight: 600,
           }}>AH</div>
+          <div>
+            <div style={{ fontSize: 14, color: 'var(--ivory)', fontWeight: 400 }}>Augusta Holland</div>
+            <div style={{ fontSize: 10, color: 'var(--slate)' }}>Capri · Jul 5–14</div>
+          </div>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <button className="btn btn-ghost" style={{ fontSize: 9, padding: '5px 12px' }}>Messages</button>
+          <button className="btn btn-ghost" style={{ fontSize: 9, padding: '5px 12px' }}>Sign Out</button>
         </div>
       </div>
 
