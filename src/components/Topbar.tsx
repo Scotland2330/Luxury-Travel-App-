@@ -15,7 +15,7 @@ export default function Topbar({ onNav }: { onNav?: (id: string) => void }) {
     <div style={{height:54,background:'var(--bg2)',borderBottom:'1px solid var(--border)',padding:'0 24px',display:'flex',alignItems:'center',justifyContent:'space-between',flexShrink:0,position:'relative'}}>
       <div style={{position:'absolute',bottom:0,left:0,right:0,height:1,background:`linear-gradient(90deg,transparent,${agency.accent},transparent)`,opacity:0.3}}/>
       <div style={{display:'flex',alignItems:'center'}}>
-        <span className="playfair" style={{fontSize:20,fontWeight:500,letterSpacing:4,background:`linear-gradient(135deg,${agency.accentLt},${agency.accent},${agency.gradientTo})`,WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>TRIP OS</span>
+        <span className="playfair" style={{fontSize:20,fontWeight:500,letterSpacing:4,background:`linear-gradient(135deg,${agency.accentLt},${agency.accent},${agency.gradientTo})`,WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>VOYANCE</span>
         <span style={{fontSize:9,letterSpacing:4,color:'var(--slate)',textTransform:'uppercase',marginLeft:10,fontWeight:400}}>{agency.tagline}</span>
       </div>
       <div style={{display:'flex',alignItems:'center',gap:14}}>

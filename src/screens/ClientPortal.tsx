@@ -83,145 +83,55 @@ function AdvisorView({
 
   return (
     <>
-      {/* Actions row */}
       <div style={{ display: 'flex', gap: 10, marginBottom: 24 }}>
-        <button
-          className="btn btn-champ"
-          onClick={() => navigator.clipboard?.writeText(portalUrl)}
-        >
-          Copy Portal Link
-        </button>
+        <button className="btn btn-champ" onClick={() => navigator.clipboard?.writeText(portalUrl)}>Copy Portal Link</button>
         <button className="btn btn-ghost">Customize Portal</button>
       </div>
 
-      {/* Client selector */}
       <div className="card" style={{ marginBottom: 20 }}>
-        <div className="card-h">
-          <span className="card-t">Client Preview</span>
-        </div>
+        <div className="card-h"><span className="card-t">Client Preview</span></div>
         <div className="card-b">
-          <label style={{ fontSize: 11, color: 'var(--slate)', marginBottom: 6, display: 'block' }}>
-            Select client portal to preview
-          </label>
-          <select
-            className="td-input"
-            value={selectedClient}
-            onChange={(e) => setSelectedClient(e.target.value)}
-          >
-            {clients.map((c) => (
-              <option key={c.code} value={c.code}>
-                {c.name} — {c.trip}
-              </option>
-            ))}
+          <label style={{ fontSize: 11, color: 'var(--slate)', marginBottom: 6, display: 'block' }}>Select client portal to preview</label>
+          <select className="td-input" value={selectedClient} onChange={(e) => setSelectedClient(e.target.value)}>
+            {clients.map((c) => (<option key={c.code} value={c.code}>{c.name} — {c.trip}</option>))}
           </select>
         </div>
       </div>
 
-      {/* Two-column layout: sections + branding */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 20 }}>
-        {/* Portal Sections */}
         <div className="card">
-          <div className="card-h">
-            <span className="card-t">Portal Sections</span>
-          </div>
+          <div className="card-h"><span className="card-t">Portal Sections</span></div>
           <div className="card-b" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {portalSections.map((s) => (
-              <div
-                key={s.key}
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-              >
+              <div key={s.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <span style={{ fontSize: 12, color: 'var(--ivory)' }}>{s.label}</span>
-                <div
-                  className={`toggle${sections[s.key] ? ' on' : ''}`}
-                  onClick={() => toggleSection(s.key)}
-                />
+                <div className={`toggle${sections[s.key] ? ' on' : ''}`} onClick={() => toggleSection(s.key)} />
               </div>
             ))}
           </div>
         </div>
 
-        {/* Branding */}
         <div className="card">
-          <div className="card-h">
-            <span className="card-t">Branding</span>
-          </div>
+          <div className="card-h"><span className="card-t">Branding</span></div>
           <div className="card-b" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            {/* Logo placeholder */}
             <div>
-              <div style={{ fontSize: 10, color: 'var(--slate)', letterSpacing: 1, textTransform: 'uppercase', marginBottom: 8 }}>
-                Agency Logo
-              </div>
-              <div
-                style={{
-                  width: '100%',
-                  height: 64,
-                  background: 'var(--bg4)',
-                  border: '1px dashed var(--border)',
-                  borderRadius: 8,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 11,
-                  color: 'var(--slate)',
-                }}
-              >
-                MERIDIAN TRAVEL (Logo Placeholder)
+              <div style={{ fontSize: 10, color: 'var(--slate)', letterSpacing: 1, textTransform: 'uppercase', marginBottom: 8 }}>Agency Logo</div>
+              <div style={{ width: '100%', height: 64, background: 'var(--bg4)', border: '1px dashed var(--border)', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, color: 'var(--slate)' }}>
+                Upload your agency logo
               </div>
             </div>
-
-            {/* Accent color */}
             <div>
-              <div style={{ fontSize: 10, color: 'var(--slate)', letterSpacing: 1, textTransform: 'uppercase', marginBottom: 8 }}>
-                Accent Color
-              </div>
+              <div style={{ fontSize: 10, color: 'var(--slate)', letterSpacing: 1, textTransform: 'uppercase', marginBottom: 8 }}>Accent Color</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <div
-                  style={{
-                    width: 28,
-                    height: 28,
-                    borderRadius: 6,
-                    background: 'linear-gradient(135deg, var(--champagne), var(--cognac-lt))',
-                    border: '2px solid var(--champagne)',
-                  }}
-                />
+                <div style={{ width: 28, height: 28, borderRadius: 6, background: 'linear-gradient(135deg, var(--champagne), var(--cognac-lt))', border: '2px solid var(--champagne)' }} />
                 <span style={{ fontSize: 11, color: 'var(--ivory-dim)' }}>Champagne / Cognac</span>
               </div>
             </div>
-
-            {/* Portal link */}
             <div>
-              <div style={{ fontSize: 10, color: 'var(--slate)', letterSpacing: 1, textTransform: 'uppercase', marginBottom: 8 }}>
-                Portal Link
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  background: 'var(--bg4)',
-                  border: '1px solid var(--border)',
-                  borderRadius: 8,
-                  padding: '8px 12px',
-                }}
-              >
-                <span
-                  style={{
-                    flex: 1,
-                    fontSize: 10,
-                    color: 'var(--champagne)',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {portalUrl}
-                </span>
-                <button
-                  className="btn btn-ghost btn-xs"
-                  onClick={() => navigator.clipboard?.writeText(portalUrl)}
-                >
-                  Copy
-                </button>
+              <div style={{ fontSize: 10, color: 'var(--slate)', letterSpacing: 1, textTransform: 'uppercase', marginBottom: 8 }}>Portal Link</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'var(--bg4)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px' }}>
+                <span style={{ flex: 1, fontSize: 10, color: 'var(--champagne)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{portalUrl}</span>
+                <button className="btn btn-ghost btn-xs" onClick={() => navigator.clipboard?.writeText(portalUrl)}>Copy</button>
               </div>
             </div>
           </div>
@@ -232,600 +142,445 @@ function AdvisorView({
 }
 
 /* ------------------------------------------------------------------ */
-/*  Client View (branded portal preview)                               */
+/*  Client Sign-In Screen                                              */
+/* ------------------------------------------------------------------ */
+
+function ClientSignIn({ onSignIn }: { onSignIn: () => void }) {
+  return (
+    <div style={{ maxWidth: 420, margin: '0 auto', padding: '60px 0' }}>
+      <div style={{
+        background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 16,
+        overflow: 'hidden', boxShadow: '0 12px 48px rgba(59,154,156,0.08), 0 4px 20px rgba(0,0,0,0.2)',
+      }}>
+        <div style={{ textAlign: 'center', padding: '36px 32px 28px' }}>
+          <div className="playfair" style={{
+            fontSize: 28, letterSpacing: 5,
+            background: 'linear-gradient(135deg, var(--champagne), var(--cognac-lt))',
+            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+          }}>MERIDIAN TRAVEL</div>
+          <div style={{ width: 50, height: 1, background: 'var(--champagne)', opacity: 0.35, margin: '14px auto' }} />
+          <div style={{ fontSize: 12, color: 'var(--slate)', fontWeight: 300 }}>Client Portal</div>
+        </div>
+
+        <div style={{ padding: '0 32px 36px' }}>
+          <div style={{ marginBottom: 16 }}>
+            <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--slate)', marginBottom: 6 }}>Email Address</div>
+            <input className="td-input" placeholder="augusta@email.com" style={{ fontSize: 12, padding: '10px 14px' }} defaultValue="augusta@email.com" />
+          </div>
+          <div style={{ marginBottom: 20 }}>
+            <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--slate)', marginBottom: 6 }}>Portal Access Code</div>
+            <input className="td-input" type="password" placeholder="Enter your access code" style={{ fontSize: 12, padding: '10px 14px' }} defaultValue="••••••••" />
+          </div>
+          <button className="btn btn-champ" style={{ width: '100%', padding: 12, fontSize: 11, letterSpacing: 1 }} onClick={onSignIn}>
+            Sign In
+          </button>
+          <div style={{ textAlign: 'center', marginTop: 16 }}>
+            <span style={{ fontSize: 10, color: 'var(--slate)' }}>
+              Forgot your access code? <span style={{ color: 'var(--champagne)', cursor: 'pointer' }}>Contact your advisor</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div style={{ textAlign: 'center', fontSize: 9, color: 'var(--slate-dim)', marginTop: 24, letterSpacing: 0.5 }}>
+        Powered by Voyance &middot; Secure Client Portal
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Client View (authenticated client experience)                      */
 /* ------------------------------------------------------------------ */
 
 function ClientView() {
+  const [signedIn, setSignedIn] = useState(false);
   const [starRating, setStarRating] = useState(0);
   const [hoverStar, setHoverStar] = useState(0);
   const [feedbackText, setFeedbackText] = useState('');
   const [showTripRequest, setShowTripRequest] = useState(false);
   const [editingPrefs, setEditingPrefs] = useState(false);
   const [prefs, setPrefs] = useState(clientPreferences);
+  const [activeSection, setActiveSection] = useState('overview');
 
   const sectionTitle = (label: string) => (
-    <div
-      style={{
-        fontSize: 9,
-        letterSpacing: 2.5,
-        textTransform: 'uppercase' as const,
-        color: 'var(--slate)',
-        marginBottom: 14,
-        marginTop: 28,
-        display: 'flex',
-        alignItems: 'center',
-        gap: 10,
-      }}
-    >
+    <div style={{
+      fontSize: 9, letterSpacing: 2.5, textTransform: 'uppercase' as const,
+      color: 'var(--slate)', marginBottom: 14, marginTop: 28,
+      display: 'flex', alignItems: 'center', gap: 10,
+    }}>
       <div style={{ flex: 1, height: 1, background: 'var(--border)' }} />
       {label}
       <div style={{ flex: 1, height: 1, background: 'var(--border)' }} />
     </div>
   );
 
+  if (!signedIn) {
+    return <ClientSignIn onSignIn={() => setSignedIn(true)} />;
+  }
+
+  const navItems = [
+    { id: 'overview', label: 'Overview' },
+    { id: 'itinerary', label: 'Itinerary' },
+    { id: 'documents', label: 'Documents' },
+    { id: 'budget', label: 'Budget' },
+    { id: 'preferences', label: 'Preferences' },
+  ];
+
   return (
-    /* Browser mockup frame */
-    <div
-      style={{
-        maxWidth: 660,
-        margin: '0 auto',
-        border: '1px solid var(--champagne)',
-        borderRadius: 14,
-        overflow: 'hidden',
-        boxShadow: '0 12px 48px rgba(59,154,156,0.08), 0 4px 20px rgba(0,0,0,0.2)',
-      }}
-    >
-      {/* Browser bar */}
-      <div
-        style={{
-          background: 'var(--bg4)',
-          padding: '8px 14px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 6,
-          borderBottom: '1px solid var(--border)',
-        }}
-      >
-        <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--ruby-lt)', opacity: 0.6 }} />
-        <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--cognac-lt)', opacity: 0.6 }} />
-        <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--emerald-lt)', opacity: 0.6 }} />
-        <div
-          style={{
-            flex: 1,
-            marginLeft: 8,
-            background: 'var(--bg3)',
-            borderRadius: 6,
-            padding: '4px 10px',
-            fontSize: 9,
-            color: 'var(--slate)',
-            letterSpacing: 0.3,
-          }}
-        >
-          portal.meridiantravel.co/holland-augusta-capri
+    <div style={{ maxWidth: 720, margin: '0 auto', padding: '20px 0' }}>
+      {/* Client portal header */}
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        marginBottom: 24, padding: '16px 20px',
+        background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12,
+      }}>
+        <div className="playfair" style={{
+          fontSize: 16, letterSpacing: 3,
+          background: 'linear-gradient(135deg, var(--champagne), var(--cognac-lt))',
+          WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+        }}>MERIDIAN TRAVEL</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span style={{ fontSize: 11, color: 'var(--ivory-dim)' }}>Augusta Holland</span>
+          <div style={{
+            width: 30, height: 30, borderRadius: '50%',
+            background: 'linear-gradient(135deg, var(--champagne), var(--cognac-lt))',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: 11, color: 'var(--bg)', fontWeight: 600,
+          }}>AH</div>
         </div>
       </div>
 
-      {/* Portal content */}
-      <div style={{ background: 'var(--bg2)', padding: 32 }}>
-        {/* Agency header */}
-        <div style={{ textAlign: 'center', paddingBottom: 24, borderBottom: '1px solid var(--border)', marginBottom: 4 }}>
-          <div
-            className="playfair"
-            style={{
-              fontSize: 24,
-              letterSpacing: 4,
+      {/* Navigation */}
+      <div style={{ display: 'flex', gap: 4, marginBottom: 24, borderBottom: '1px solid var(--border)' }}>
+        {navItems.map(item => (
+          <button key={item.id} onClick={() => setActiveSection(item.id)} style={{
+            padding: '10px 16px', fontSize: 10, letterSpacing: 0.8, textTransform: 'uppercase',
+            border: 'none',
+            borderBottom: activeSection === item.id ? '2px solid var(--champagne)' : '2px solid transparent',
+            background: 'transparent',
+            color: activeSection === item.id ? 'var(--champagne)' : 'var(--slate)',
+            cursor: 'pointer', transition: 'all 0.15s', fontWeight: 400,
+          }}>{item.label}</button>
+        ))}
+      </div>
+
+      {/* ======== OVERVIEW ======== */}
+      {activeSection === 'overview' && (
+        <>
+          <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12, padding: 24, marginBottom: 16 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 14 }}>
+              <div>
+                <div className="playfair" style={{ fontSize: 24, color: 'var(--ivory)' }}>Capri</div>
+                <div style={{ fontSize: 11, color: 'var(--slate)', marginTop: 3 }}>Jul 5-14 &middot; 9 nights</div>
+              </div>
+              <div style={{ textAlign: 'right' }}>
+                <div className="playfair" style={{ fontSize: 32, color: 'var(--champagne)', lineHeight: 1 }}>15</div>
+                <div style={{ fontSize: 8, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--slate)' }}>days away</div>
+              </div>
+            </div>
+            <div style={{ fontSize: 11, color: 'var(--slate)', marginBottom: 12 }}>
+              Your Advisor: <span style={{ color: 'var(--ivory-dim)' }}>Halie M.</span>
+            </div>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+              <span className="badge b-em">Flights: Booked</span>
+              <span className="badge b-em">Hotels: Booked</span>
+              <span className="badge b-sa">Insurance: Quoted</span>
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+            <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12, padding: 18 }}>
+              <div style={{ fontSize: 9, letterSpacing: 2, textTransform: 'uppercase', color: 'var(--slate)', marginBottom: 12 }}>Budget Summary</div>
+              {budgetItems.slice(0, 4).map((item, i) => {
+                const pct = item.budgeted > 0 ? Math.round((item.actual / item.budgeted) * 100) : 0;
+                return (
+                  <div key={i} style={{ marginBottom: 8 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 3 }}>
+                      <span style={{ fontSize: 10, color: 'var(--ivory-dim)' }}>{item.category}</span>
+                      <span style={{ fontSize: 9, color: 'var(--slate)' }}>${item.actual.toLocaleString()} / ${item.budgeted.toLocaleString()}</span>
+                    </div>
+                    <div style={{ height: 4, background: 'var(--bg4)', borderRadius: 2, overflow: 'hidden' }}>
+                      <div style={{ height: '100%', width: `${Math.min(pct, 100)}%`, background: pct > 95 ? 'var(--cognac-lt)' : 'var(--champagne)', borderRadius: 2 }} />
+                    </div>
+                  </div>
+                );
+              })}
+              <div style={{ fontSize: 10, color: 'var(--champagne)', marginTop: 6, cursor: 'pointer' }} onClick={() => setActiveSection('budget')}>View full budget →</div>
+            </div>
+
+            <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12, padding: 18 }}>
+              <div style={{ fontSize: 9, letterSpacing: 2, textTransform: 'uppercase', color: 'var(--slate)', marginBottom: 12 }}>Payments</div>
+              {payments.map((p, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                  <div>
+                    <div style={{ fontSize: 10, color: 'var(--ivory-dim)' }}>{p.label}</div>
+                    <div style={{ fontSize: 13, color: 'var(--champagne)', fontWeight: 500, marginTop: 1 }}>{p.amount}</div>
+                  </div>
+                  <span className={`badge ${p.badge}`} style={{ fontSize: 7 }}>{p.status}</span>
+                </div>
+              ))}
+              <button className="btn btn-champ" style={{ width: '100%', padding: 9, marginTop: 6, fontSize: 10 }}>Pay Now — $8,400</button>
+            </div>
+          </div>
+
+          <div style={{
+            background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12, padding: 20,
+            display: 'flex', alignItems: 'center', gap: 16, marginBottom: 16,
+          }}>
+            <div style={{
+              width: 48, height: 48, borderRadius: '50%',
               background: 'linear-gradient(135deg, var(--champagne), var(--cognac-lt))',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            MERIDIAN TRAVEL
-          </div>
-          <div style={{ width: 50, height: 1, background: 'var(--champagne)', opacity: 0.35, margin: '12px auto' }} />
-          <div style={{ fontSize: 13, color: 'var(--ivory-dim)', fontWeight: 300 }}>
-            Welcome back, <span style={{ color: 'var(--ivory)' }}>Augusta</span>
-          </div>
-        </div>
-
-        {/* -------- TRIP SUMMARY -------- */}
-        {sectionTitle('Your Trip')}
-        <div
-          style={{
-            background: 'var(--bg3)',
-            border: '1px solid var(--border)',
-            borderRadius: 12,
-            padding: 20,
-            marginBottom: 4,
-          }}
-        >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 14 }}>
-            <div>
-              <div className="playfair" style={{ fontSize: 22, color: 'var(--ivory)' }}>Capri</div>
-              <div style={{ fontSize: 11, color: 'var(--slate)', marginTop: 3 }}>Jul 5-14 &middot; 9 nights</div>
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: 18, color: 'var(--bg)', fontWeight: 600, flexShrink: 0,
+            }}>HM</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 14, color: 'var(--ivory)', fontWeight: 400 }}>Halie M.</div>
+              <div style={{ fontSize: 11, color: 'var(--slate)' }}>halie@meridiantravel.co &middot; (555) 234-5678</div>
             </div>
-            <div style={{ textAlign: 'right' }}>
-              <div className="playfair" style={{ fontSize: 28, color: 'var(--champagne)', lineHeight: 1 }}>15</div>
-              <div style={{ fontSize: 8, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--slate)' }}>days away</div>
-            </div>
+            <button className="btn btn-ghost" style={{ padding: '8px 16px', fontSize: 10 }}>Message</button>
           </div>
-          <div style={{ fontSize: 11, color: 'var(--slate)', marginBottom: 12 }}>
-            Trip Lead: <span style={{ color: 'var(--ivory-dim)' }}>Halie M.</span>
-          </div>
-          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-            <span className="badge b-em">Flights: Booked</span>
-            <span className="badge b-em">Hotels: Booked</span>
-            <span className="badge b-sa">Insurance: Quoted</span>
-          </div>
-        </div>
 
-        {/* -------- ITINERARY -------- */}
-        {sectionTitle('Itinerary')}
-        <div
-          style={{
-            background: 'var(--bg3)',
-            border: '1px solid var(--border)',
-            borderRadius: 12,
-            overflow: 'hidden',
-            marginBottom: 4,
-          }}
-        >
-          {itinerary.map((item, i) => (
-            <div
-              key={i}
-              style={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                gap: 14,
-                padding: '13px 18px',
-                borderBottom: i < itinerary.length - 1 ? '1px solid var(--border2)' : 'none',
-              }}
-            >
-              <div
-                style={{
-                  minWidth: 44,
-                  textAlign: 'center',
-                  flexShrink: 0,
-                }}
-              >
-                <div style={{ fontSize: 8, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--slate)' }}>
-                  Day {item.day}
-                </div>
-                <div style={{ fontSize: 11, color: 'var(--champagne)', fontWeight: 500, marginTop: 2 }}>
-                  {item.date}
-                </div>
+          <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12, padding: 20 }}>
+            {!showTripRequest ? (
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: 13, color: 'var(--ivory)', marginBottom: 6, fontWeight: 400 }}>Ready for your next adventure?</div>
+                <div style={{ fontSize: 10, color: 'var(--slate)', marginBottom: 16, lineHeight: 1.5 }}>Submit a trip request and your advisor will start curating your perfect itinerary.</div>
+                <button className="btn btn-champ" style={{ padding: '10px 28px' }} onClick={() => setShowTripRequest(true)}>Request a New Trip</button>
               </div>
-              <div style={{ fontSize: 12, color: 'var(--ivory-dim)', lineHeight: 1.5 }}>
-                {item.label}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* -------- DOCUMENTS -------- */}
-        {sectionTitle('Documents')}
-        <div
-          style={{
-            background: 'var(--bg3)',
-            border: '1px solid var(--border)',
-            borderRadius: 12,
-            overflow: 'hidden',
-            marginBottom: 4,
-          }}
-        >
-          {documents.map((doc, i) => (
-            <div
-              key={i}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '12px 18px',
-                borderBottom: i < documents.length - 1 ? '1px solid var(--border2)' : 'none',
-                cursor: 'pointer',
-                transition: 'background 0.1s',
-              }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = 'var(--champ-glow)'; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.background = 'transparent'; }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <span style={{ fontSize: 16 }}>{doc.icon}</span>
-                <div>
-                  <div style={{ fontSize: 12, color: 'var(--ivory)' }}>{doc.name}</div>
-                  <div style={{ fontSize: 10, color: 'var(--slate)', marginTop: 2 }}>{doc.file}</div>
-                </div>
-              </div>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--champagne)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" y1="15" x2="12" y2="3" />
-              </svg>
-            </div>
-          ))}
-        </div>
-
-        {/* -------- PAYMENTS -------- */}
-        {sectionTitle('Payments')}
-        <div
-          style={{
-            background: 'var(--bg3)',
-            border: '1px solid var(--border)',
-            borderRadius: 12,
-            padding: 18,
-            marginBottom: 4,
-          }}
-        >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 16 }}>
-            {payments.map((p, i) => (
-              <div
-                key={i}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '10px 14px',
-                  background: 'var(--bg4)',
-                  borderRadius: 8,
-                  border: '1px solid var(--border2)',
-                }}
-              >
-                <div>
-                  <div style={{ fontSize: 12, color: 'var(--ivory)' }}>{p.label}</div>
-                  <div className="playfair" style={{ fontSize: 18, color: 'var(--champagne)', marginTop: 2 }}>
-                    {p.amount}
+            ) : (
+              <div>
+                <div style={{ fontSize: 12, color: 'var(--ivory)', marginBottom: 14, fontWeight: 400 }}>New Trip Request</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  <div>
+                    <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--slate)', marginBottom: 4 }}>Destination(s)</div>
+                    <input className="td-input" placeholder="Where would you like to go?" style={{ fontSize: 11 }} />
+                  </div>
+                  <div style={{ display: 'flex', gap: 10 }}>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--slate)', marginBottom: 4 }}>Travel Dates</div>
+                      <input className="td-input" placeholder="Approximate dates" style={{ fontSize: 11 }} />
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--slate)', marginBottom: 4 }}>Travelers</div>
+                      <input className="td-input" placeholder="Number of travelers" style={{ fontSize: 11 }} />
+                    </div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--slate)', marginBottom: 4 }}>Budget Range</div>
+                    <input className="td-input" placeholder="Approximate budget per person" style={{ fontSize: 11 }} />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--slate)', marginBottom: 4 }}>Trip Vision</div>
+                    <textarea className="td-input" placeholder="Tell us about your dream trip..." rows={3} style={{ fontSize: 11, resize: 'vertical' }} />
+                  </div>
+                  <div style={{ display: 'flex', gap: 8, marginTop: 4 }}>
+                    <button className="btn btn-champ" style={{ flex: 1, padding: 10 }}>Submit Request</button>
+                    <button className="btn btn-ghost" style={{ padding: '10px 16px' }} onClick={() => setShowTripRequest(false)}>Cancel</button>
                   </div>
                 </div>
-                <span className={`badge ${p.badge}`}>{p.status}</span>
+              </div>
+            )}
+          </div>
+        </>
+      )}
+
+      {/* ======== ITINERARY ======== */}
+      {activeSection === 'itinerary' && (
+        <>
+          {sectionTitle('Your Itinerary')}
+          <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12, overflow: 'hidden' }}>
+            {itinerary.map((item, i) => (
+              <div key={i} style={{
+                display: 'flex', alignItems: 'flex-start', gap: 14, padding: '15px 20px',
+                borderBottom: i < itinerary.length - 1 ? '1px solid var(--border2)' : 'none',
+              }}>
+                <div style={{ minWidth: 50, textAlign: 'center', flexShrink: 0 }}>
+                  <div style={{ fontSize: 8, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--slate)' }}>Day {item.day}</div>
+                  <div style={{ fontSize: 12, color: 'var(--champagne)', fontWeight: 500, marginTop: 2 }}>{item.date}</div>
+                </div>
+                <div style={{ fontSize: 12, color: 'var(--ivory-dim)', lineHeight: 1.5 }}>{item.label}</div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      {/* ======== DOCUMENTS ======== */}
+      {activeSection === 'documents' && (
+        <>
+          {sectionTitle('Trip Documents')}
+          <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12, overflow: 'hidden', marginBottom: 16 }}>
+            {documents.map((doc, i) => (
+              <div key={i} style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '12px 18px', borderBottom: i < documents.length - 1 ? '1px solid var(--border2)' : 'none',
+                cursor: 'pointer', transition: 'background 0.1s',
+              }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = 'var(--champ-glow)'; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.background = 'transparent'; }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <span style={{ fontSize: 16 }}>{doc.icon}</span>
+                  <div>
+                    <div style={{ fontSize: 12, color: 'var(--ivory)' }}>{doc.name}</div>
+                    <div style={{ fontSize: 10, color: 'var(--slate)', marginTop: 2 }}>{doc.file}</div>
+                  </div>
+                </div>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--champagne)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
               </div>
             ))}
           </div>
 
-          {/* Total */}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              borderTop: '1px solid var(--border)',
-              paddingTop: 14,
-              marginBottom: 14,
-            }}
-          >
-            <span style={{ fontSize: 11, color: 'var(--slate)', letterSpacing: 0.5, textTransform: 'uppercase' }}>
-              Total Trip Cost
-            </span>
-            <span className="playfair" style={{ fontSize: 22, color: 'var(--champagne)' }}>$16,800</span>
-          </div>
-
-          <button className="btn btn-champ" style={{ width: '100%', padding: 11 }}>
-            Pay Now &mdash; $8,400 Due Jun 25
-          </button>
-        </div>
-
-        {/* -------- BUDGET VS. ACTUAL -------- */}
-        {sectionTitle('Budget vs. Actual')}
-        <div
-          style={{
-            background: 'var(--bg3)',
-            border: '1px solid var(--border)',
-            borderRadius: 12,
-            padding: 18,
-            marginBottom: 4,
-          }}
-        >
-          {budgetItems.map((item, i) => {
-            const pct = item.budgeted > 0 ? Math.round((item.actual / item.budgeted) * 100) : 0;
-            return (
-              <div key={i} style={{ marginBottom: i < budgetItems.length - 1 ? 12 : 0 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                  <span style={{ fontSize: 11, color: 'var(--ivory-dim)' }}>{item.category}</span>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <span style={{ fontSize: 10, color: 'var(--slate)' }}>
-                      ${item.actual.toLocaleString()} / ${item.budgeted.toLocaleString()}
-                    </span>
-                    <span className={`badge ${item.status === 'booked' ? 'b-em' : item.status === 'partial' ? 'b-sa' : 'b-og'}`}
-                      style={{ fontSize: 7, padding: '1px 6px' }}>
-                      {item.status === 'booked' ? 'Booked' : item.status === 'partial' ? 'In Progress' : 'Pending'}
-                    </span>
-                  </div>
-                </div>
-                <div style={{ height: 6, background: 'var(--bg4)', borderRadius: 3, overflow: 'hidden' }}>
-                  <div style={{
-                    height: '100%',
-                    width: `${Math.min(pct, 100)}%`,
-                    background: pct > 95 ? 'var(--cognac-lt)' : 'var(--champagne)',
-                    borderRadius: 3,
-                    transition: 'width 0.3s',
-                  }} />
-                </div>
-              </div>
-            );
-          })}
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            borderTop: '1px solid var(--border)',
-            paddingTop: 12,
-            marginTop: 14,
-          }}>
-            <span style={{ fontSize: 10, color: 'var(--slate)', letterSpacing: 0.5, textTransform: 'uppercase' }}>Total</span>
-            <div style={{ textAlign: 'right' }}>
-              <span style={{ fontSize: 11, color: 'var(--ivory-dim)' }}>
-                ${budgetItems.reduce((s, b) => s + b.actual, 0).toLocaleString()}
-              </span>
-              <span style={{ fontSize: 10, color: 'var(--slate)', margin: '0 4px' }}>of</span>
-              <span className="playfair" style={{ fontSize: 15, color: 'var(--champagne)' }}>
-                ${budgetItems.reduce((s, b) => s + b.budgeted, 0).toLocaleString()}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* -------- SECURE DOCUMENTS -------- */}
-        {sectionTitle('Secure Documents')}
-        <div
-          style={{
-            background: 'var(--bg3)',
-            border: '1px solid var(--border)',
-            borderRadius: 12,
-            overflow: 'hidden',
-            marginBottom: 4,
-          }}
-        >
-          <div style={{
-            padding: '10px 18px',
-            background: 'rgba(59,154,156,0.06)',
-            borderBottom: '1px solid var(--border2)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-          }}>
-            <span style={{ fontSize: 11, color: 'var(--emerald-lt)' }}>◆</span>
-            <span style={{ fontSize: 9, color: 'var(--emerald-lt)', letterSpacing: 1, textTransform: 'uppercase' }}>End-to-End Encrypted</span>
-            <span style={{ fontSize: 9, color: 'var(--slate)', marginLeft: 'auto' }}>Only shared with authorized partners</span>
-          </div>
-          {secureDocuments.map((doc, i) => (
-            <div
-              key={i}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '12px 18px',
-                borderBottom: i < secureDocuments.length - 1 ? '1px solid var(--border2)' : 'none',
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, flex: 1 }}>
-                <span style={{ fontSize: 13 }}>{doc.icon}</span>
-                <div>
-                  <div style={{ fontSize: 12, color: 'var(--ivory)' }}>{doc.name}</div>
-                  <div style={{ fontSize: 9, color: 'var(--slate)', marginTop: 2 }}>
-                    {doc.shared.length > 0
-                      ? <>Shared with: <span style={{ color: 'var(--champagne)' }}>{doc.shared.join(', ')}</span></>
-                      : <span style={{ color: 'var(--cognac-lt)' }}>Not yet shared</span>
-                    }
-                    {doc.expiry && <span style={{ marginLeft: 8 }}>&middot; Exp: {doc.expiry}</span>}
-                  </div>
-                </div>
-              </div>
-              <div style={{ display: 'flex', gap: 4 }}>
-                <button className="btn btn-ghost" style={{ fontSize: 9, padding: '3px 8px', borderRadius: 6 }}>View</button>
-                <button className="btn btn-ghost" style={{ fontSize: 9, padding: '3px 8px', borderRadius: 6 }}>Replace</button>
-              </div>
-            </div>
-          ))}
-          <div style={{
-            padding: '12px 18px',
-            borderTop: '1px solid var(--border2)',
-            textAlign: 'center',
-          }}>
-            <button className="btn btn-ghost" style={{ fontSize: 10, padding: '6px 16px' }}>
-              + Upload Secure Document
-            </button>
-          </div>
-        </div>
-
-        {/* -------- TRAVEL PREFERENCES -------- */}
-        {sectionTitle('My Travel Preferences')}
-        <div
-          style={{
-            background: 'var(--bg3)',
-            border: '1px solid var(--border)',
-            borderRadius: 12,
-            padding: 18,
-            marginBottom: 4,
-          }}
-        >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
-            <span style={{ fontSize: 10, color: 'var(--slate)' }}>Keep your preferences up to date for personalized trip planning</span>
-            <button
-              className="btn btn-ghost"
-              style={{ fontSize: 9, padding: '3px 10px', borderRadius: 6 }}
-              onClick={() => setEditingPrefs(!editingPrefs)}
-            >
-              {editingPrefs ? 'Save' : 'Edit'}
-            </button>
-          </div>
-          {prefs.map((pref, i) => (
-            <div key={pref.key} style={{
-              padding: '10px 0',
-              borderBottom: i < prefs.length - 1 ? '1px solid var(--border2)' : 'none',
+          {sectionTitle('Secure Documents')}
+          <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12, overflow: 'hidden' }}>
+            <div style={{
+              padding: '10px 18px', background: 'rgba(59,154,156,0.06)',
+              borderBottom: '1px solid var(--border2)', display: 'flex', alignItems: 'center', gap: 8,
             }}>
-              <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--champagne)', marginBottom: 4 }}>{pref.label}</div>
-              {editingPrefs ? (
-                <input
-                  className="td-input"
-                  value={pref.value}
-                  onChange={(e) => setPrefs(prev => prev.map(p => p.key === pref.key ? { ...p, value: e.target.value } : p))}
-                  style={{ fontSize: 11 }}
-                />
-              ) : (
-                <div style={{ fontSize: 11, color: 'var(--ivory-dim)', lineHeight: 1.5 }}>{pref.value}</div>
-              )}
+              <span style={{ fontSize: 11, color: 'var(--emerald-lt)' }}>◆</span>
+              <span style={{ fontSize: 9, color: 'var(--emerald-lt)', letterSpacing: 1, textTransform: 'uppercase' }}>End-to-End Encrypted</span>
+              <span style={{ fontSize: 9, color: 'var(--slate)', marginLeft: 'auto' }}>Only shared with authorized partners</span>
             </div>
-          ))}
-        </div>
+            {secureDocuments.map((doc, i) => (
+              <div key={i} style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '12px 18px', borderBottom: i < secureDocuments.length - 1 ? '1px solid var(--border2)' : 'none',
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, flex: 1 }}>
+                  <span style={{ fontSize: 13 }}>{doc.icon}</span>
+                  <div>
+                    <div style={{ fontSize: 12, color: 'var(--ivory)' }}>{doc.name}</div>
+                    <div style={{ fontSize: 9, color: 'var(--slate)', marginTop: 2 }}>
+                      {doc.shared.length > 0
+                        ? <>Shared with: <span style={{ color: 'var(--champagne)' }}>{doc.shared.join(', ')}</span></>
+                        : <span style={{ color: 'var(--cognac-lt)' }}>Not yet shared</span>}
+                      {doc.expiry && <span style={{ marginLeft: 8 }}>&middot; Exp: {doc.expiry}</span>}
+                    </div>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', gap: 4 }}>
+                  <button className="btn btn-ghost" style={{ fontSize: 9, padding: '3px 8px', borderRadius: 6 }}>View</button>
+                  <button className="btn btn-ghost" style={{ fontSize: 9, padding: '3px 8px', borderRadius: 6 }}>Replace</button>
+                </div>
+              </div>
+            ))}
+            <div style={{ padding: '12px 18px', borderTop: '1px solid var(--border2)', textAlign: 'center' }}>
+              <button className="btn btn-ghost" style={{ fontSize: 10, padding: '6px 16px' }}>+ Upload Secure Document</button>
+            </div>
+          </div>
+        </>
+      )}
 
-        {/* -------- REQUEST A TRIP -------- */}
-        {sectionTitle('Plan Your Next Trip')}
-        <div
-          style={{
-            background: 'var(--bg3)',
-            border: '1px solid var(--border)',
-            borderRadius: 12,
-            padding: 20,
-            marginBottom: 4,
-          }}
-        >
-          {!showTripRequest ? (
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 13, color: 'var(--ivory)', marginBottom: 6, fontWeight: 400 }}>
-                Ready for your next adventure?
+      {/* ======== BUDGET ======== */}
+      {activeSection === 'budget' && (
+        <>
+          {sectionTitle('Budget vs. Actual')}
+          <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12, padding: 20, marginBottom: 16 }}>
+            {budgetItems.map((item, i) => {
+              const pct = item.budgeted > 0 ? Math.round((item.actual / item.budgeted) * 100) : 0;
+              return (
+                <div key={i} style={{ marginBottom: i < budgetItems.length - 1 ? 14 : 0 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                    <span style={{ fontSize: 12, color: 'var(--ivory-dim)' }}>{item.category}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span style={{ fontSize: 10, color: 'var(--slate)' }}>${item.actual.toLocaleString()} / ${item.budgeted.toLocaleString()}</span>
+                      <span className={`badge ${item.status === 'booked' ? 'b-em' : item.status === 'partial' ? 'b-sa' : 'b-og'}`} style={{ fontSize: 7, padding: '1px 6px' }}>
+                        {item.status === 'booked' ? 'Booked' : item.status === 'partial' ? 'In Progress' : 'Pending'}
+                      </span>
+                    </div>
+                  </div>
+                  <div style={{ height: 6, background: 'var(--bg4)', borderRadius: 3, overflow: 'hidden' }}>
+                    <div style={{ height: '100%', width: `${Math.min(pct, 100)}%`, background: pct > 95 ? 'var(--cognac-lt)' : 'var(--champagne)', borderRadius: 3, transition: 'width 0.3s' }} />
+                  </div>
+                </div>
+              );
+            })}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--border)', paddingTop: 14, marginTop: 16 }}>
+              <span style={{ fontSize: 10, color: 'var(--slate)', letterSpacing: 0.5, textTransform: 'uppercase' }}>Total</span>
+              <div>
+                <span style={{ fontSize: 12, color: 'var(--ivory-dim)' }}>${budgetItems.reduce((s, b) => s + b.actual, 0).toLocaleString()}</span>
+                <span style={{ fontSize: 10, color: 'var(--slate)', margin: '0 4px' }}>of</span>
+                <span className="playfair" style={{ fontSize: 18, color: 'var(--champagne)' }}>${budgetItems.reduce((s, b) => s + b.budgeted, 0).toLocaleString()}</span>
               </div>
-              <div style={{ fontSize: 10, color: 'var(--slate)', marginBottom: 16, lineHeight: 1.5 }}>
-                Submit a trip request and your advisor will start curating your perfect itinerary.
-              </div>
-              <button className="btn btn-champ" style={{ padding: '10px 28px' }} onClick={() => setShowTripRequest(true)}>
-                Request a New Trip
+            </div>
+          </div>
+
+          {sectionTitle('Payments')}
+          <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12, padding: 18 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 16 }}>
+              {payments.map((p, i) => (
+                <div key={i} style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  padding: '10px 14px', background: 'var(--bg3)', borderRadius: 8, border: '1px solid var(--border2)',
+                }}>
+                  <div>
+                    <div style={{ fontSize: 12, color: 'var(--ivory)' }}>{p.label}</div>
+                    <div className="playfair" style={{ fontSize: 18, color: 'var(--champagne)', marginTop: 2 }}>{p.amount}</div>
+                  </div>
+                  <span className={`badge ${p.badge}`}>{p.status}</span>
+                </div>
+              ))}
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--border)', paddingTop: 14, marginBottom: 14 }}>
+              <span style={{ fontSize: 11, color: 'var(--slate)', letterSpacing: 0.5, textTransform: 'uppercase' }}>Total Trip Cost</span>
+              <span className="playfair" style={{ fontSize: 22, color: 'var(--champagne)' }}>$16,800</span>
+            </div>
+            <button className="btn btn-champ" style={{ width: '100%', padding: 11 }}>Pay Now &mdash; $8,400 Due Jun 25</button>
+          </div>
+        </>
+      )}
+
+      {/* ======== PREFERENCES ======== */}
+      {activeSection === 'preferences' && (
+        <>
+          {sectionTitle('My Travel Preferences')}
+          <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12, padding: 20, marginBottom: 16 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+              <span style={{ fontSize: 10, color: 'var(--slate)' }}>Keep your preferences up to date for personalized trip planning</span>
+              <button className="btn btn-ghost" style={{ fontSize: 9, padding: '3px 10px', borderRadius: 6 }} onClick={() => setEditingPrefs(!editingPrefs)}>
+                {editingPrefs ? 'Save' : 'Edit'}
               </button>
             </div>
-          ) : (
-            <div>
-              <div style={{ fontSize: 12, color: 'var(--ivory)', marginBottom: 14, fontWeight: 400 }}>New Trip Request</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                <div>
-                  <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--slate)', marginBottom: 4 }}>Destination(s)</div>
-                  <input className="td-input" placeholder="Where would you like to go?" style={{ fontSize: 11 }} />
-                </div>
-                <div style={{ display: 'flex', gap: 10 }}>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--slate)', marginBottom: 4 }}>Travel Dates</div>
-                    <input className="td-input" placeholder="Approximate dates" style={{ fontSize: 11 }} />
-                  </div>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--slate)', marginBottom: 4 }}>Travelers</div>
-                    <input className="td-input" placeholder="Number of travelers" style={{ fontSize: 11 }} />
-                  </div>
-                </div>
-                <div>
-                  <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--slate)', marginBottom: 4 }}>Budget Range</div>
-                  <input className="td-input" placeholder="Approximate budget per person" style={{ fontSize: 11 }} />
-                </div>
-                <div>
-                  <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--slate)', marginBottom: 4 }}>Trip Vision</div>
-                  <textarea className="td-input" placeholder="Tell us about your dream trip — interests, must-haves, style of travel..." rows={3} style={{ fontSize: 11, resize: 'vertical' }} />
-                </div>
-                <div style={{ display: 'flex', gap: 8, marginTop: 4 }}>
-                  <button className="btn btn-champ" style={{ flex: 1, padding: 10 }}>Submit Request</button>
-                  <button className="btn btn-ghost" style={{ padding: '10px 16px' }} onClick={() => setShowTripRequest(false)}>Cancel</button>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* -------- FEEDBACK -------- */}
-        {sectionTitle('Feedback')}
-        <div
-          style={{
-            background: 'var(--bg3)',
-            border: '1px solid var(--border)',
-            borderRadius: 12,
-            padding: 20,
-            marginBottom: 4,
-          }}
-        >
-          <div style={{ fontSize: 13, color: 'var(--ivory)', marginBottom: 14, fontWeight: 400 }}>
-            How was your trip?
-          </div>
-
-          {/* Star rating */}
-          <div style={{ display: 'flex', gap: 6, marginBottom: 16 }}>
-            {[1, 2, 3, 4, 5].map((star) => (
-              <div
-                key={star}
-                onClick={() => setStarRating(star)}
-                onMouseEnter={() => setHoverStar(star)}
-                onMouseLeave={() => setHoverStar(0)}
-                style={{
-                  width: 32,
-                  height: 32,
-                  borderRadius: 6,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer',
-                  fontSize: 18,
-                  background: star <= (hoverStar || starRating) ? 'var(--champ-dim)' : 'var(--bg4)',
-                  border: `1px solid ${star <= (hoverStar || starRating) ? 'var(--champagne)' : 'var(--border)'}`,
-                  color: star <= (hoverStar || starRating) ? 'var(--champagne)' : 'var(--slate-dim)',
-                  transition: 'all 0.15s',
-                }}
-              >
-                {star <= (hoverStar || starRating) ? '★' : '☆'}
+            {prefs.map((pref, i) => (
+              <div key={pref.key} style={{ padding: '10px 0', borderBottom: i < prefs.length - 1 ? '1px solid var(--border2)' : 'none' }}>
+                <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--champagne)', marginBottom: 4 }}>{pref.label}</div>
+                {editingPrefs ? (
+                  <input className="td-input" value={pref.value} onChange={(e) => setPrefs(prev => prev.map(p => p.key === pref.key ? { ...p, value: e.target.value } : p))} style={{ fontSize: 11 }} />
+                ) : (
+                  <div style={{ fontSize: 11, color: 'var(--ivory-dim)', lineHeight: 1.5 }}>{pref.value}</div>
+                )}
               </div>
             ))}
           </div>
 
-          <textarea
-            className="td-input"
-            placeholder="Share your experience..."
-            value={feedbackText}
-            onChange={(e) => setFeedbackText(e.target.value)}
-            rows={3}
-            style={{ resize: 'vertical', marginBottom: 12 }}
-          />
-
-          <button className="btn btn-champ" style={{ width: '100%', padding: 10 }}>
-            Submit Feedback
-          </button>
-
-          <div style={{ fontSize: 10, color: 'var(--slate)', textAlign: 'center', marginTop: 10 }}>
-            Your feedback helps us create even better experiences
+          {sectionTitle('Feedback')}
+          <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12, padding: 20 }}>
+            <div style={{ fontSize: 13, color: 'var(--ivory)', marginBottom: 14, fontWeight: 400 }}>How was your trip?</div>
+            <div style={{ display: 'flex', gap: 6, marginBottom: 16 }}>
+              {[1, 2, 3, 4, 5].map((star) => (
+                <div key={star} onClick={() => setStarRating(star)} onMouseEnter={() => setHoverStar(star)} onMouseLeave={() => setHoverStar(0)}
+                  style={{
+                    width: 32, height: 32, borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    cursor: 'pointer', fontSize: 18,
+                    background: star <= (hoverStar || starRating) ? 'var(--champ-dim)' : 'var(--bg4)',
+                    border: `1px solid ${star <= (hoverStar || starRating) ? 'var(--champagne)' : 'var(--border)'}`,
+                    color: star <= (hoverStar || starRating) ? 'var(--champagne)' : 'var(--slate-dim)',
+                    transition: 'all 0.15s',
+                  }}>
+                  {star <= (hoverStar || starRating) ? '★' : '☆'}
+                </div>
+              ))}
+            </div>
+            <textarea className="td-input" placeholder="Share your experience..." value={feedbackText} onChange={(e) => setFeedbackText(e.target.value)} rows={3} style={{ resize: 'vertical', marginBottom: 12 }} />
+            <button className="btn btn-champ" style={{ width: '100%', padding: 10 }}>Submit Feedback</button>
           </div>
-        </div>
+        </>
+      )}
 
-        {/* -------- CONTACT -------- */}
-        {sectionTitle('Your Advisor')}
-        <div
-          style={{
-            background: 'var(--bg3)',
-            border: '1px solid var(--border)',
-            borderRadius: 12,
-            padding: 20,
-            textAlign: 'center',
-          }}
-        >
-          {/* Avatar placeholder */}
-          <div
-            style={{
-              width: 48,
-              height: 48,
-              borderRadius: '50%',
-              background: 'linear-gradient(135deg, var(--champagne), var(--cognac-lt))',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto 12px',
-              fontSize: 18,
-              color: 'var(--bg)',
-              fontWeight: 600,
-            }}
-          >
-            HM
-          </div>
-          <div style={{ fontSize: 14, color: 'var(--ivory)', fontWeight: 400, marginBottom: 4 }}>Halie M.</div>
-          <div style={{ fontSize: 11, color: 'var(--slate)', marginBottom: 2 }}>halie@meridiantravel.co</div>
-          <div style={{ fontSize: 11, color: 'var(--slate)', marginBottom: 14 }}>(555) 234-5678</div>
-          <button className="btn btn-ghost" style={{ width: '100%', padding: 10 }}>
-            Message Your Advisor
-          </button>
-        </div>
-
-        {/* Footer */}
-        <div style={{ textAlign: 'center', fontSize: 9, color: 'var(--slate-dim)', marginTop: 24, letterSpacing: 0.5 }}>
-          Powered by Meridian Travel &middot; Luxury Travel, Curated for You
-        </div>
+      <div style={{ textAlign: 'center', fontSize: 9, color: 'var(--slate-dim)', marginTop: 24, letterSpacing: 0.5, paddingBottom: 20 }}>
+        Powered by Voyance &middot; Luxury Travel, Curated for You
       </div>
     </div>
   );
@@ -840,82 +595,35 @@ export default function ClientPortal() {
   const [selectedClient, setSelectedClient] = useState(clients[0].code);
   const [sections, setSections] = useState<Record<string, boolean>>(() => {
     const init: Record<string, boolean> = {};
-    for (const s of portalSections) {
-      init[s.key] = s.default;
-    }
+    for (const s of portalSections) init[s.key] = s.default;
     return init;
   });
 
-  const toggleSection = (key: string) => {
-    setSections((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
+  const toggleSection = (key: string) => setSections((prev) => ({ ...prev, [key]: !prev[key] }));
 
   return (
     <div style={{ padding: 28, overflowY: 'auto', flex: 1 }}>
-      {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 24 }}>
         <div>
-          <h1 className="playfair" style={{ fontSize: 26, fontWeight: 400, letterSpacing: 0.5 }}>
-            Client Portal
-          </h1>
-          <p style={{ fontSize: 11, color: 'var(--slate)', marginTop: 4 }}>
-            Branded client-facing view &middot; Manage what your clients see
-          </p>
+          <h1 className="playfair" style={{ fontSize: 26, fontWeight: 400, letterSpacing: 0.5 }}>Client Portal</h1>
+          <p style={{ fontSize: 11, color: 'var(--slate)', marginTop: 4 }}>Branded client-facing view &middot; Manage what your clients see</p>
         </div>
-
-        {/* Segmented control */}
-        <div
-          style={{
-            display: 'flex',
-            background: 'var(--bg3)',
-            border: '1px solid var(--border)',
-            borderRadius: 8,
-            overflow: 'hidden',
-          }}
-        >
-          <button
-            className="btn"
-            onClick={() => setView('advisor')}
-            style={{
-              borderRadius: 0,
-              border: 'none',
-              background: view === 'advisor'
-                ? 'linear-gradient(135deg, var(--champagne), var(--cognac-lt))'
-                : 'transparent',
-              color: view === 'advisor' ? 'var(--bg)' : 'var(--slate)',
-              padding: '8px 18px',
-              fontSize: 10,
-            }}
-          >
-            Advisor View
-          </button>
-          <button
-            className="btn"
-            onClick={() => setView('client')}
-            style={{
-              borderRadius: 0,
-              border: 'none',
-              background: view === 'client'
-                ? 'linear-gradient(135deg, var(--champagne), var(--cognac-lt))'
-                : 'transparent',
-              color: view === 'client' ? 'var(--bg)' : 'var(--slate)',
-              padding: '8px 18px',
-              fontSize: 10,
-            }}
-          >
-            Client View
-          </button>
+        <div style={{ display: 'flex', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, overflow: 'hidden' }}>
+          <button className="btn" onClick={() => setView('advisor')} style={{
+            borderRadius: 0, border: 'none', padding: '8px 18px', fontSize: 10,
+            background: view === 'advisor' ? 'linear-gradient(135deg, var(--champagne), var(--cognac-lt))' : 'transparent',
+            color: view === 'advisor' ? 'var(--bg)' : 'var(--slate)',
+          }}>Advisor View</button>
+          <button className="btn" onClick={() => setView('client')} style={{
+            borderRadius: 0, border: 'none', padding: '8px 18px', fontSize: 10,
+            background: view === 'client' ? 'linear-gradient(135deg, var(--champagne), var(--cognac-lt))' : 'transparent',
+            color: view === 'client' ? 'var(--bg)' : 'var(--slate)',
+          }}>Client View</button>
         </div>
       </div>
 
-      {/* View content */}
       {view === 'advisor' ? (
-        <AdvisorView
-          selectedClient={selectedClient}
-          setSelectedClient={setSelectedClient}
-          sections={sections}
-          toggleSection={toggleSection}
-        />
+        <AdvisorView selectedClient={selectedClient} setSelectedClient={setSelectedClient} sections={sections} toggleSection={toggleSection} />
       ) : (
         <ClientView />
       )}
