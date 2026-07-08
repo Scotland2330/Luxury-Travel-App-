@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useTheme } from '../ThemeContext';
 
-const tabs = ['Staff & Roles', 'Automations', 'Agency Settings', 'Notifications', 'Passport & Visas', 'Team Calendar'];
-const tabIds = ['staff', 'automations', 'agency', 'notifications', 'passports', 'calendar'];
+const tabs = ['Staff & Roles', 'Automations', 'Payments & Invoicing', 'Agency Settings', 'Notifications', 'Passport & Visas', 'Team Calendar'];
+const tabIds = ['staff', 'automations', 'payments', 'agency', 'notifications', 'passports', 'calendar'];
 
 const staff = [
   { init: 'HM', name: 'Halie McGee', email: 'halie@agency.com', role: 'Owner', roleBadge: 'b-ch', rate: '$150/hr', status: 'Active', statusBadge: 'b-em', bg: 'linear-gradient(135deg,#1B4B5A,#3B9A9C)', color: 'var(--champagne)', borderColor: 'rgba(59,154,156,0.3)', owner: true },
@@ -49,6 +49,27 @@ const passports = [
   { client: 'Stern/Gross', expiry: 'Nov 2026', days: 150, visa: 'Spain Schengen — Yes', status: 'Needs Renewal', statusBadge: 'b-og' },
 ];
 
+const paymentGateways = [
+  { name: 'Stripe', desc: 'Credit cards, ACH, Apple Pay, Google Pay', status: 'connected' as const, acct: 'acct_1Ox...7qR', fees: '2.9% + $0.30' },
+  { name: 'Square', desc: 'In-person and online payments', status: 'available' as const, acct: '', fees: '2.6% + $0.10' },
+  { name: 'PayPal', desc: 'PayPal, Venmo, Pay Later', status: 'available' as const, acct: '', fees: '3.49% + $0.49' },
+  { name: 'Authorize.net', desc: 'Credit cards, eChecks', status: 'available' as const, acct: '', fees: '2.9% + $0.30' },
+];
+
+const invoices = [
+  { id: 'INV-2026-041', client: 'Holland, Augusta', trip: 'Capri', amount: '$8,400.00', issued: 'Jun 18', due: 'Jun 25', status: 'sent' as const, method: 'stripe' },
+  { id: 'INV-2026-040', client: 'Baker, Sean', trip: 'Westlake', amount: '$3,200.00', issued: 'Jun 15', due: 'Jun 22', status: 'paid' as const, method: 'stripe' },
+  { id: 'INV-2026-039', client: 'McGarey, Patrick', trip: 'Scotland', amount: '$12,600.00', issued: 'Jun 12', due: 'Jun 19', status: 'overdue' as const, method: 'stripe' },
+  { id: 'INV-2026-038', client: 'Diaz, Maria', trip: 'DC Business', amount: '$2,800.00', issued: 'Jun 10', due: 'Jun 17', status: 'paid' as const, method: 'stripe' },
+  { id: 'INV-2026-037', client: 'Holland, Augusta', trip: 'Capri', amount: '$4,200.00', issued: 'Jun 1', due: 'Jun 8', status: 'paid' as const, method: 'stripe' },
+];
+
+const paymentLinks = [
+  { client: 'Holland, Augusta', trip: 'Capri — 2nd Payment', amount: '$8,400.00', link: 'pay.voyance.co/hm-travel/hol-capri-2', created: 'Jun 18', views: 3, status: 'active' as const },
+  { client: 'McGarey, Patrick', trip: 'Scotland — Deposit', amount: '$12,600.00', link: 'pay.voyance.co/hm-travel/mcg-scot-dep', created: 'Jun 12', views: 1, status: 'active' as const },
+  { client: 'Baker, Sean', trip: 'Westlake — Final Balance', amount: '$1,600.00', link: 'pay.voyance.co/hm-travel/bak-west-fin', created: 'Jun 20', views: 0, status: 'active' as const },
+];
+
 const calendarEntries = [
   { person: 'Halie McGee', desc: 'PTO Jun 25–27', badgeText: 'PTO', badgeClass: 'b-mu' },
   { person: 'Emily Stone', desc: 'FAM Trip: Ritz-Carlton Yacht Jul 10–14', badgeText: 'FAM', badgeClass: 'b-sa' },
@@ -79,6 +100,8 @@ export default function Admin() {
   /* Automation edit modal state: index = -1 means "new", null means closed */
   const [editIndex, setEditIndex] = useState<number | null>(null);
   const [editForm, setEditForm] = useState<AutomationForm>(emptyForm);
+  const [paymentSubTab, setPaymentSubTab] = useState<'gateways' | 'invoices' | 'links'>('gateways');
+  const [showNewInvoice, setShowNewInvoice] = useState(false);
 
   const openEdit = (i: number) => {
     const a = automations[i];
@@ -188,6 +211,288 @@ export default function Admin() {
                   </div>
                 ))}
               </div>
+            </div>
+          )}
+
+          {/* Payments & Invoicing */}
+          {activeTab === 'payments' && (
+            <div>
+              <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:20}}>
+                <div>
+                  <div style={{fontSize:13,color:'var(--ivory)',fontWeight:500}}>Payments & Invoicing</div>
+                  <div style={{fontSize:11,color:'var(--slate)',marginTop:2}}>Connect gateways, create invoices, and send payment links to clients</div>
+                </div>
+                <button className="btn btn-champ btn-sm" onClick={() => { setPaymentSubTab('invoices'); setShowNewInvoice(true); }}>+ New Invoice</button>
+              </div>
+
+              {/* Sub-tabs */}
+              <div style={{display:'flex',gap:4,marginBottom:20,borderBottom:'1px solid var(--border)'}}>
+                {([['gateways','Payment Gateways'],['invoices','Invoices'],['links','Payment Links']] as const).map(([id,label]) => (
+                  <div key={id} onClick={() => { setPaymentSubTab(id); setShowNewInvoice(false); }} style={{
+                    padding:'8px 16px',fontSize:10,letterSpacing:0.8,textTransform:'uppercase',cursor:'pointer',transition:'all 0.15s',
+                    color: paymentSubTab===id ? 'var(--champagne)' : 'var(--slate)',
+                    borderBottom: paymentSubTab===id ? '2px solid var(--champagne)' : '2px solid transparent',
+                  }}>{label}</div>
+                ))}
+              </div>
+
+              {/* Payment Gateways */}
+              {paymentSubTab === 'gateways' && (
+                <div style={{display:'flex',flexDirection:'column',gap:12}}>
+                  {paymentGateways.map((gw,i) => (
+                    <div key={i} style={{
+                      display:'flex',alignItems:'center',justifyContent:'space-between',
+                      padding:'16px 18px',background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:10,
+                      borderLeft: gw.status === 'connected' ? '3px solid var(--emerald-lt)' : '3px solid var(--border)',
+                    }}>
+                      <div style={{display:'flex',alignItems:'center',gap:14,flex:1}}>
+                        <div style={{
+                          width:40,height:40,borderRadius:10,
+                          background: gw.status === 'connected' ? 'rgba(59,154,156,0.1)' : 'var(--bg4)',
+                          border:`1px solid ${gw.status === 'connected' ? 'rgba(59,154,156,0.2)' : 'var(--border)'}`,
+                          display:'flex',alignItems:'center',justifyContent:'center',fontSize:16,
+                          color: gw.status === 'connected' ? 'var(--emerald-lt)' : 'var(--slate)',
+                        }}>{gw.status === 'connected' ? '◆' : '◇'}</div>
+                        <div style={{flex:1}}>
+                          <div style={{display:'flex',alignItems:'center',gap:8}}>
+                            <span style={{fontSize:13,color:'var(--ivory)',fontWeight:500}}>{gw.name}</span>
+                            {gw.status === 'connected' && <span className="badge b-em" style={{fontSize:7}}>Connected</span>}
+                          </div>
+                          <div style={{fontSize:10,color:'var(--slate)',marginTop:2}}>{gw.desc}</div>
+                          <div style={{fontSize:9,color:'var(--slate-dim)',marginTop:3}}>
+                            Processing fee: {gw.fees}
+                            {gw.acct && <span style={{marginLeft:8}}>· Account: <span style={{color:'var(--champagne)'}}>{gw.acct}</span></span>}
+                          </div>
+                        </div>
+                      </div>
+                      <div style={{display:'flex',gap:6}}>
+                        {gw.status === 'connected' ? (
+                          <>
+                            <button className="btn btn-ghost btn-xs">Settings</button>
+                            <button className="btn btn-ghost btn-xs">Test Payment</button>
+                            <button className="btn btn-xs" style={{background:'rgba(155,58,58,0.15)',color:'var(--ruby-lt)',border:'none'}}>Disconnect</button>
+                          </>
+                        ) : (
+                          <button className="btn btn-champ btn-sm">Connect</button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+
+                  <div style={{
+                    padding:'16px 18px',background:'var(--bg3)',border:'1px dashed var(--border)',borderRadius:10,
+                    textAlign:'center',marginTop:4,
+                  }}>
+                    <div style={{fontSize:11,color:'var(--slate)',marginBottom:6}}>Need a different gateway?</div>
+                    <button className="btn btn-ghost" style={{fontSize:10,padding:'6px 16px'}}>Request Integration</button>
+                  </div>
+
+                  {/* Payout settings */}
+                  <div style={{marginTop:8}}>
+                    <div style={{fontSize:10,letterSpacing:1.5,textTransform:'uppercase',color:'var(--slate)',marginBottom:10}}>Payout Settings</div>
+                    <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}}>
+                      <div style={{padding:'14px 16px',background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:10}}>
+                        <div style={{fontSize:9,letterSpacing:1.5,textTransform:'uppercase',color:'var(--slate)',marginBottom:4}}>Payout Schedule</div>
+                        <select className="td-input" style={{width:'100%',fontSize:11}} defaultValue="weekly">
+                          <option value="daily">Daily</option>
+                          <option value="weekly">Weekly (Every Monday)</option>
+                          <option value="monthly">Monthly (1st of month)</option>
+                        </select>
+                      </div>
+                      <div style={{padding:'14px 16px',background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:10}}>
+                        <div style={{fontSize:9,letterSpacing:1.5,textTransform:'uppercase',color:'var(--slate)',marginBottom:4}}>Default Currency</div>
+                        <select className="td-input" style={{width:'100%',fontSize:11}} defaultValue="usd">
+                          <option value="usd">USD — US Dollar</option>
+                          <option value="eur">EUR — Euro</option>
+                          <option value="gbp">GBP — British Pound</option>
+                          <option value="cad">CAD — Canadian Dollar</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Invoices */}
+              {paymentSubTab === 'invoices' && !showNewInvoice && (
+                <div>
+                  {/* Invoice KPIs */}
+                  <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:10,marginBottom:18}}>
+                    {[
+                      {label:'Outstanding',value:'$21,000',color:'var(--cognac-lt)'},
+                      {label:'Paid This Month',value:'$10,200',color:'var(--emerald-lt)'},
+                      {label:'Overdue',value:'$12,600',color:'var(--ruby-lt)'},
+                      {label:'Total Invoiced',value:'$31,200',color:'var(--champagne)'},
+                    ].map((k,i) => (
+                      <div key={i} style={{padding:'12px 14px',background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:8}}>
+                        <div style={{fontSize:8,letterSpacing:1.5,textTransform:'uppercase',color:'var(--slate)',marginBottom:6}}>{k.label}</div>
+                        <div className="playfair" style={{fontSize:20,color:k.color}}>{k.value}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <table className="tbl">
+                    <thead><tr>{['Invoice','Client','Trip','Amount','Issued','Due','Status',''].map(h => <th key={h}>{h}</th>)}</tr></thead>
+                    <tbody>
+                      {invoices.map((inv,i) => (
+                        <tr key={i}>
+                          <td style={{fontSize:11,color:'var(--champagne)',fontWeight:500}}>{inv.id}</td>
+                          <td className="td-main" style={{fontSize:11}}>{inv.client}</td>
+                          <td style={{fontSize:11,color:'var(--ivory-dim)'}}>{inv.trip}</td>
+                          <td className="td-gold" style={{fontSize:12}}>{inv.amount}</td>
+                          <td style={{fontSize:10,color:'var(--slate)'}}>{inv.issued}</td>
+                          <td style={{fontSize:10,color:'var(--slate)'}}>{inv.due}</td>
+                          <td>
+                            <span className={`badge ${inv.status === 'paid' ? 'b-em' : inv.status === 'sent' ? 'b-sa' : 'b-ru'}`}>
+                              {inv.status === 'paid' ? 'Paid' : inv.status === 'sent' ? 'Sent' : 'Overdue'}
+                            </span>
+                          </td>
+                          <td>
+                            <div style={{display:'flex',gap:4}}>
+                              <button className="btn btn-ghost btn-xs">View</button>
+                              {inv.status !== 'paid' && <button className="btn btn-ghost btn-xs">Resend</button>}
+                              {inv.status !== 'paid' && <button className="btn btn-ghost btn-xs">Copy Link</button>}
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+
+              {/* New Invoice Form */}
+              {paymentSubTab === 'invoices' && showNewInvoice && (
+                <div style={{background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:12,padding:24}}>
+                  <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:20}}>
+                    <div style={{fontSize:14,color:'var(--ivory)',fontWeight:500}}>Create New Invoice</div>
+                    <button className="btn btn-ghost btn-xs" onClick={() => setShowNewInvoice(false)}>Cancel</button>
+                  </div>
+                  <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:14,marginBottom:14}}>
+                    <div>
+                      <div style={{fontSize:9,letterSpacing:2,textTransform:'uppercase',color:'var(--slate)',marginBottom:6}}>Client</div>
+                      <select className="td-input" style={{width:'100%'}}>
+                        <option>Select a client...</option>
+                        <option>Holland, Augusta</option>
+                        <option>Baker, Sean</option>
+                        <option>McGarey, Patrick & Cristin</option>
+                        <option>Diaz, Maria</option>
+                      </select>
+                    </div>
+                    <div>
+                      <div style={{fontSize:9,letterSpacing:2,textTransform:'uppercase',color:'var(--slate)',marginBottom:6}}>Trip</div>
+                      <select className="td-input" style={{width:'100%'}}>
+                        <option>Select a trip...</option>
+                        <option>Capri</option>
+                        <option>Westlake</option>
+                        <option>Scotland</option>
+                        <option>DC Business</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div style={{fontSize:10,letterSpacing:1.5,textTransform:'uppercase',color:'var(--slate)',marginBottom:10,marginTop:8}}>Line Items</div>
+                  <div style={{background:'var(--bg2)',border:'1px solid var(--border)',borderRadius:8,overflow:'hidden',marginBottom:14}}>
+                    <div style={{display:'grid',gridTemplateColumns:'2fr 1fr 1fr 40px',padding:'8px 14px',borderBottom:'1px solid var(--border2)'}}>
+                      {['Description','Qty','Amount',''].map(h => <span key={h} style={{fontSize:8,letterSpacing:1.5,textTransform:'uppercase',color:'var(--slate)'}}>{h}</span>)}
+                    </div>
+                    {[
+                      {desc:'Hotel deposit — Caesar Augustus',qty:'1',amount:'$4,200.00'},
+                      {desc:'Flight booking — AA Business Class',qty:'2',amount:'$3,980.00'},
+                    ].map((item,i) => (
+                      <div key={i} style={{display:'grid',gridTemplateColumns:'2fr 1fr 1fr 40px',padding:'8px 14px',borderBottom:'1px solid var(--border2)',alignItems:'center'}}>
+                        <input className="td-input" defaultValue={item.desc} style={{fontSize:11}}/>
+                        <input className="td-input" defaultValue={item.qty} style={{fontSize:11,width:50}}/>
+                        <input className="td-input" defaultValue={item.amount} style={{fontSize:11,width:100}}/>
+                        <div style={{cursor:'pointer',color:'var(--ruby-lt)',fontSize:14,textAlign:'center'}}>×</div>
+                      </div>
+                    ))}
+                    <div style={{padding:'8px 14px'}}>
+                      <button className="btn btn-ghost btn-xs">+ Add Line Item</button>
+                    </div>
+                  </div>
+
+                  <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:14,marginBottom:18}}>
+                    <div>
+                      <div style={{fontSize:9,letterSpacing:2,textTransform:'uppercase',color:'var(--slate)',marginBottom:6}}>Due Date</div>
+                      <input className="td-input" type="date" style={{width:'100%',fontSize:11}}/>
+                    </div>
+                    <div>
+                      <div style={{fontSize:9,letterSpacing:2,textTransform:'uppercase',color:'var(--slate)',marginBottom:6}}>Payment Gateway</div>
+                      <select className="td-input" style={{width:'100%'}}>
+                        <option>Stripe (Connected)</option>
+                        <option>Square</option>
+                        <option>PayPal</option>
+                      </select>
+                    </div>
+                    <div>
+                      <div style={{fontSize:9,letterSpacing:2,textTransform:'uppercase',color:'var(--slate)',marginBottom:6}}>Payment Methods</div>
+                      <select className="td-input" style={{width:'100%'}}>
+                        <option>Credit Card + ACH</option>
+                        <option>Credit Card Only</option>
+                        <option>ACH Only</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 18px',background:'var(--bg2)',border:'1px solid var(--border)',borderRadius:8,marginBottom:18}}>
+                    <span style={{fontSize:11,color:'var(--slate)',letterSpacing:0.5,textTransform:'uppercase'}}>Invoice Total</span>
+                    <span className="playfair" style={{fontSize:24,color:'var(--champagne)'}}>$8,180.00</span>
+                  </div>
+
+                  <div style={{display:'flex',gap:8}}>
+                    <button className="btn btn-champ" style={{flex:1}}>Send Invoice to Client</button>
+                    <button className="btn btn-ghost">Save as Draft</button>
+                    <button className="btn btn-ghost">Preview</button>
+                  </div>
+
+                  <div style={{fontSize:9,color:'var(--slate-dim)',marginTop:12,textAlign:'center'}}>
+                    Client will receive an email with a secure payment link via your connected gateway
+                  </div>
+                </div>
+              )}
+
+              {/* Payment Links */}
+              {paymentSubTab === 'links' && (
+                <div>
+                  <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:16}}>
+                    <div style={{fontSize:11,color:'var(--slate)'}}>Shareable payment links for direct client payments</div>
+                    <button className="btn btn-champ btn-sm">+ Create Payment Link</button>
+                  </div>
+
+                  <div style={{display:'flex',flexDirection:'column',gap:10}}>
+                    {paymentLinks.map((pl,i) => (
+                      <div key={i} style={{
+                        padding:'16px 18px',background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:10,
+                      }}>
+                        <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:10}}>
+                          <div>
+                            <div style={{fontSize:12,color:'var(--ivory)',fontWeight:500}}>{pl.client}</div>
+                            <div style={{fontSize:10,color:'var(--slate)',marginTop:2}}>{pl.trip}</div>
+                          </div>
+                          <div style={{textAlign:'right'}}>
+                            <div className="playfair" style={{fontSize:18,color:'var(--champagne)'}}>{pl.amount}</div>
+                            <span className="badge b-em" style={{fontSize:7,marginTop:4}}>{pl.status === 'active' ? 'Active' : 'Expired'}</span>
+                          </div>
+                        </div>
+                        <div style={{
+                          display:'flex',alignItems:'center',gap:8,padding:'8px 12px',
+                          background:'var(--bg2)',border:'1px solid var(--border)',borderRadius:8,marginBottom:10,
+                        }}>
+                          <span style={{flex:1,fontSize:10,color:'var(--champagne)',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{pl.link}</span>
+                          <button className="btn btn-ghost btn-xs" onClick={() => navigator.clipboard?.writeText(`https://${pl.link}`)}>Copy</button>
+                          <button className="btn btn-ghost btn-xs">Email to Client</button>
+                        </div>
+                        <div style={{display:'flex',gap:16,fontSize:9,color:'var(--slate)'}}>
+                          <span>Created: {pl.created}</span>
+                          <span>Views: {pl.views}</span>
+                          <span>Gateway: Stripe</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
