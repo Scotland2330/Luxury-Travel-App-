@@ -27,10 +27,35 @@ const itinerary = [
 ];
 
 const documents = [
-  { name: 'Flight Confirmation', file: 'AA_Tickets_Holland.pdf', icon: '✈' },
-  { name: 'Hotel Confirmation', file: 'CaesarAugustus_Conf.pdf', icon: '\u{1F3E8}' },
-  { name: 'Insurance Quote', file: 'Insurance_Quote_Arch.pdf', icon: '\u{1F6E1}' },
-  { name: 'Travel Insurance Info', file: 'Policy_Details.pdf', icon: '\u{1F4CB}' },
+  { name: 'Flight Confirmation', file: 'AA_Tickets_Holland.pdf', icon: '✈', secure: false },
+  { name: 'Hotel Confirmation', file: 'CaesarAugustus_Conf.pdf', icon: '\u{1F3E8}', secure: false },
+  { name: 'Insurance Quote', file: 'Insurance_Quote_Arch.pdf', icon: '\u{1F6E1}', secure: false },
+  { name: 'Travel Insurance Info', file: 'Policy_Details.pdf', icon: '\u{1F4CB}', secure: false },
+];
+
+const secureDocuments = [
+  { name: 'Passport — Augusta Holland', file: 'Passport_AHolland.jpg', icon: '◩', shared: ['Italia Luxury Travel'], expiry: 'Dec 2028' },
+  { name: 'Passport — David Holland', file: 'Passport_DHolland.jpg', icon: '◩', shared: [], expiry: 'Mar 2027' },
+  { name: 'CC Authorization Form', file: 'CC_Auth_Holland.pdf', icon: '◆', shared: ['Hotel Caesar Augustus'], expiry: '' },
+  { name: 'Photo ID — Augusta Holland', file: 'ID_AHolland.jpg', icon: '◩', shared: ['Rolzo Transfers'], expiry: '' },
+];
+
+const budgetItems = [
+  { category: 'Flights', budgeted: 4200, actual: 3980, status: 'booked' as const },
+  { category: 'Hotels', budgeted: 6800, actual: 6800, status: 'booked' as const },
+  { category: 'Activities', budgeted: 2200, actual: 1450, status: 'partial' as const },
+  { category: 'Transfers', budgeted: 1200, actual: 980, status: 'booked' as const },
+  { category: 'Dining', budgeted: 1800, actual: 600, status: 'partial' as const },
+  { category: 'Insurance', budgeted: 600, actual: 0, status: 'pending' as const },
+];
+
+const clientPreferences = [
+  { key: 'dietary', label: 'Dietary Restrictions', value: 'Gluten-free (Augusta)' },
+  { key: 'room', label: 'Room Preferences', value: 'High floor, sea view, king bed, quiet room' },
+  { key: 'airline', label: 'Airline Preferences', value: 'American Airlines, Business Class' },
+  { key: 'activity', label: 'Activity Level', value: 'Moderate — walking tours, no strenuous hikes' },
+  { key: 'communication', label: 'Communication', value: 'Email preferred. Text for urgent only.' },
+  { key: 'special', label: 'Special Notes', value: '15th wedding anniversary Jul 10' },
 ];
 
 const payments = [
@@ -214,6 +239,9 @@ function ClientView() {
   const [starRating, setStarRating] = useState(0);
   const [hoverStar, setHoverStar] = useState(0);
   const [feedbackText, setFeedbackText] = useState('');
+  const [showTripRequest, setShowTripRequest] = useState(false);
+  const [editingPrefs, setEditingPrefs] = useState(false);
+  const [prefs, setPrefs] = useState(clientPreferences);
 
   const sectionTitle = (label: string) => (
     <div
@@ -471,6 +499,229 @@ function ClientView() {
           <button className="btn btn-champ" style={{ width: '100%', padding: 11 }}>
             Pay Now &mdash; $8,400 Due Jun 25
           </button>
+        </div>
+
+        {/* -------- BUDGET VS. ACTUAL -------- */}
+        {sectionTitle('Budget vs. Actual')}
+        <div
+          style={{
+            background: 'var(--bg3)',
+            border: '1px solid var(--border)',
+            borderRadius: 12,
+            padding: 18,
+            marginBottom: 4,
+          }}
+        >
+          {budgetItems.map((item, i) => {
+            const pct = item.budgeted > 0 ? Math.round((item.actual / item.budgeted) * 100) : 0;
+            return (
+              <div key={i} style={{ marginBottom: i < budgetItems.length - 1 ? 12 : 0 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                  <span style={{ fontSize: 11, color: 'var(--ivory-dim)' }}>{item.category}</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span style={{ fontSize: 10, color: 'var(--slate)' }}>
+                      ${item.actual.toLocaleString()} / ${item.budgeted.toLocaleString()}
+                    </span>
+                    <span className={`badge ${item.status === 'booked' ? 'b-em' : item.status === 'partial' ? 'b-sa' : 'b-og'}`}
+                      style={{ fontSize: 7, padding: '1px 6px' }}>
+                      {item.status === 'booked' ? 'Booked' : item.status === 'partial' ? 'In Progress' : 'Pending'}
+                    </span>
+                  </div>
+                </div>
+                <div style={{ height: 6, background: 'var(--bg4)', borderRadius: 3, overflow: 'hidden' }}>
+                  <div style={{
+                    height: '100%',
+                    width: `${Math.min(pct, 100)}%`,
+                    background: pct > 95 ? 'var(--cognac-lt)' : 'var(--champagne)',
+                    borderRadius: 3,
+                    transition: 'width 0.3s',
+                  }} />
+                </div>
+              </div>
+            );
+          })}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            borderTop: '1px solid var(--border)',
+            paddingTop: 12,
+            marginTop: 14,
+          }}>
+            <span style={{ fontSize: 10, color: 'var(--slate)', letterSpacing: 0.5, textTransform: 'uppercase' }}>Total</span>
+            <div style={{ textAlign: 'right' }}>
+              <span style={{ fontSize: 11, color: 'var(--ivory-dim)' }}>
+                ${budgetItems.reduce((s, b) => s + b.actual, 0).toLocaleString()}
+              </span>
+              <span style={{ fontSize: 10, color: 'var(--slate)', margin: '0 4px' }}>of</span>
+              <span className="playfair" style={{ fontSize: 15, color: 'var(--champagne)' }}>
+                ${budgetItems.reduce((s, b) => s + b.budgeted, 0).toLocaleString()}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* -------- SECURE DOCUMENTS -------- */}
+        {sectionTitle('Secure Documents')}
+        <div
+          style={{
+            background: 'var(--bg3)',
+            border: '1px solid var(--border)',
+            borderRadius: 12,
+            overflow: 'hidden',
+            marginBottom: 4,
+          }}
+        >
+          <div style={{
+            padding: '10px 18px',
+            background: 'rgba(59,154,156,0.06)',
+            borderBottom: '1px solid var(--border2)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+          }}>
+            <span style={{ fontSize: 11, color: 'var(--emerald-lt)' }}>◆</span>
+            <span style={{ fontSize: 9, color: 'var(--emerald-lt)', letterSpacing: 1, textTransform: 'uppercase' }}>End-to-End Encrypted</span>
+            <span style={{ fontSize: 9, color: 'var(--slate)', marginLeft: 'auto' }}>Only shared with authorized partners</span>
+          </div>
+          {secureDocuments.map((doc, i) => (
+            <div
+              key={i}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '12px 18px',
+                borderBottom: i < secureDocuments.length - 1 ? '1px solid var(--border2)' : 'none',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, flex: 1 }}>
+                <span style={{ fontSize: 13 }}>{doc.icon}</span>
+                <div>
+                  <div style={{ fontSize: 12, color: 'var(--ivory)' }}>{doc.name}</div>
+                  <div style={{ fontSize: 9, color: 'var(--slate)', marginTop: 2 }}>
+                    {doc.shared.length > 0
+                      ? <>Shared with: <span style={{ color: 'var(--champagne)' }}>{doc.shared.join(', ')}</span></>
+                      : <span style={{ color: 'var(--cognac-lt)' }}>Not yet shared</span>
+                    }
+                    {doc.expiry && <span style={{ marginLeft: 8 }}>&middot; Exp: {doc.expiry}</span>}
+                  </div>
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: 4 }}>
+                <button className="btn btn-ghost" style={{ fontSize: 9, padding: '3px 8px', borderRadius: 6 }}>View</button>
+                <button className="btn btn-ghost" style={{ fontSize: 9, padding: '3px 8px', borderRadius: 6 }}>Replace</button>
+              </div>
+            </div>
+          ))}
+          <div style={{
+            padding: '12px 18px',
+            borderTop: '1px solid var(--border2)',
+            textAlign: 'center',
+          }}>
+            <button className="btn btn-ghost" style={{ fontSize: 10, padding: '6px 16px' }}>
+              + Upload Secure Document
+            </button>
+          </div>
+        </div>
+
+        {/* -------- TRAVEL PREFERENCES -------- */}
+        {sectionTitle('My Travel Preferences')}
+        <div
+          style={{
+            background: 'var(--bg3)',
+            border: '1px solid var(--border)',
+            borderRadius: 12,
+            padding: 18,
+            marginBottom: 4,
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+            <span style={{ fontSize: 10, color: 'var(--slate)' }}>Keep your preferences up to date for personalized trip planning</span>
+            <button
+              className="btn btn-ghost"
+              style={{ fontSize: 9, padding: '3px 10px', borderRadius: 6 }}
+              onClick={() => setEditingPrefs(!editingPrefs)}
+            >
+              {editingPrefs ? 'Save' : 'Edit'}
+            </button>
+          </div>
+          {prefs.map((pref, i) => (
+            <div key={pref.key} style={{
+              padding: '10px 0',
+              borderBottom: i < prefs.length - 1 ? '1px solid var(--border2)' : 'none',
+            }}>
+              <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--champagne)', marginBottom: 4 }}>{pref.label}</div>
+              {editingPrefs ? (
+                <input
+                  className="td-input"
+                  value={pref.value}
+                  onChange={(e) => setPrefs(prev => prev.map(p => p.key === pref.key ? { ...p, value: e.target.value } : p))}
+                  style={{ fontSize: 11 }}
+                />
+              ) : (
+                <div style={{ fontSize: 11, color: 'var(--ivory-dim)', lineHeight: 1.5 }}>{pref.value}</div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* -------- REQUEST A TRIP -------- */}
+        {sectionTitle('Plan Your Next Trip')}
+        <div
+          style={{
+            background: 'var(--bg3)',
+            border: '1px solid var(--border)',
+            borderRadius: 12,
+            padding: 20,
+            marginBottom: 4,
+          }}
+        >
+          {!showTripRequest ? (
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: 13, color: 'var(--ivory)', marginBottom: 6, fontWeight: 400 }}>
+                Ready for your next adventure?
+              </div>
+              <div style={{ fontSize: 10, color: 'var(--slate)', marginBottom: 16, lineHeight: 1.5 }}>
+                Submit a trip request and your advisor will start curating your perfect itinerary.
+              </div>
+              <button className="btn btn-champ" style={{ padding: '10px 28px' }} onClick={() => setShowTripRequest(true)}>
+                Request a New Trip
+              </button>
+            </div>
+          ) : (
+            <div>
+              <div style={{ fontSize: 12, color: 'var(--ivory)', marginBottom: 14, fontWeight: 400 }}>New Trip Request</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <div>
+                  <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--slate)', marginBottom: 4 }}>Destination(s)</div>
+                  <input className="td-input" placeholder="Where would you like to go?" style={{ fontSize: 11 }} />
+                </div>
+                <div style={{ display: 'flex', gap: 10 }}>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--slate)', marginBottom: 4 }}>Travel Dates</div>
+                    <input className="td-input" placeholder="Approximate dates" style={{ fontSize: 11 }} />
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--slate)', marginBottom: 4 }}>Travelers</div>
+                    <input className="td-input" placeholder="Number of travelers" style={{ fontSize: 11 }} />
+                  </div>
+                </div>
+                <div>
+                  <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--slate)', marginBottom: 4 }}>Budget Range</div>
+                  <input className="td-input" placeholder="Approximate budget per person" style={{ fontSize: 11 }} />
+                </div>
+                <div>
+                  <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--slate)', marginBottom: 4 }}>Trip Vision</div>
+                  <textarea className="td-input" placeholder="Tell us about your dream trip — interests, must-haves, style of travel..." rows={3} style={{ fontSize: 11, resize: 'vertical' }} />
+                </div>
+                <div style={{ display: 'flex', gap: 8, marginTop: 4 }}>
+                  <button className="btn btn-champ" style={{ flex: 1, padding: 10 }}>Submit Request</button>
+                  <button className="btn btn-ghost" style={{ padding: '10px 16px' }} onClick={() => setShowTripRequest(false)}>Cancel</button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* -------- FEEDBACK -------- */}

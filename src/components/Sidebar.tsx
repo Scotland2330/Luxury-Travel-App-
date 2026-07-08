@@ -17,6 +17,7 @@ const sections: { label: string; items: NavItem[] }[] = [
   ]},
   { label: 'RESOURCES', items: [
     { icon: '❖', name: 'Templates & Hub', id: 'templates' },
+    { icon: '⬡', name: 'Advisor Hub', id: 'advisorhub' },
     { icon: '◩', name: 'Reports', id: 'reports' },
     { icon: '⚙', name: 'Admin', id: 'admin' },
   ]},

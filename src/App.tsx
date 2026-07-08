@@ -17,6 +17,7 @@ import Admin from './screens/Admin';
 import Platform from './screens/Platform';
 import Reports from './screens/Reports';
 import ItineraryBuilder from './screens/ItineraryBuilder';
+import AdvisorHub from './screens/AdvisorHub';
 
 const screens: Record<string, React.FC<{ onNav?: (id: string) => void }>> = {
   dashboard: Dashboard,
@@ -33,6 +34,7 @@ const screens: Record<string, React.FC<{ onNav?: (id: string) => void }>> = {
   platform: Platform,
   reports: Reports,
   itinerary: ItineraryBuilder,
+  advisorhub: AdvisorHub,
 };
 
 const pageTabs: Record<string, string[]> = {};
