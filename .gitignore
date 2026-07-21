@@ -39,3 +39,6 @@ next-env.d.ts
 
 # Session memory — operator-private, never commit
 .claude/session.md
+
+# Per-clone Claude Code overrides (settings.json is shared, settings.local.json is per-machine)
+.claude/settings.local.json
