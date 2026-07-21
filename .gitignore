@@ -7,7 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
+node_modules/
 dist
 .vite
 dist-ssr
@@ -26,6 +26,12 @@ dist-ssr
 
 # Gitguard local state
 .gitguard/
+
+# Army tool state / build artifacts (per gitguard doctor)
+tmp/
+.codemap/
+.agents/
+target/
 
 # Next.js
 .next/
