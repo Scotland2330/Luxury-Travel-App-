@@ -1,0 +1,49 @@
+{
+  "name": "voyance",
+  "description": "Voyance — Luxury Travel Operations Platform for FirstClassOps",
+  "github": {
+    "org": "FirstClassOps",
+    "repo": "voyance",
+    "default_branch": "main",
+    "account": "bentheautomator"
+  },
+  "owner": "hexvar:fullstack-perfectionist",
+  "reviewer": "hexvar:reviewer",
+  "identities": {
+    "profile": "fco-client"
+  },
+  "session_scope": {
+    "mode": "this-repo-only"
+  },
+  "permissions": {
+    "allowed_write_roots": [
+      "~/.claude"
+    ],
+    "allowed_agent_patterns": [
+      "hexvar:*",
+      "army-*",
+      "oracle-*"
+    ]
+  },
+  "stack": {
+    "framework": "next.js",
+    "framework_version": "^15.5.0",
+    "runtime": "node",
+    "runtime_version": ">=22",
+    "language": "typescript",
+    "language_version": "~5.9.3",
+    "db": "neon",
+    "auth": "clerk",
+    "storage": "cloudflare-r2",
+    "hosting": "vercel",
+    "email": "resend",
+    "payments": "nmi-gateway",
+    "monitoring": "sentry"
+  },
+  "specs": {
+    "phase_1": "docs/specs/phase-1.spec.md",
+    "phase_2": "docs/specs/phase-2.spec.md",
+    "stack": "docs/specs/00-stack-decisions.md",
+    "autonomous_execution": "docs/specs/autonomous-execution.md"
+  }
+}

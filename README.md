@@ -1,73 +1,54 @@
-# React + TypeScript + Vite
+# Voyance
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Luxury Travel Operations Platform for [First Class Operations](https://firstclassops.com).
 
-Currently, two official plugins are available:
+Multi-tenant SaaS for luxury travel advisors: trip lifecycle, client comms, financials, team ops, client portals — one workspace.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Status
 
-## React Compiler
+- **Phase 1** — Production MVP (in flight). Next.js 15 + Neon + Clerk + Cloudflare R2 + Vercel + NMI Gateway. Spec: [`docs/specs/phase-1.spec.md`](docs/specs/phase-1.spec.md).
+- **Phase 2** — Mobile PWA + AI itinerary + workflow automation + realtime + compliance. Spec: [`docs/specs/phase-2.spec.md`](docs/specs/phase-2.spec.md).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Repo
 
-## Expanding the ESLint configuration
+- **Origin:** `git@github.com:FirstClassOps/voyance.git`
+- **Default branch:** `main`
+- **Deploy:** Vercel (staging + production), configured post-bootstrap.
+- **Legacy:** compiled Vite prototype lives on `gh-pages` branch (historical, not tracked for deploy).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting started (dev)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+```bash
+# Prereqs: Node 22 LTS, pnpm 10+
+corepack enable && corepack prepare pnpm@latest --activate
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+pnpm install
+cp .env.example .env.local     # populate per docs/specs/phase-1.spec.md Appendix A
+pnpm dev                       # http://localhost:3000
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Docs
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| Path | Purpose |
+|---|---|
+| [`docs/product-spec.md`](docs/product-spec.md) | Voyance product spec (v1.0, source of truth) |
+| [`docs/specs/00-stack-decisions.md`](docs/specs/00-stack-decisions.md) | Locked stack + version pins |
+| [`docs/specs/phase-1.spec.md`](docs/specs/phase-1.spec.md) | Phase 1 build spec (DAG, contracts, acceptance) |
+| [`docs/specs/phase-2.spec.md`](docs/specs/phase-2.spec.md) | Phase 2 build spec |
+| [`docs/specs/autonomous-execution.md`](docs/specs/autonomous-execution.md) | Overnight loop runbook |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Stack
+
+Next.js 15 (App Router) · React 19.2 · TypeScript 5.9 · Tailwind CSS 4 · Neon (Postgres) · Drizzle ORM · Clerk (auth) · Cloudflare R2 (storage) · Vercel (hosting + cron) · Resend (email) · Sentry (monitoring) · NMI Gateway (payments).
+
+Full version pins: [`docs/specs/00-stack-decisions.md`](docs/specs/00-stack-decisions.md).
+
+## Ownership
+
+- **Product owner:** First Class Operations
+- **Engineering:** [Automator Solutions](https://automatorsolutions.com) — [@bentheautomator](https://github.com/bentheautomator)
+- **Repo config:** [`.claude/project.json`](.claude/project.json)
+
+## License
+
+Proprietary. Copyright © 2026 First Class Operations. All rights reserved.

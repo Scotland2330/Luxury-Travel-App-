@@ -1,0 +1,36 @@
+min_version: 1.11.0
+
+pre-commit:
+  parallel: true
+  commands:
+    lint:
+      glob: "*.{ts,tsx,js,jsx}"
+      run: pnpm exec eslint --fix {staged_files}
+      stage_fixed: true
+    format:
+      glob: "*.{ts,tsx,js,jsx,json,md,css}"
+      run: pnpm exec prettier --write {staged_files}
+      stage_fixed: true
+    typecheck:
+      glob: "*.{ts,tsx}"
+      run: pnpm exec tsc --noEmit
+    identity-check:
+      run: identity-check
+      fail_text: "Git identity mismatch — run /identity check to see expected user.email"
+
+pre-push:
+  parallel: false
+  commands:
+    tests:
+      run: pnpm test
+    build:
+      run: pnpm build
+    audit:
+      run: pnpm audit --audit-level=high
+
+commit-msg:
+  commands:
+    conventional-commit:
+      run: |
+        head -1 {1} | grep -qE '^(feat|fix|chore|docs|refactor|test|ci|build|perf|style|revert)(\([a-z0-9-]+\))?!?: .{1,72}$' \
+          || { echo "Commit message must follow Conventional Commits (feat|fix|chore|docs|refactor|test|ci|build|perf|style|revert)"; exit 1; }
